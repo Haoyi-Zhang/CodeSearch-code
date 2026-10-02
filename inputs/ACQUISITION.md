@@ -1,0 +1,11 @@
+# Frozen public-source inputs
+
+Eight license-bearing installed Python source-package snapshots were selected by name before the pilot. They originate from the public repositories identified in source_inventory.csv. These are **installed source subsets, not complete repository checkouts or independent release downloads**. Direct network download from this executor failed (DNS resolution); the GitHub read connector could read a pinned cachetools source file, but no claim that installed files equal that separate release is made. No repository was crawled and no input package was imported or executed.
+
+Acquisition: enumerate the eight named distributions with Python standard-library importlib.metadata; copy recorded .py files of at most 524,288 bytes, excluding tests, test directories, parent-relative paths, bytecode and distribution metadata; copy the distribution's license notices. All consumed input bytes are included here. Their installed release identifiers describe upstream scientific inputs, not artifact release labels. No checksum manifest or machine fingerprint is used. Reproduction consumes the frozen copies, not the environment's installed packages.
+
+The selection is convenience-based and limited to Python libraries. It does not represent repository popularity, code-search traffic, actual Git history, or semantic relevance. Eight upstream projects contribute source code; the generated changes, branch operations and queries are experimental fixtures, not observed histories or human queries. Licensing is preserved per source directory; the implementation license does not relicense these files.
+
+## Supplemental published-change input
+
+A later held-out validation uses official public commit records for cachetools between pinned commits `48284d73d0a8834c9c50f8d41bb99e6f93b2dfed` and `4500e3d04288738d25acbb4973eb3c3e1bf41db9`. It freezes the six commits whose published patches change or add a Python function body in `src/cachetools/__init__.py`, applies only those function hunks to the exact retained base file, and verifies every projected stage digest. This is explicitly a function-level change trace, not complete Git snapshots, merge topology, or a query log.

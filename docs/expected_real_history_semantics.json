@@ -1,0 +1,102 @@
+{
+  "base_commit": "48284d73d0a8834c9c50f8d41bb99e6f93b2dfed",
+  "base_queries": 64,
+  "checker_replay": {
+    "continuation_observations": 408,
+    "continuation_results": 408,
+    "converged_processes": 6,
+    "cut-cache_observations": 408,
+    "cut-cache_results": 408,
+    "fault_probes": 1,
+    "feed_receipts": 6,
+    "installed_prefixes": 204,
+    "overlay_observations": 408,
+    "overlay_results": 408,
+    "process_terminations": 1,
+    "unsafe-stale_observations": 408
+  },
+  "fault_probe": {
+    "healed_exact": true,
+    "healed_status": "complete",
+    "missing_shards": [
+      0
+    ],
+    "overlay_claim_complete": false,
+    "partial_status": "partial"
+  },
+  "function_assignments": 7,
+  "observed_head_commit": "4500e3d04288738d25acbb4973eb3c3e1bf41db9",
+  "oracle_change_observations": 10,
+  "policies": {
+    "continuation": {
+      "claimed_complete": 408,
+      "dropped_requests_or_replies": 1,
+      "exact": 408,
+      "false_complete": 0,
+      "max_logical_state_bytes": 145912,
+      "queries": 408,
+      "returned_rows": 1926,
+      "total_source_bytes": 163228,
+      "total_source_messages": 420,
+      "unsound_rows": 0
+    },
+    "cut-cache": {
+      "claimed_complete": 408,
+      "dropped_requests_or_replies": 68,
+      "exact": 408,
+      "false_complete": 0,
+      "max_logical_state_bytes": 75176,
+      "queries": 408,
+      "returned_rows": 1926,
+      "total_source_bytes": 413934,
+      "total_source_messages": 1088,
+      "unsound_rows": 0
+    },
+    "overlay": {
+      "claimed_complete": 408,
+      "dropped_requests_or_replies": 68,
+      "exact": 408,
+      "false_complete": 0,
+      "queries": 408,
+      "returned_rows": 1926,
+      "total_source_bytes": 894994,
+      "total_source_messages": 2448,
+      "unsound_rows": 0
+    },
+    "unsafe-stale": {
+      "claimed_complete": 408,
+      "dropped_requests_or_replies": 0,
+      "exact": 386,
+      "false_complete": 22,
+      "queries": 408,
+      "returned_rows": 1926,
+      "total_source_bytes": 0,
+      "total_source_messages": 0,
+      "unsound_rows": 21
+    }
+  },
+  "process_recovery": {
+    "distinct_final_processes": 6,
+    "distinct_initial_processes": 6,
+    "killed_pid_replaced": true,
+    "restarted_pid_is_new": true
+  },
+  "queries_per_policy": 408,
+  "queries_with_any_oracle_change": [
+    "rhq000",
+    "rhq001",
+    "rhq002",
+    "rhq003"
+  ],
+  "repository": "tkem/cachetools",
+  "schema": "real-history-six-process-v1",
+  "selected_commits": 6,
+  "source_replay": {
+    "event_rows": 6,
+    "events": 6,
+    "overlay": 1770,
+    "prefix": 209,
+    "snapshot": 6
+  },
+  "targeted_queries": 4
+}

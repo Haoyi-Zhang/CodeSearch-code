@@ -1,0 +1,2 @@
+Command: python analyze.py
+{"cpu_seconds": 10.786811055, "elapsed_seconds": 10.801842602999955, "observations": 12474, "peak_rss_kib": 137772, "result": "all retained source receipts, answers and recorded correctness/recall metrics agree with replay", "source_receipts": 28777, "traces": 33}

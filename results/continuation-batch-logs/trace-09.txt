@@ -1,0 +1,2 @@
+Command: python continuation_campaign.py --case crash --seed 2 --active 4 --capacity 5
+{"active_per_tick": 4, "capacity": 5, "case": "crash", "mean_bytes": {"continuation": 368.05555555555554, "cut-cache": 2233.0793650793653, "mirror": 688.2777777777778, "overlay": 2233.0793650793653, "unsafe-stale": 0.0}, "peak_rss_kib": 138656, "peak_state_bytes": {"continuation": 59535, "cut-cache": 18037, "mirror": 1735030}, "queries": 252, "seed": 2, "wall_seconds": 3.3346644740000784}

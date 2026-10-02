@@ -1,0 +1,1232 @@
+{
+  "development_sensitivity": [
+    {
+      "alternates": true,
+      "case": "compaction",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 4597.650793650793,
+      "mean_certificate_bytes": 830.1269841269841,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "crash",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 4749.396825396825,
+      "mean_certificate_bytes": 830.6031746031746,
+      "mean_id_recall": 1.0,
+      "mean_messages": 13.015873015873016,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "fresh",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 4157.666666666667,
+      "mean_certificate_bytes": 830.031746031746,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "hot-shard",
+      "complete": 1,
+      "exact": 1,
+      "false_complete": 0,
+      "length": 1,
+      "mean_body_recall": 0.294973544973545,
+      "mean_bytes": 3763.5714285714284,
+      "mean_certificate_bytes": 668.952380952381,
+      "mean_id_recall": 0.294973544973545,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 181,
+      "statuses": {
+        "complete": 1,
+        "rank-underdetermined": 62
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "hot-shard",
+      "complete": 57,
+      "exact": 57,
+      "false_complete": 0,
+      "length": 5,
+      "mean_body_recall": 0.9809523809523809,
+      "mean_bytes": 4535.380952380952,
+      "mean_certificate_bytes": 833.7142857142857,
+      "mean_id_recall": 0.9809523809523809,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 303,
+      "statuses": {
+        "complete": 57,
+        "rank-underdetermined": 6
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "hot-shard",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 5070.888888888889,
+      "mean_certificate_bytes": 831.7777777777778,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 303,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "hot-shard",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 16,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 6313.555555555556,
+      "mean_certificate_bytes": 831.7777777777778,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 303,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "index-lag",
+      "complete": 1,
+      "exact": 1,
+      "false_complete": 0,
+      "length": 1,
+      "mean_body_recall": 0.24973544973544975,
+      "mean_bytes": 4009.9841269841268,
+      "mean_certificate_bytes": 653.015873015873,
+      "mean_id_recall": 0.24973544973544975,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 176,
+      "statuses": {
+        "complete": 1,
+        "rank-underdetermined": 62
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "index-lag",
+      "complete": 50,
+      "exact": 50,
+      "false_complete": 0,
+      "length": 5,
+      "mean_body_recall": 0.9587301587301587,
+      "mean_bytes": 4761.079365079365,
+      "mean_certificate_bytes": 829.968253968254,
+      "mean_id_recall": 0.9587301587301587,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 300,
+      "statuses": {
+        "complete": 50,
+        "rank-underdetermined": 13
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": false,
+      "case": "index-lag",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 5223.555555555556,
+      "mean_certificate_bytes": 824.8253968253969,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "index-lag",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 5285.333333333333,
+      "mean_certificate_bytes": 830.031746031746,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "index-lag",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 16,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 6531.777777777777,
+      "mean_certificate_bytes": 830.031746031746,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "index-lag",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 32,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 8580.285714285714,
+      "mean_certificate_bytes": 830.031746031746,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "index-lag",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 64,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 11247.698412698413,
+      "mean_certificate_bytes": 830.031746031746,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "log-gap",
+      "complete": 43,
+      "exact": 51,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 0.8849206349206349,
+      "mean_bytes": 4625.777777777777,
+      "mean_certificate_bytes": 814.6507936507936,
+      "mean_id_recall": 0.8849206349206349,
+      "mean_messages": 12.634920634920634,
+      "n": 63,
+      "returned_rows": 287,
+      "statuses": {
+        "complete": 43,
+        "partial": 20
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "partition",
+      "complete": 47,
+      "exact": 50,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 0.8976190476190475,
+      "mean_bytes": 4187.0,
+      "mean_certificate_bytes": 821.1269841269841,
+      "mean_id_recall": 0.8976190476190475,
+      "mean_messages": 10.984126984126984,
+      "n": 63,
+      "returned_rows": 294,
+      "statuses": {
+        "complete": 47,
+        "partial": 16
+      },
+      "unsound_rows": 0
+    },
+    {
+      "alternates": true,
+      "case": "rebalance",
+      "complete": 63,
+      "exact": 63,
+      "false_complete": 0,
+      "length": 8,
+      "mean_body_recall": 1.0,
+      "mean_bytes": 4585.269841269841,
+      "mean_certificate_bytes": 830.031746031746,
+      "mean_id_recall": 1.0,
+      "mean_messages": 12.0,
+      "n": 63,
+      "returned_rows": 301,
+      "statuses": {
+        "complete": 63
+      },
+      "unsound_rows": 0
+    }
+  ],
+  "primary_cases": {
+    "compaction": {
+      "certified": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 4617.920634920635,
+        "mean_certificate_bytes": 831.1507936507936,
+        "mean_id_recall": 1.0,
+        "mean_messages": 12.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "local-only": {
+        "complete": 0,
+        "exact": 21,
+        "false_complete": 0,
+        "mean_body_recall": 0.3634920634920635,
+        "mean_bytes": 771.6587301587301,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3634920634920635,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 481,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 28
+      },
+      "overlay": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 2194.34126984127,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 1.0,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "random-shard": {
+        "complete": 0,
+        "exact": 18,
+        "false_complete": 0,
+        "mean_body_recall": 0.3333333333333333,
+        "mean_bytes": 776.3968253968254,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3333333333333333,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 497,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 30
+      },
+      "stale-cache": {
+        "complete": 0,
+        "exact": 58,
+        "false_complete": 0,
+        "mean_body_recall": 0.8412698412698413,
+        "mean_bytes": 0.0,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8412698412698413,
+        "mean_messages": 0.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 81
+      },
+      "unverified": {
+        "complete": 126,
+        "exact": 89,
+        "false_complete": 37,
+        "mean_body_recall": 0.915873015873016,
+        "mean_bytes": 2363.1031746031745,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.915873015873016,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 605,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 52
+      }
+    },
+    "crash": {
+      "certified": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 4767.6984126984125,
+        "mean_certificate_bytes": 831.6269841269841,
+        "mean_id_recall": 1.0,
+        "mean_messages": 13.015873015873016,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "local-only": {
+        "complete": 0,
+        "exact": 21,
+        "false_complete": 0,
+        "mean_body_recall": 0.3634920634920635,
+        "mean_bytes": 808.8492063492064,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3634920634920635,
+        "mean_messages": 2.253968253968254,
+        "n": 126,
+        "returned_rows": 481,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 28
+      },
+      "overlay": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 2268.214285714286,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 1.0,
+        "mean_messages": 6.507936507936508,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "random-shard": {
+        "complete": 0,
+        "exact": 18,
+        "false_complete": 0,
+        "mean_body_recall": 0.3333333333333333,
+        "mean_bytes": 799.5079365079365,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3333333333333333,
+        "mean_messages": 2.1587301587301586,
+        "n": 126,
+        "returned_rows": 497,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 30
+      },
+      "stale-cache": {
+        "complete": 0,
+        "exact": 58,
+        "false_complete": 0,
+        "mean_body_recall": 0.8412698412698413,
+        "mean_bytes": 0.0,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8412698412698413,
+        "mean_messages": 0.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 81
+      },
+      "unverified": {
+        "complete": 126,
+        "exact": 89,
+        "false_complete": 37,
+        "mean_body_recall": 0.915873015873016,
+        "mean_bytes": 2437.4841269841268,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.915873015873016,
+        "mean_messages": 6.507936507936508,
+        "n": 126,
+        "returned_rows": 605,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 52
+      }
+    },
+    "fresh": {
+      "certified": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 4182.960317460317,
+        "mean_certificate_bytes": 831.0555555555555,
+        "mean_id_recall": 1.0,
+        "mean_messages": 12.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "local-only": {
+        "complete": 0,
+        "exact": 30,
+        "false_complete": 0,
+        "mean_body_recall": 0.37777777777777777,
+        "mean_bytes": 769.6904761904761,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.37777777777777777,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 478,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 0
+      },
+      "overlay": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 2194.34126984127,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 1.0,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "random-shard": {
+        "complete": 0,
+        "exact": 28,
+        "false_complete": 0,
+        "mean_body_recall": 0.3476190476190476,
+        "mean_bytes": 774.0952380952381,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3476190476190476,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 495,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 0
+      },
+      "stale-cache": {
+        "complete": 0,
+        "exact": 58,
+        "false_complete": 0,
+        "mean_body_recall": 0.8412698412698413,
+        "mean_bytes": 0.0,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8412698412698413,
+        "mean_messages": 0.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 81
+      },
+      "unverified": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 2356.8253968253966,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 1.0,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      }
+    },
+    "hot-shard": {
+      "certified": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 5064.579365079365,
+        "mean_certificate_bytes": 829.8174603174604,
+        "mean_id_recall": 1.0,
+        "mean_messages": 12.0,
+        "n": 126,
+        "returned_rows": 605,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "local-only": {
+        "complete": 0,
+        "exact": 20,
+        "false_complete": 0,
+        "mean_body_recall": 0.353968253968254,
+        "mean_bytes": 769.031746031746,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.353968253968254,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 483,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 37
+      },
+      "overlay": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 2195.84126984127,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 1.0,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 605,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "random-shard": {
+        "complete": 0,
+        "exact": 19,
+        "false_complete": 0,
+        "mean_body_recall": 0.3238095238095238,
+        "mean_bytes": 787.0238095238095,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3238095238095238,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 497,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 12
+      },
+      "stale-cache": {
+        "complete": 0,
+        "exact": 90,
+        "false_complete": 0,
+        "mean_body_recall": 0.9253968253968253,
+        "mean_bytes": 0.0,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.9253968253968253,
+        "mean_messages": 0.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 33
+      },
+      "unverified": {
+        "complete": 126,
+        "exact": 98,
+        "false_complete": 28,
+        "mean_body_recall": 0.9523809523809523,
+        "mean_bytes": 2374.6825396825398,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.9523809523809523,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 20
+      }
+    },
+    "index-lag": {
+      "certified": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 5304.547619047619,
+        "mean_certificate_bytes": 831.0555555555555,
+        "mean_id_recall": 1.0,
+        "mean_messages": 12.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "local-only": {
+        "complete": 0,
+        "exact": 21,
+        "false_complete": 0,
+        "mean_body_recall": 0.3555555555555555,
+        "mean_bytes": 772.063492063492,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3555555555555555,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 479,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 35
+      },
+      "overlay": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 2194.34126984127,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 1.0,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "random-shard": {
+        "complete": 0,
+        "exact": 17,
+        "false_complete": 0,
+        "mean_body_recall": 0.326984126984127,
+        "mean_bytes": 778.6587301587301,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.326984126984127,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 497,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 34
+      },
+      "stale-cache": {
+        "complete": 0,
+        "exact": 58,
+        "false_complete": 0,
+        "mean_body_recall": 0.8412698412698413,
+        "mean_bytes": 0.0,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8412698412698413,
+        "mean_messages": 0.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 81
+      },
+      "unverified": {
+        "complete": 126,
+        "exact": 77,
+        "false_complete": 49,
+        "mean_body_recall": 0.8936507936507936,
+        "mean_bytes": 2364.6746031746034,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8936507936507936,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 605,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 59
+      }
+    },
+    "log-gap": {
+      "certified": {
+        "complete": 86,
+        "exact": 105,
+        "false_complete": 0,
+        "mean_body_recall": 0.8825396825396825,
+        "mean_bytes": 4644.81746031746,
+        "mean_certificate_bytes": 809.8095238095239,
+        "mean_id_recall": 0.8825396825396825,
+        "mean_messages": 12.634920634920634,
+        "n": 126,
+        "returned_rows": 573,
+        "statuses": {
+          "complete": 86,
+          "partial": 40
+        },
+        "unsound_rows": 0
+      },
+      "local-only": {
+        "complete": 0,
+        "exact": 21,
+        "false_complete": 0,
+        "mean_body_recall": 0.3634920634920635,
+        "mean_bytes": 771.6587301587301,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3634920634920635,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 481,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 28
+      },
+      "overlay": {
+        "complete": 86,
+        "exact": 105,
+        "false_complete": 0,
+        "mean_body_recall": 0.8825396825396825,
+        "mean_bytes": 2143.8492063492063,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8825396825396825,
+        "mean_messages": 6.634920634920635,
+        "n": 126,
+        "returned_rows": 573,
+        "statuses": {
+          "complete": 86,
+          "unasserted": 40
+        },
+        "unsound_rows": 0
+      },
+      "random-shard": {
+        "complete": 0,
+        "exact": 18,
+        "false_complete": 0,
+        "mean_body_recall": 0.3333333333333333,
+        "mean_bytes": 776.3968253968254,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3333333333333333,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 497,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 30
+      },
+      "stale-cache": {
+        "complete": 0,
+        "exact": 58,
+        "false_complete": 0,
+        "mean_body_recall": 0.8412698412698413,
+        "mean_bytes": 0.0,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8412698412698413,
+        "mean_messages": 0.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 81
+      },
+      "unverified": {
+        "complete": 126,
+        "exact": 89,
+        "false_complete": 37,
+        "mean_body_recall": 0.915873015873016,
+        "mean_bytes": 2363.1031746031745,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.915873015873016,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 605,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 52
+      }
+    },
+    "partition": {
+      "certified": {
+        "complete": 94,
+        "exact": 108,
+        "false_complete": 0,
+        "mean_body_recall": 0.9063492063492063,
+        "mean_bytes": 4203.515873015873,
+        "mean_certificate_bytes": 818.1507936507936,
+        "mean_id_recall": 0.9063492063492063,
+        "mean_messages": 10.984126984126984,
+        "n": 126,
+        "returned_rows": 588,
+        "statuses": {
+          "complete": 94,
+          "partial": 32
+        },
+        "unsound_rows": 0
+      },
+      "local-only": {
+        "complete": 0,
+        "exact": 21,
+        "false_complete": 0,
+        "mean_body_recall": 0.3634920634920635,
+        "mean_bytes": 771.6587301587301,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3634920634920635,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 481,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 28
+      },
+      "overlay": {
+        "complete": 94,
+        "exact": 108,
+        "false_complete": 0,
+        "mean_body_recall": 0.9063492063492063,
+        "mean_bytes": 2000.1904761904761,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.9063492063492063,
+        "mean_messages": 5.492063492063492,
+        "n": 126,
+        "returned_rows": 588,
+        "statuses": {
+          "complete": 94,
+          "unasserted": 32
+        },
+        "unsound_rows": 0
+      },
+      "random-shard": {
+        "complete": 0,
+        "exact": 17,
+        "false_complete": 0,
+        "mean_body_recall": 0.3158730158730159,
+        "mean_bytes": 708.0952380952381,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3158730158730159,
+        "mean_messages": 1.8253968253968254,
+        "n": 126,
+        "returned_rows": 455,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 28
+      },
+      "stale-cache": {
+        "complete": 0,
+        "exact": 58,
+        "false_complete": 0,
+        "mean_body_recall": 0.8412698412698413,
+        "mean_bytes": 0.0,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8412698412698413,
+        "mean_messages": 0.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 81
+      },
+      "unverified": {
+        "complete": 94,
+        "exact": 75,
+        "false_complete": 28,
+        "mean_body_recall": 0.8317460317460317,
+        "mean_bytes": 2152.253968253968,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8317460317460317,
+        "mean_messages": 5.492063492063492,
+        "n": 126,
+        "returned_rows": 590,
+        "statuses": {
+          "complete": 94,
+          "unasserted": 32
+        },
+        "unsound_rows": 48
+      }
+    },
+    "rebalance": {
+      "certified": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 4603.246031746032,
+        "mean_certificate_bytes": 831.0555555555555,
+        "mean_id_recall": 1.0,
+        "mean_messages": 12.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "local-only": {
+        "complete": 0,
+        "exact": 21,
+        "false_complete": 0,
+        "mean_body_recall": 0.3634920634920635,
+        "mean_bytes": 771.6587301587301,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3634920634920635,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 481,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 28
+      },
+      "overlay": {
+        "complete": 126,
+        "exact": 126,
+        "false_complete": 0,
+        "mean_body_recall": 1.0,
+        "mean_bytes": 2194.34126984127,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 1.0,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 603,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 0
+      },
+      "random-shard": {
+        "complete": 0,
+        "exact": 18,
+        "false_complete": 0,
+        "mean_body_recall": 0.3333333333333333,
+        "mean_bytes": 776.3968253968254,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.3333333333333333,
+        "mean_messages": 2.0,
+        "n": 126,
+        "returned_rows": 497,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 30
+      },
+      "stale-cache": {
+        "complete": 0,
+        "exact": 58,
+        "false_complete": 0,
+        "mean_body_recall": 0.8412698412698413,
+        "mean_bytes": 0.0,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.8412698412698413,
+        "mean_messages": 0.0,
+        "n": 126,
+        "returned_rows": 606,
+        "statuses": {
+          "unasserted": 126
+        },
+        "unsound_rows": 81
+      },
+      "unverified": {
+        "complete": 126,
+        "exact": 89,
+        "false_complete": 37,
+        "mean_body_recall": 0.915873015873016,
+        "mean_bytes": 2363.1031746031745,
+        "mean_certificate_bytes": 0.0,
+        "mean_id_recall": 0.915873015873016,
+        "mean_messages": 6.0,
+        "n": 126,
+        "returned_rows": 605,
+        "statuses": {
+          "complete": 126
+        },
+        "unsound_rows": 52
+      }
+    }
+  },
+  "primary_policies": {
+    "certified": {
+      "complete": 936,
+      "exact": 969,
+      "false_complete": 0,
+      "mean_body_recall": 0.9736111111111111,
+      "mean_bytes": 4673.660714285715,
+      "mean_certificate_bytes": 826.7152777777778,
+      "mean_id_recall": 0.9736111111111111,
+      "mean_messages": 12.079365079365079,
+      "n": 1008,
+      "returned_rows": 4781,
+      "statuses": {
+        "complete": 936,
+        "partial": 72
+      },
+      "unsound_rows": 0
+    },
+    "local-only": {
+      "complete": 0,
+      "exact": 176,
+      "false_complete": 0,
+      "mean_body_recall": 0.3630952380952381,
+      "mean_bytes": 775.7837301587301,
+      "mean_certificate_bytes": 0.0,
+      "mean_id_recall": 0.3630952380952381,
+      "mean_messages": 2.0317460317460316,
+      "n": 1008,
+      "returned_rows": 3845,
+      "statuses": {
+        "unasserted": 1008
+      },
+      "unsound_rows": 212
+    },
+    "overlay": {
+      "complete": 936,
+      "exact": 969,
+      "false_complete": 0,
+      "mean_body_recall": 0.9736111111111111,
+      "mean_bytes": 2173.1825396825398,
+      "mean_certificate_bytes": 0.0,
+      "mean_id_recall": 0.9736111111111111,
+      "mean_messages": 6.079365079365079,
+      "n": 1008,
+      "returned_rows": 4781,
+      "statuses": {
+        "complete": 936,
+        "unasserted": 72
+      },
+      "unsound_rows": 0
+    },
+    "random-shard": {
+      "complete": 0,
+      "exact": 153,
+      "false_complete": 0,
+      "mean_body_recall": 0.330952380952381,
+      "mean_bytes": 772.0714285714286,
+      "mean_certificate_bytes": 0.0,
+      "mean_id_recall": 0.330952380952381,
+      "mean_messages": 1.998015873015873,
+      "n": 1008,
+      "returned_rows": 3932,
+      "statuses": {
+        "unasserted": 1008
+      },
+      "unsound_rows": 194
+    },
+    "stale-cache": {
+      "complete": 0,
+      "exact": 496,
+      "false_complete": 0,
+      "mean_body_recall": 0.8517857142857143,
+      "mean_bytes": 0.0,
+      "mean_certificate_bytes": 0.0,
+      "mean_id_recall": 0.8517857142857143,
+      "mean_messages": 0.0,
+      "n": 1008,
+      "returned_rows": 4848,
+      "statuses": {
+        "unasserted": 1008
+      },
+      "unsound_rows": 600
+    },
+    "unverified": {
+      "complete": 976,
+      "exact": 732,
+      "false_complete": 253,
+      "mean_body_recall": 0.9176587301587301,
+      "mean_bytes": 2346.90376984127,
+      "mean_certificate_bytes": 0.0,
+      "mean_id_recall": 0.9176587301587301,
+      "mean_messages": 6.0,
+      "n": 1008,
+      "returned_rows": 4824,
+      "statuses": {
+        "complete": 976,
+        "unasserted": 32
+      },
+      "unsound_rows": 335
+    }
+  },
+  "purpose": "Frozen semantic and communication outcomes; timing and memory are deliberately not equality targets.",
+  "verification": {
+    "observations": 12474,
+    "source_receipts": 28777,
+    "traces": 33,
+    "update_events": 5565
+  }
+}

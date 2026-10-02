@@ -1,0 +1,179 @@
+{
+  "continuation_batch": {
+    "cpu_seconds": 139.23,
+    "development_traces": 8,
+    "driver_cpu_seconds": 0.13847198399999994,
+    "driver_rss_kib": 92844,
+    "peak_rss_kib": 170808,
+    "primary_traces": 18,
+    "status": "PASS",
+    "traces": 26,
+    "wall_seconds": 68.30639568699996,
+    "workers": 2
+  },
+  "continuation_clean_reproduction": {
+    "child_cpu_seconds": 169.197889,
+    "commands": 4,
+    "development_traces": 8,
+    "driver_rss_kib": 92712,
+    "maximum_child_rss_kib": 502024,
+    "maximum_trace_workers": 2,
+    "parent_cpu_seconds": 0.10621087299999998,
+    "primary_traces": 18,
+    "stage_records": [
+      {
+        "command": [
+          "python",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "cpu_seconds": 3.0532069999999996,
+        "exit_code": 0,
+        "log": "results/continuation-reproduction-logs/command-01.txt",
+        "wall_seconds": 2.688164927999992
+      },
+      {
+        "command": [
+          "python",
+          "finite_continuation.py"
+        ],
+        "cpu_seconds": 5.9309,
+        "exit_code": 0,
+        "log": "results/continuation-reproduction-logs/command-02.txt",
+        "wall_seconds": 5.5941360699999905
+      },
+      {
+        "command": [
+          "python",
+          "continuation_batch.py"
+        ],
+        "cpu_seconds": 140.639953,
+        "exit_code": 0,
+        "log": "results/continuation-reproduction-logs/command-03.txt",
+        "wall_seconds": 68.92969242200002
+      },
+      {
+        "command": [
+          "python",
+          "analyze_continuation.py"
+        ],
+        "cpu_seconds": 19.573829000000018,
+        "exit_code": 0,
+        "log": "results/continuation-reproduction-logs/command-04.txt",
+        "wall_seconds": 19.280982870999992
+      }
+    ],
+    "status": "PASS",
+    "trace_jobs": 26,
+    "wall_seconds": 96.49511623199999
+  },
+  "continuation_finite": {
+    "global_cases": 24389,
+    "latest_clean_stage_cpu_seconds": 5.9309,
+    "latest_clean_stage_wall_seconds": 5.5941360699999905,
+    "local_transitions": 131072,
+    "repair_cases": 65536,
+    "total_cases": 220997
+  },
+  "continuation_independent_analysis": {
+    "checker_transitions": 4536,
+    "latest_clean_stage_cpu_seconds": 19.573829000000018,
+    "latest_clean_stage_wall_seconds": 19.280982870999992,
+    "primary_traces": 18,
+    "queries": 4536,
+    "source_receipts": 30312
+  },
+  "environment": {
+    "archive_ceiling_bytes": 134217728,
+    "continuation_suite_deadline_seconds": 170,
+    "held_out_child_address_space_limit_bytes": 4294967296,
+    "held_out_topology": "six independent OS source processes plus one coordinator process on one host",
+    "logical_endpoints": 6,
+    "maximum_trace_workers": 2,
+    "one_shot_suite_deadline_seconds": 180,
+    "primary_child_address_space_limit_bytes": 3221225472,
+    "primary_topology": "one process with six persistent logical loopback endpoints per trace",
+    "real_history_suite_deadline_seconds": 90,
+    "stage_workers": 1
+  },
+  "historical_accounting_limitation": "Exploratory, interrupted, and repeated development commands were not all instrumented. Final clean suites and retained trace jobs are measured separately; duplicate reruns are not counted as distinct scientific observations.",
+  "historical_cumulative_cpu_seconds": null,
+  "one_shot_clean_reproduction_final": {
+    "child_cpu_seconds": 102.92999999999999,
+    "commands": 36,
+    "driver_rss_kib": 93340,
+    "maximum_child_rss_kib": 137772,
+    "maximum_trace_workers": 3,
+    "parent_cpu_seconds": 0.11814772600000001,
+    "status": "PASS",
+    "wall_seconds": 45.174020583000015
+  },
+  "pilot_final": {
+    "maximum_rss_kib": 110636,
+    "status": "PASS",
+    "wall_seconds": 1.529206866999857,
+    "workers": 1
+  },
+  "real_history_clean_reproduction": {
+    "child_cpu_seconds": 17.927284,
+    "commands": 3,
+    "coordinator_processes": 1,
+    "delivered_source_replies_replayed": 1991,
+    "driver_rss_kib": 92580,
+    "function_assignments": 7,
+    "maximum_child_rss_kib": 144936,
+    "parent_cpu_seconds": 0.021575785999999986,
+    "queries_per_policy": 408,
+    "selected_commits": 6,
+    "source_processes": 6,
+    "stage_records": [
+      {
+        "command": [
+          "python",
+          "-m",
+          "unittest",
+          "tests.test_real_history",
+          "-v"
+        ],
+        "cpu_seconds": 2.512522,
+        "exit_code": 0,
+        "log": "results/real-history-reproduction-logs/command-01.txt",
+        "wall_seconds": 2.128554056999974
+      },
+      {
+        "command": [
+          "python",
+          "real_history_campaign.py"
+        ],
+        "cpu_seconds": 11.812111999999999,
+        "exit_code": 0,
+        "log": "results/real-history-reproduction-logs/command-02.txt",
+        "wall_seconds": 8.220019578999995
+      },
+      {
+        "command": [
+          "python",
+          "analyze_real_history.py"
+        ],
+        "cpu_seconds": 3.6026500000000006,
+        "exit_code": 0,
+        "log": "results/real-history-reproduction-logs/command-03.txt",
+        "wall_seconds": 3.2779365400000415
+      }
+    ],
+    "status": "PASS",
+    "wall_seconds": 13.627956255000072
+  },
+  "scientific_runtime_network_download_bytes": 0,
+  "scope": "Retained final executions; not exact cumulative development accounting",
+  "test_counts": {
+    "cold_suite_discovered_tests": 50,
+    "directed_unit_tests": 50,
+    "real_history_directed_tests": 4
+  },
+  "web_literature_transfer_bytes": null
+}

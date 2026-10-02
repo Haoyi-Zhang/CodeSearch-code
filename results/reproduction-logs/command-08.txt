@@ -1,0 +1,2 @@
+Command: python reproduce.py --case index-lag --seed 3
+{"case": "index-lag", "queries": 63, "repair": {"bytes": 68976, "converged_replicas": 6, "cut": [63, 63, 63], "dropped_requests_or_replies": 0, "messages": 780, "pending_events_after": [0, 0, 0, 0, 0, 0], "retained_events_after": [0, 0, 0, 0, 0, 0], "server_cpu_ns": 0, "virtual_ms": 1560, "wall_ns": 18013003}, "resources": {"cpu_seconds": 0.69935649, "logical_tcp_nodes": 6, "peak_journal_events": 63, "peak_pending_events": 1, "peak_rss_kib": 118920, "wall_seconds": 0.7000262279999561, "workers": 1}, "seed": 3}

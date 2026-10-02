@@ -1,0 +1,2 @@
+Command: python continuation_campaign.py --case rebalance --seed 3 --active 4 --capacity 5
+{"active_per_tick": 4, "capacity": 5, "case": "rebalance", "mean_bytes": {"continuation": 488.55555555555554, "cut-cache": 2194.4801587301586, "mirror": 1185.904761904762, "overlay": 2194.4801587301586, "unsafe-stale": 0.0}, "peak_rss_kib": 140696, "peak_state_bytes": {"continuation": 46920, "cut-cache": 18179, "mirror": 1735030}, "queries": 252, "seed": 3, "wall_seconds": 3.3666380029999345}

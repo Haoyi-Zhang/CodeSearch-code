@@ -1,0 +1,2 @@
+Command: python reproduce.py --case rebalance --seed 2
+{"case": "rebalance", "queries": 63, "repair": {"bytes": 34162, "converged_replicas": 6, "cut": [63, 63, 63], "dropped_requests_or_replies": 0, "messages": 396, "pending_events_after": [0, 0, 0, 0, 0, 0], "retained_events_after": [0, 0, 0, 0, 0, 0], "server_cpu_ns": 0, "virtual_ms": 792, "wall_ns": 8845417}, "resources": {"cpu_seconds": 0.609897328, "logical_tcp_nodes": 6, "peak_journal_events": 31, "peak_pending_events": 1, "peak_rss_kib": 120216, "wall_seconds": 0.6102861950000715, "workers": 1}, "seed": 2}

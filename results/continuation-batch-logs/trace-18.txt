@@ -1,0 +1,2 @@
+Command: python continuation_campaign.py --case rank-churn --seed 3 --active 4 --capacity 5
+{"active_per_tick": 4, "capacity": 5, "case": "rank-churn", "mean_bytes": {"continuation": 340.0833333333333, "cut-cache": 2163.972222222222, "mirror": 684.515873015873, "overlay": 2163.972222222222, "unsafe-stale": 0.0}, "peak_rss_kib": 138344, "peak_state_bytes": {"continuation": 54616, "cut-cache": 17989, "mirror": 1735030}, "queries": 252, "seed": 3, "wall_seconds": 2.7581177949999756}

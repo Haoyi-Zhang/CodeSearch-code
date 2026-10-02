@@ -1,0 +1,309 @@
+{
+  "domain": "4 IDs on shards [0,0,1,2]; absent/score1/score2 at each base and target; k=1,2,3; L=0,1,2,4",
+  "state_pairs": 6561,
+  "totals": {
+    "cases": 78732,
+    "complete": 57811,
+    "exact_result": 67140,
+    "conservative_noncertification": 9329,
+    "inexact_uncertified": 11592
+  },
+  "groups": {
+    "k1-prefix0": {
+      "cases": 6561,
+      "complete": 2608,
+      "exact_result": 4401,
+      "conservative_noncertification": 1793,
+      "inexact_uncertified": 2160
+    },
+    "k1-prefix1": {
+      "cases": 6561,
+      "complete": 5787,
+      "exact_result": 6255,
+      "conservative_noncertification": 468,
+      "inexact_uncertified": 306
+    },
+    "k1-prefix2": {
+      "cases": 6561,
+      "complete": 6561,
+      "exact_result": 6561,
+      "conservative_noncertification": 0,
+      "inexact_uncertified": 0
+    },
+    "k1-prefix4": {
+      "cases": 6561,
+      "complete": 6561,
+      "exact_result": 6561,
+      "conservative_noncertification": 0,
+      "inexact_uncertified": 0
+    },
+    "k2-prefix0": {
+      "cases": 6561,
+      "complete": 981,
+      "exact_result": 3105,
+      "conservative_noncertification": 2124,
+      "inexact_uncertified": 3456
+    },
+    "k2-prefix1": {
+      "cases": 6561,
+      "complete": 4752,
+      "exact_result": 5850,
+      "conservative_noncertification": 1098,
+      "inexact_uncertified": 711
+    },
+    "k2-prefix2": {
+      "cases": 6561,
+      "complete": 6561,
+      "exact_result": 6561,
+      "conservative_noncertification": 0,
+      "inexact_uncertified": 0
+    },
+    "k2-prefix4": {
+      "cases": 6561,
+      "complete": 6561,
+      "exact_result": 6561,
+      "conservative_noncertification": 0,
+      "inexact_uncertified": 0
+    },
+    "k3-prefix0": {
+      "cases": 6561,
+      "complete": 321,
+      "exact_result": 2529,
+      "conservative_noncertification": 2208,
+      "inexact_uncertified": 4032
+    },
+    "k3-prefix1": {
+      "cases": 6561,
+      "complete": 3996,
+      "exact_result": 5634,
+      "conservative_noncertification": 1638,
+      "inexact_uncertified": 927
+    },
+    "k3-prefix2": {
+      "cases": 6561,
+      "complete": 6561,
+      "exact_result": 6561,
+      "conservative_noncertification": 0,
+      "inexact_uncertified": 0
+    },
+    "k3-prefix4": {
+      "cases": 6561,
+      "complete": 6561,
+      "exact_result": 6561,
+      "conservative_noncertification": 0,
+      "inexact_uncertified": 0
+    }
+  },
+  "counterexamples": [
+    {
+      "base_codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "target_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "k": 1,
+      "length": 0,
+      "result": [],
+      "status": "rank-underdetermined",
+      "blockers": [
+        2
+      ]
+    },
+    {
+      "base_codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "target_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "k": 2,
+      "length": 0,
+      "result": [],
+      "status": "rank-underdetermined",
+      "blockers": [
+        2
+      ]
+    },
+    {
+      "base_codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "target_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "k": 3,
+      "length": 0,
+      "result": [],
+      "status": "rank-underdetermined",
+      "blockers": [
+        2
+      ]
+    },
+    {
+      "base_codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "target_codes": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "k": 2,
+      "length": 0,
+      "result": [
+        {
+          "id": "d",
+          "body": "b2",
+          "score": 2
+        }
+      ],
+      "status": "rank-underdetermined",
+      "blockers": [
+        2
+      ]
+    },
+    {
+      "base_codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "target_codes": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "k": 3,
+      "length": 0,
+      "result": [
+        {
+          "id": "d",
+          "body": "b2",
+          "score": 2
+        }
+      ],
+      "status": "rank-underdetermined",
+      "blockers": [
+        2
+      ]
+    },
+    {
+      "base_codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "target_codes": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "k": 2,
+      "length": 0,
+      "result": [
+        {
+          "id": "c",
+          "body": "b1",
+          "score": 1
+        }
+      ],
+      "status": "rank-underdetermined",
+      "blockers": [
+        2
+      ]
+    },
+    {
+      "base_codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "target_codes": [
+        0,
+        0,
+        1,
+        0
+      ],
+      "k": 3,
+      "length": 0,
+      "result": [
+        {
+          "id": "c",
+          "body": "b1",
+          "score": 1
+        }
+      ],
+      "status": "rank-underdetermined",
+      "blockers": [
+        2
+      ]
+    },
+    {
+      "base_codes": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "target_codes": [
+        0,
+        0,
+        1,
+        2
+      ],
+      "k": 3,
+      "length": 0,
+      "result": [
+        {
+          "id": "d",
+          "body": "b2",
+          "score": 2
+        },
+        {
+          "id": "c",
+          "body": "b1",
+          "score": 1
+        }
+      ],
+      "status": "rank-underdetermined",
+      "blockers": [
+        2
+      ]
+    }
+  ],
+  "false_complete": 0,
+  "unsound_rows": 0,
+  "resources": {
+    "cpu_seconds": 2.955630954,
+    "wall_seconds": 2.9573102430000517,
+    "peak_rss_kib": 96160
+  }
+}

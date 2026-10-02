@@ -1,0 +1,2 @@
+Command: python continuation_campaign.py --case hot-shard --seed 2 --active 4 --capacity 5
+{"active_per_tick": 4, "capacity": 5, "case": "hot-shard", "mean_bytes": {"continuation": 221.92460317460316, "cut-cache": 1460.0198412698412, "mirror": 583.8888888888889, "overlay": 2182.753968253968, "unsafe-stale": 0.0}, "peak_rss_kib": 135544, "peak_state_bytes": {"continuation": 41685, "cut-cache": 18033, "mirror": 1735030}, "queries": 252, "seed": 2, "wall_seconds": 2.9795352759999787}

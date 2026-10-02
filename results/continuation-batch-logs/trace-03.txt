@@ -1,0 +1,2 @@
+Command: python continuation_campaign.py --case index-lag --seed 2 --active 4 --capacity 5
+{"active_per_tick": 4, "capacity": 5, "case": "index-lag", "mean_bytes": {"continuation": 363.6468253968254, "cut-cache": 2158.2063492063494, "mirror": 683.7063492063492, "overlay": 2158.2063492063494, "unsafe-stale": 0.0}, "peak_rss_kib": 138172, "peak_state_bytes": {"continuation": 59423, "cut-cache": 18037, "mirror": 1735030}, "queries": 252, "seed": 2, "wall_seconds": 2.9713698040000054}

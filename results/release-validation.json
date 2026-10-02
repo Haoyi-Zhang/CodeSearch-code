@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "claim_evidence": {
+      "claims": 26,
+      "missing_evidence_paths": 0,
+      "supported": 26
+    },
+    "external_resources": {
+      "reference_urls_closed": true,
+      "resources": 79,
+      "source_urls_closed": true,
+      "type_counts": {
+        "formatting asset": 1,
+        "official recognition record": 1,
+        "official venue rule": 1,
+        "public Git commit metadata and patches": 1,
+        "public licensed source text": 8,
+        "scholarly paper": 67
+      },
+      "unique_names": 79,
+      "unique_urls": 79
+    },
+    "hygiene": {
+      "forbidden_files": 0,
+      "project_root_entries": [
+        "README.md",
+        "artifact",
+        "paper"
+      ],
+      "symlinks": 0
+    },
+    "inputs": {
+      "declared_source_bytes": 1464521,
+      "retained_python_files": 107,
+      "source_distributions": 8
+    },
+    "paper_results": {
+      "continuation_macros": 31,
+      "generated_result_files": 6,
+      "real_history_macros": 16,
+      "reproduction_macros": 12
+    },
+    "real_history": {
+      "base_file_verified": true,
+      "function_assignments": 7,
+      "selected_commits": 6
+    },
+    "references": {
+      "bibtex_records": 67,
+      "category_counts": {
+        "authenticated and verifiable queries": 7,
+        "federated retrieval and code search": 12,
+        "incremental maintenance and caching": 14,
+        "replication, consistency, and logs": 24,
+        "top-k and continuous queries": 10
+      },
+      "citation_key_occurrences": 72,
+      "complete_main_text_records": 21,
+      "minimum_required": 60,
+      "record_or_selected_passage_checks": 46,
+      "references": 67,
+      "rendered_bibitems": 67,
+      "unique_cited_keys": 67,
+      "verification_basis_counts": {
+        "official CIDR proceedings PDF": 1,
+        "official NetDB event program": 1,
+        "official OpenReview conference record": 1,
+        "official USENIX proceedings record": 24,
+        "official arXiv preprint record": 1,
+        "publisher DOI record": 35,
+        "scholarly archive or proceedings record": 4
+      }
+    },
+    "resource_ledger": {
+      "directed_unit_tests": 50,
+      "three_clean_records_match": true
+    },
+    "results": {
+      "cold_queries_per_policy": 1008,
+      "finite_instances": 220997,
+      "primary_queries_per_policy": 4536,
+      "primary_source_receipts_replayed": 30312,
+      "real_history_queries_per_policy": 408,
+      "real_history_source_receipts_replayed": 1991,
+      "reproduction_command_counts": {
+        "clean-reproduction.json": 36,
+        "continuation-clean-reproduction.json": 4,
+        "real-history-clean-reproduction.json": 3
+      }
+    }
+  },
+  "meaning": "offline internal consistency, evidence-path, reference-record, frozen-result, input, and package-hygiene checks; not external peer review, general proof, or deployment validation",
+  "status": "PASS"
+}

@@ -1,0 +1,17 @@
+{
+  "permutations": 720,
+  "query_positions_per_permutation": 7,
+  "counts": {
+    "partial": 2736,
+    "checks": 5040,
+    "complete": 2304
+  },
+  "false_complete": 0,
+  "unsound_rows": 0,
+  "scope": "one delivered update per each of six replicas, three logical updates; query after each prefix, no intra-query faults; direct state-machine transport",
+  "resources": {
+    "cpu_seconds": 0.2141763679999995,
+    "wall_seconds": 0.21561122799994337,
+    "peak_rss_kib": 96160
+  }
+}

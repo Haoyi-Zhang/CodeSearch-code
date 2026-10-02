@@ -1,0 +1,51 @@
+{
+  "bounds": {
+    "child_address_space_bytes": 4294967296,
+    "coordinator_processes": 1,
+    "overall_deadline_seconds": 90,
+    "source_processes": 6
+  },
+  "child_cpu_seconds": 17.927284,
+  "commands": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "tests.test_real_history",
+        "-v"
+      ],
+      "cpu_seconds": 2.512522,
+      "exit_code": 0,
+      "log": "results/real-history-reproduction-logs/command-01.txt",
+      "wall_seconds": 2.128554056999974
+    },
+    {
+      "command": [
+        "python",
+        "real_history_campaign.py"
+      ],
+      "cpu_seconds": 11.812111999999999,
+      "exit_code": 0,
+      "log": "results/real-history-reproduction-logs/command-02.txt",
+      "wall_seconds": 8.220019578999995
+    },
+    {
+      "command": [
+        "python",
+        "analyze_real_history.py"
+      ],
+      "cpu_seconds": 3.6026500000000006,
+      "exit_code": 0,
+      "log": "results/real-history-reproduction-logs/command-03.txt",
+      "wall_seconds": 3.2779365400000415
+    }
+  ],
+  "driver_rss_kib": 92580,
+  "error": null,
+  "maximum_child_rss_kib": 144936,
+  "meaning": "fixed function-level Git history, six independent source processes, OS-process termination/restart, source receipt replay, checker replay, and frozen semantic/wire outcomes; not a multi-host or user-log validation",
+  "parent_cpu_seconds": 0.021575785999999986,
+  "status": "PASS",
+  "wall_seconds": 13.627956255000072
+}

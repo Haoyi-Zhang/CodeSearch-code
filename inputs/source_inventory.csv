@@ -1,0 +1,9 @@
+repository_origin,upstream_release,url,files,bytes,licenses,acquisition,boundary
+cachetools,7.1.4,https://github.com/tkem/cachetools,5,49734,LICENSE,preinstalled distribution; static .py and license copy; no package import,"installed source subset, not a Git checkout; no upstream byte equality claimed"
+click,8.1.8,https://github.com/pallets/click,16,349894,LICENSE.txt,preinstalled distribution; static .py and license copy; no package import,"installed source subset, not a Git checkout; no upstream byte equality claimed"
+itsdangerous,2.2.0,https://github.com/pallets/itsdangerous,8,42346,LICENSE.txt,preinstalled distribution; static .py and license copy; no package import,"installed source subset, not a Git checkout; no upstream byte equality claimed"
+jinja2,3.1.6,https://github.com/pallets/jinja,25,490066,LICENSE.txt,preinstalled distribution; static .py and license copy; no package import,"installed source subset, not a Git checkout; no upstream byte equality claimed"
+markupsafe,3.0.3,https://github.com/pallets/markupsafe,2,13458,LICENSE.txt,preinstalled distribution; static .py and license copy; no package import,"installed source subset, not a Git checkout; no upstream byte equality claimed"
+packaging,25.0,https://github.com/pypa/packaging,16,221406,LICENSE;LICENSE.APACHE;LICENSE.BSD,preinstalled distribution; static .py and license copy; no package import,"installed source subset, not a Git checkout; no upstream byte equality claimed"
+toolz,1.1.0,https://github.com/pytoolz/toolz,16,104294,LICENSE.txt,preinstalled distribution; static .py and license copy; no package import,"installed source subset, not a Git checkout; no upstream byte equality claimed"
+attrs,26.1.0,https://github.com/python-attrs/attrs,19,193323,LICENSE,preinstalled distribution; static .py and license copy; no package import,"installed source subset, not a Git checkout; no upstream byte equality claimed"

@@ -1,0 +1,2 @@
+Command: python continuation_campaign.py --case fresh --seed 1 --active 1 --capacity 5
+{"active_per_tick": 1, "capacity": 5, "case": "fresh", "mean_bytes": {"continuation": 1324.5238095238096, "cut-cache": 2142.5396825396824, "mirror": 2734.15873015873, "overlay": 2142.5396825396824, "unsafe-stale": 0.0}, "peak_rss_kib": 130240, "peak_state_bytes": {"continuation": 54814, "cut-cache": 17736, "mirror": 1735030}, "queries": 63, "seed": 1, "wall_seconds": 2.2063465340000903}

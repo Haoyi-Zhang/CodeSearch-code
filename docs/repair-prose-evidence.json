@@ -1,0 +1,151 @@
+{
+  "scope": "existing primary trace aggregation for Section 7.3, not an additional experiment",
+  "source": "results/trace-checks.json",
+  "filter": "seed in {2,3}; length=8; alternates=true",
+  "records": {
+    "compaction-seed2.json.gz": {
+      "case": "compaction",
+      "seed": 2,
+      "bytes": 19948,
+      "messages": 240,
+      "converged_replicas": 6,
+      "peak_journal_events": 19,
+      "peak_pending_events": 1
+    },
+    "compaction-seed3.json.gz": {
+      "case": "compaction",
+      "seed": 3,
+      "bytes": 19722,
+      "messages": 240,
+      "converged_replicas": 6,
+      "peak_journal_events": 19,
+      "peak_pending_events": 1
+    },
+    "crash-seed2.json.gz": {
+      "case": "crash",
+      "seed": 2,
+      "bytes": 68772,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 9
+    },
+    "crash-seed3.json.gz": {
+      "case": "crash",
+      "seed": 3,
+      "bytes": 68976,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 9
+    },
+    "fresh-seed2.json.gz": {
+      "case": "fresh",
+      "seed": 2,
+      "bytes": 68772,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 1
+    },
+    "fresh-seed3.json.gz": {
+      "case": "fresh",
+      "seed": 3,
+      "bytes": 68976,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 1
+    },
+    "hot-shard-seed2.json.gz": {
+      "case": "hot-shard",
+      "seed": 2,
+      "bytes": 29356,
+      "messages": 332,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 1
+    },
+    "hot-shard-seed3.json.gz": {
+      "case": "hot-shard",
+      "seed": 3,
+      "bytes": 29338,
+      "messages": 332,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 1
+    },
+    "index-lag-seed2.json.gz": {
+      "case": "index-lag",
+      "seed": 2,
+      "bytes": 68772,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 1
+    },
+    "index-lag-seed3.json.gz": {
+      "case": "index-lag",
+      "seed": 3,
+      "bytes": 68976,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 1
+    },
+    "log-gap-seed2.json.gz": {
+      "case": "log-gap",
+      "seed": 2,
+      "bytes": 68772,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 5
+    },
+    "log-gap-seed3.json.gz": {
+      "case": "log-gap",
+      "seed": 3,
+      "bytes": 68976,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 5
+    },
+    "partition-seed2.json.gz": {
+      "case": "partition",
+      "seed": 2,
+      "bytes": 68772,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 17
+    },
+    "partition-seed3.json.gz": {
+      "case": "partition",
+      "seed": 3,
+      "bytes": 68976,
+      "messages": 780,
+      "converged_replicas": 6,
+      "peak_journal_events": 63,
+      "peak_pending_events": 17
+    },
+    "rebalance-seed2.json.gz": {
+      "case": "rebalance",
+      "seed": 2,
+      "bytes": 34162,
+      "messages": 396,
+      "converged_replicas": 6,
+      "peak_journal_events": 31,
+      "peak_pending_events": 1
+    },
+    "rebalance-seed3.json.gz": {
+      "case": "rebalance",
+      "seed": 3,
+      "bytes": 33772,
+      "messages": 396,
+      "converged_replicas": 6,
+      "peak_journal_events": 31,
+      "peak_pending_events": 1
+    }
+  }
+}

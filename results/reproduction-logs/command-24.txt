@@ -1,0 +1,2 @@
+Command: python reproduce.py --case compaction --seed 1
+{"case": "compaction", "queries": 63, "repair": {"bytes": 20014, "converged_replicas": 6, "cut": [63, 63, 63], "dropped_requests_or_replies": 0, "messages": 240, "pending_events_after": [0, 0, 0, 0, 0, 0], "retained_events_after": [0, 0, 0, 0, 0, 0], "server_cpu_ns": 0, "virtual_ms": 480, "wall_ns": 5947949}, "resources": {"cpu_seconds": 0.7639282349999998, "logical_tcp_nodes": 6, "peak_journal_events": 19, "peak_pending_events": 1, "peak_rss_kib": 118304, "wall_seconds": 0.7659839020000163, "workers": 1}, "seed": 1}

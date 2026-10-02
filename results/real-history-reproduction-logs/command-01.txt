@@ -1,0 +1,10 @@
+Command: python -m unittest tests.test_real_history -v
+test_base_and_commit_inventory (tests.test_real_history.RealHistoryTest.test_base_and_commit_inventory) ... ok
+test_function_change_projection (tests.test_real_history.RealHistoryTest.test_function_change_projection) ... ok
+test_oracle_changes_are_discriminating_and_bounded (tests.test_real_history.RealHistoryTest.test_oracle_changes_are_discriminating_and_bounded) ... ok
+test_query_strata_and_targeted_plans (tests.test_real_history.RealHistoryTest.test_query_strata_and_targeted_plans) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.516s
+
+OK

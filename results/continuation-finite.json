@@ -1,0 +1,13 @@
+{
+  "failures": 0,
+  "global_blocked_cases": 8484,
+  "global_complete_cases": 15905,
+  "global_merge_cases": 24389,
+  "k_plus_d_repair_cases": 65536,
+  "local_transition_cases": 131072,
+  "variants_per_shard": [
+    29,
+    29,
+    29
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "base": {
+    "commit": "48284d73d0a8834c9c50f8d41bb99e6f93b2dfed",
+    "date": "2026-05-21T22:34:39Z",
+    "file": "inputs/sources/cachetools/cachetools/__init__.py",
+    "file_sha256": "fadf75eeab248d737ee23903efd5363e117719b47c434d7fd02a2f166a955b3c",
+    "git_blob_sha1": "1b299c544519583cbcd765a01d58c75ad8802062",
+    "tag": "v7.1.4"
+  },
+  "commits": [
+    {
+      "date": "2026-07-07T19:36:38Z",
+      "expected_changed_functions": [
+        "Cache.__setitem__"
+      ],
+      "expected_projected_sha256": "a4869ebbdf7be86c5b4f699dba1555d0e2783cf608cf83f7baa2e7e99c7ddc19",
+      "message": "Reject negative cache item sizes",
+      "operations": [
+        {
+          "class": "Cache",
+          "kind": "replace_method",
+          "method": "__setitem__",
+          "source": "def __setitem__(self, key, value):\n    maxsize = self.__maxsize\n    size = self.getsizeof(value)\n    if size < 0:\n        raise ValueError(\"value size must be non-negative\")\n    if size > maxsize:\n        raise ValueError(\"value too large\")\n    if key not in self.__data or self.__size[key] < size:\n        while self.__currsize + size > maxsize:\n            self.popitem()\n    if key in self.__data:\n        diffsize = size - self.__size[key]\n    else:\n        diffsize = size\n    self.__data[key] = value\n    self.__size[key] = size\n    self.__currsize += diffsize\n"
+        }
+      ],
+      "sha": "d5c7eea7e52d18fed0ec1b575db1956b1d035782",
+      "url": "https://github.com/tkem/cachetools/commit/d5c7eea7e52d18fed0ec1b575db1956b1d035782"
+    },
+    {
+      "date": "2026-07-22T23:26:36Z",
+      "expected_changed_functions": [
+        "TLRUCache.__setitem__"
+      ],
+      "expected_projected_sha256": "6254b5c84ae6eb13f36790d5d7d0f3a4d13377663cb2c3df81aafd1b3d97b09a",
+      "message": "Fix TLRUCache silently keeping stale value on expired overwrite",
+      "operations": [
+        {
+          "class": "TLRUCache",
+          "kind": "replace_method",
+          "method": "__setitem__",
+          "source": "def __setitem__(\n    self,\n    key,\n    value,\n    cache_setitem=Cache.__setitem__,\n    cache_delitem=Cache.__delitem__,\n):\n    with self.timer as time:\n        expires = self.__ttu(key, value, time)\n        if not (time < expires):\n            # The new value is already expired, so it is not stored.\n            # If the key still holds a previous (possibly still valid)\n            # value, drop it as well -- otherwise the assignment would\n            # be silently ignored and the stale value would persist.\n            try:\n                self.__items.pop(key).removed = True\n            except KeyError:\n                pass\n            else:\n                cache_delitem(self, key)\n            return  # skip expired items\n        self.expire(time)\n        cache_setitem(self, key, value)\n    # removing an existing item would break the heap structure, so\n    # only mark it as removed for now\n    try:\n        self.__getitem(key).removed = True\n    except KeyError:\n        pass\n    self.__items[key] = item = TLRUCache._Item(key, expires)\n    heapq.heappush(self.__order, item)\n"
+        }
+      ],
+      "sha": "c0fdf6abab38040947d6fe2e38c507401d5e2350",
+      "url": "https://github.com/tkem/cachetools/commit/c0fdf6abab38040947d6fe2e38c507401d5e2350"
+    },
+    {
+      "date": "2026-07-23T22:40:28Z",
+      "expected_changed_functions": [
+        "Cache.__init__"
+      ],
+      "expected_projected_sha256": "2716058087ae0753b6f32938f2fa18e41881189d396b99894ab5978868540c7a",
+      "message": "Minor style improvements to keep ruff happy.",
+      "operations": [
+        {
+          "class": "Cache",
+          "kind": "replace_method",
+          "method": "__init__",
+          "source": "def __init__(self, maxsize, getsizeof=None):\n    if getsizeof:\n        self.getsizeof = getsizeof\n    if self.getsizeof is not Cache.getsizeof:\n        self.__size = {}\n    self.__data = {}\n    self.__currsize = 0\n    self.__maxsize = maxsize\n"
+        }
+      ],
+      "sha": "13bb86a55e36e501cf0b3e4c35db516ed9409fd7",
+      "url": "https://github.com/tkem/cachetools/commit/13bb86a55e36e501cf0b3e4c35db516ed9409fd7"
+    },
+    {
+      "date": "2026-08-01T20:40:47Z",
+      "expected_changed_functions": [
+        "Cache.__setitem__"
+      ],
+      "expected_projected_sha256": "37c8008957eb187cdfd13c5ff2cf9509b77c1315b604748e711ba438f24bb907",
+      "message": "Fix Cache.__setitem__ over-evicting when growing an existing key",
+      "operations": [
+        {
+          "class": "Cache",
+          "kind": "replace_method",
+          "method": "__setitem__",
+          "source": "def __setitem__(self, key, value):\n    maxsize = self.__maxsize\n    size = self.getsizeof(value)\n    if size < 0:\n        raise ValueError(\"value size must be non-negative\")\n    if size > maxsize:\n        raise ValueError(\"value too large\")\n    if key not in self.__data:\n        diffsize = size\n        while self.__currsize + diffsize > maxsize:\n            self.popitem()\n    else:\n        diffsize = size - self.__size[key]\n        while self.__currsize + diffsize > maxsize:\n            self.popitem()\n            if key not in self.__data:\n                diffsize = size\n    self.__data[key] = value\n    self.__size[key] = size\n    self.__currsize += diffsize\n"
+        }
+      ],
+      "sha": "39b31bc9b63abe98497409945e9d382d8918c8fb",
+      "url": "https://github.com/tkem/cachetools/commit/39b31bc9b63abe98497409945e9d382d8918c8fb"
+    },
+    {
+      "date": "2026-08-01T21:12:33Z",
+      "expected_changed_functions": [
+        "TLRUCache.__delitem",
+        "TLRUCache.__setitem__"
+      ],
+      "expected_projected_sha256": "0b03601412b793a85820de3dd283e780253d971d259e614b9fe62f62b94384d6",
+      "message": "Minor stylistic improvements.",
+      "operations": [
+        {
+          "class": "TLRUCache",
+          "kind": "replace_method",
+          "method": "__setitem__",
+          "source": "def __setitem__(self, key, value, cache_setitem=Cache.__setitem__):\n    with self.timer as time:\n        self.expire(time)\n        expires = self.__ttu(key, value, time)\n        if not (time < expires):\n            # updating an existing item with an already expired\n            # one should remove the existing item\n            return self.__delitem(key)\n        cache_setitem(self, key, value)\n    # removing an existing item would break the heap structure, so\n    # only mark it as removed for now\n    try:\n        self.__getitem(key).removed = True\n    except KeyError:\n        pass\n    self.__items[key] = item = TLRUCache._Item(key, expires)\n    heapq.heappush(self.__order, item)\n"
+        },
+        {
+          "class": "TLRUCache",
+          "kind": "insert_after_method",
+          "method": "__getitem",
+          "source": "def __delitem(self, key, cache_delitem=Cache.__delitem__):\n    try:\n        self.__items.pop(key).removed = True\n    except KeyError:\n        pass\n    else:\n        cache_delitem(self, key)\n"
+        }
+      ],
+      "sha": "ccaa8c8c882b7cb76904ea5ae21aae33cca0c2c1",
+      "url": "https://github.com/tkem/cachetools/commit/ccaa8c8c882b7cb76904ea5ae21aae33cca0c2c1"
+    },
+    {
+      "date": "2026-08-28T19:17:03Z",
+      "expected_changed_functions": [
+        "Cache.__init__"
+      ],
+      "expected_projected_sha256": "011dff068944057af87e7779fc62d709158fcf0b2040d73ec73b1a6d4b4aba35",
+      "message": "Reject negative maxsize in Cache.__init__",
+      "operations": [
+        {
+          "class": "Cache",
+          "kind": "replace_method",
+          "method": "__init__",
+          "source": "def __init__(self, maxsize, getsizeof=None):\n    if maxsize < 0:\n        raise ValueError(\"maxsize must be non-negative\")\n    if getsizeof:\n        self.getsizeof = getsizeof\n    if self.getsizeof is not Cache.getsizeof:\n        self.__size = {}\n    self.__data = {}\n    self.__currsize = 0\n    self.__maxsize = maxsize\n"
+        }
+      ],
+      "sha": "dd181c5a72a74fcc01045c17cc943f72cb521262",
+      "url": "https://github.com/tkem/cachetools/commit/dd181c5a72a74fcc01045c17cc943f72cb521262"
+    }
+  ],
+  "license": "MIT",
+  "observed_head": {
+    "commit": "4500e3d04288738d25acbb4973eb3c3e1bf41db9",
+    "commits_ahead_of_base": 23,
+    "date": "2026-08-31T18:18:00Z",
+    "message": "Release v7.1.8."
+  },
+  "projection": "Apply only the published function-body hunks to the exact retained v7.1.4 source file. This is a function-level change trace, not a reconstruction of complete repository snapshots.",
+  "query_scope": "The validation uses all 64 disjoint corpus query seeds plus four deterministic change-targeted syntax-label plans. It is not a user query log.",
+  "repository": "tkem/cachetools",
+  "schema": "cachetools-function-history-v1",
+  "selection": "All six commits in the base-to-head interval whose published patch changes or adds a Python function body in src/cachetools/__init__.py. Module-only, test, documentation, CI, and type-stub edits are excluded."
+}

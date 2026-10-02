@@ -1,0 +1,2 @@
+Command: python reproduce.py --case hot-shard --seed 2
+{"case": "hot-shard", "queries": 63, "repair": {"bytes": 29356, "converged_replicas": 6, "cut": [63, 7, 7], "dropped_requests_or_replies": 0, "messages": 332, "pending_events_after": [0, 0, 0, 0, 0, 0], "retained_events_after": [0, 0, 0, 0, 0, 0], "server_cpu_ns": 3999991, "virtual_ms": 496, "wall_ns": 7863227}, "resources": {"cpu_seconds": 0.44396457300000014, "logical_tcp_nodes": 6, "peak_journal_events": 63, "peak_pending_events": 1, "peak_rss_kib": 117840, "wall_seconds": 0.4448953699999265, "workers": 1}, "seed": 2}

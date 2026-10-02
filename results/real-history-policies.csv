@@ -1,0 +1,5 @@
+policy,changed_oracle_queries,claimed_complete,exact,false_complete,partial_or_unjustified,queries,returned_rows,unsound_rows,total_source_bytes,total_source_messages,mean_source_bytes,mean_source_messages,dropped_requests_or_replies,max_logical_state_bytes
+continuation,10,408,408,0,0,408,1926,0,163228,420,400.0686274509804,1.0294117647058822,1,145912
+overlay,10,408,408,0,0,408,1926,0,894994,2448,2193.6127450980393,6.0,68,
+cut-cache,10,408,408,0,0,408,1926,0,413934,1088,1014.5441176470588,2.6666666666666665,68,75176
+unsafe-stale,10,408,386,22,0,408,1926,21,0,0,0.0,0.0,0,

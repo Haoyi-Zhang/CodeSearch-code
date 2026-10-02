@@ -1,0 +1,118 @@
+{
+  "active_queries_per_tick": 4,
+  "cases": [
+    "fresh",
+    "index-lag",
+    "log-gap",
+    "partition",
+    "crash",
+    "rebalance",
+    "hot-shard",
+    "compaction",
+    "rank-churn"
+  ],
+  "checker_replay": {
+    "continuation_results": 4536,
+    "cut-cache_results": 4536,
+    "feed_receipts": 3100,
+    "overlay_results": 4536,
+    "query_observations": 4536
+  },
+  "continuation_repairs": {
+    "queries": 48,
+    "shards": 48
+  },
+  "finite_checks": {
+    "failures": 0,
+    "global_blocked_cases": 8484,
+    "global_complete_cases": 15905,
+    "global_merge_cases": 24389,
+    "k_plus_d_repair_cases": 65536,
+    "local_transition_cases": 131072,
+    "variants_per_shard": [
+      29,
+      29,
+      29
+    ]
+  },
+  "policies": {
+    "continuation": {
+      "claimed_complete": 4248,
+      "exact": 4340,
+      "false_complete": 0,
+      "max_logical_state_bytes": 60078,
+      "partial_or_unjustified": 288,
+      "queries": 4536,
+      "returned_rows": 21585,
+      "total_source_bytes": 1605025,
+      "total_source_messages": 8440,
+      "unsound_rows": 0
+    },
+    "cut-cache": {
+      "claimed_complete": 4248,
+      "exact": 4340,
+      "false_complete": 0,
+      "max_logical_state_bytes": 18237,
+      "partial_or_unjustified": 288,
+      "queries": 4536,
+      "returned_rows": 21585,
+      "total_source_bytes": 9420757,
+      "total_source_messages": 26544,
+      "unsound_rows": 0
+    },
+    "mirror": {
+      "claimed_complete": 4248,
+      "exact": 4340,
+      "false_complete": 0,
+      "max_logical_state_bytes": 1735030,
+      "partial_or_unjustified": 288,
+      "queries": 4536,
+      "returned_rows": 21585,
+      "total_source_bytes": 3307240,
+      "total_source_messages": 6544,
+      "unsound_rows": 0
+    },
+    "overlay": {
+      "claimed_complete": 4248,
+      "exact": 4340,
+      "false_complete": 0,
+      "partial_or_unjustified": 288,
+      "queries": 4536,
+      "returned_rows": 21585,
+      "total_source_bytes": 9784941,
+      "total_source_messages": 27536,
+      "unsound_rows": 0
+    },
+    "unsafe-stale": {
+      "claimed_complete": 4536,
+      "exact": 2626,
+      "false_complete": 1910,
+      "partial_or_unjustified": 0,
+      "queries": 4536,
+      "returned_rows": 21870,
+      "total_source_bytes": 0,
+      "total_source_messages": 0,
+      "unsound_rows": 2075
+    }
+  },
+  "primary_queries": 4536,
+  "primary_traces": 18,
+  "seeds": [
+    2,
+    3
+  ],
+  "setup_source_bytes": {
+    "continuation-acquisition": 755948,
+    "mirror-snapshot": 2577694
+  },
+  "shared_feed_source_bytes": 729546,
+  "source_replay": {
+    "event_rows": 3172,
+    "events": 3100,
+    "overlay": 26144,
+    "prefix": 1008,
+    "snapshot": 60
+  },
+  "standing_queries_per_trace": 16,
+  "token_capacity": 5
+}

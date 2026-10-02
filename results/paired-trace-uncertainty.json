@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "input": "results/continuation-cases.csv",
+  "unit": "complete case/seed trace",
+  "seed": 20260929,
+  "resamples": 10000,
+  "meaning": "descriptive percentile intervals for these 18 fixed traces, not production-population significance",
+  "comparisons": [
+    {
+      "policy": "overlay",
+      "label": "Exact overlay",
+      "pairs": 18,
+      "mean": 1803.3324514991182,
+      "low": 1757.9571593915343,
+      "high": 1846.0068231922398,
+      "minimum": 1608.8690476190477,
+      "maximum": 1960.829365079365
+    },
+    {
+      "policy": "cut-cache",
+      "label": "Cut-aware cache",
+      "pairs": 18,
+      "mean": 1723.0449735449736,
+      "low": 1629.4069003527336,
+      "high": 1801.0099812610229,
+      "minimum": 1238.095238095238,
+      "maximum": 1922.4801587301586
+    },
+    {
+      "policy": "mirror",
+      "label": "Full mirror",
+      "pairs": 18,
+      "mean": 375.2678571428571,
+      "low": 333.10049052028216,
+      "high": 435.1700727513227,
+      "minimum": 318.3730158730159,
+      "maximum": 697.3492063492064
+    }
+  ]
+}

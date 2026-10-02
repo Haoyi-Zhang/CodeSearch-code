@@ -1,0 +1,2 @@
+Command: python real_history_campaign.py
+{"commits": 6, "false_complete": {"continuation": 0, "cut-cache": 0, "overlay": 0, "unsafe-stale": 22}, "queries_per_policy": 408, "source_processes": 6, "status": "PASS", "trace": "results/real-history-trace.json.gz", "wall_seconds": 6.171803184999931}

@@ -1,0 +1,125 @@
+{
+  "base_commit": "48284d73d0a8834c9c50f8d41bb99e6f93b2dfed",
+  "base_queries": 64,
+  "checker_replay": {
+    "continuation_observations": 408,
+    "continuation_results": 408,
+    "converged_processes": 6,
+    "cut-cache_observations": 408,
+    "cut-cache_results": 408,
+    "fault_probes": 1,
+    "feed_receipts": 6,
+    "installed_prefixes": 204,
+    "overlay_observations": 408,
+    "overlay_results": 408,
+    "process_terminations": 1,
+    "unsafe-stale_observations": 408
+  },
+  "communication_reduction_vs_cut_cache_percent": 60.56666038547207,
+  "communication_reduction_vs_overlay_percent": 81.76211237170305,
+  "coordinator_peak_rss_kib": 132428,
+  "cost_scope": "source RPC bytes; continuation includes cold token acquisition and one shared event feed; dissemination control, result delivery, and source-body transport excluded",
+  "fault_probe": {
+    "healed_exact": true,
+    "healed_status": "complete",
+    "missing_shards": [
+      0
+    ],
+    "overlay_claim_complete": false,
+    "partial_status": "partial"
+  },
+  "function_assignments": 7,
+  "maximum_source_process_rss_kib": 126460,
+  "observed_head_commit": "4500e3d04288738d25acbb4973eb3c3e1bf41db9",
+  "oracle_change_observations": 10,
+  "policies": {
+    "continuation": {
+      "changed_oracle_queries": 10,
+      "claimed_complete": 408,
+      "dropped_requests_or_replies": 1,
+      "exact": 408,
+      "false_complete": 0,
+      "max_logical_state_bytes": 145912,
+      "mean_source_bytes": 400.0686274509804,
+      "mean_source_messages": 1.0294117647058822,
+      "partial_or_unjustified": 0,
+      "queries": 408,
+      "returned_rows": 1926,
+      "total_source_bytes": 163228,
+      "total_source_messages": 420,
+      "unsound_rows": 0
+    },
+    "cut-cache": {
+      "changed_oracle_queries": 10,
+      "claimed_complete": 408,
+      "dropped_requests_or_replies": 68,
+      "exact": 408,
+      "false_complete": 0,
+      "max_logical_state_bytes": 75176,
+      "mean_source_bytes": 1014.5441176470588,
+      "mean_source_messages": 2.6666666666666665,
+      "partial_or_unjustified": 0,
+      "queries": 408,
+      "returned_rows": 1926,
+      "total_source_bytes": 413934,
+      "total_source_messages": 1088,
+      "unsound_rows": 0
+    },
+    "overlay": {
+      "changed_oracle_queries": 10,
+      "claimed_complete": 408,
+      "dropped_requests_or_replies": 68,
+      "exact": 408,
+      "false_complete": 0,
+      "mean_source_bytes": 2193.6127450980393,
+      "mean_source_messages": 6.0,
+      "partial_or_unjustified": 0,
+      "queries": 408,
+      "returned_rows": 1926,
+      "total_source_bytes": 894994,
+      "total_source_messages": 2448,
+      "unsound_rows": 0
+    },
+    "unsafe-stale": {
+      "changed_oracle_queries": 10,
+      "claimed_complete": 408,
+      "dropped_requests_or_replies": 0,
+      "exact": 386,
+      "false_complete": 22,
+      "mean_source_bytes": 0.0,
+      "mean_source_messages": 0.0,
+      "partial_or_unjustified": 0,
+      "queries": 408,
+      "returned_rows": 1926,
+      "total_source_bytes": 0,
+      "total_source_messages": 0,
+      "unsound_rows": 21
+    }
+  },
+  "process_recovery": {
+    "distinct_final_processes": 6,
+    "distinct_initial_processes": 6,
+    "killed_pid_replaced": true,
+    "restarted_pid_is_new": true
+  },
+  "queries_per_policy": 408,
+  "queries_with_any_oracle_change": [
+    "rhq000",
+    "rhq001",
+    "rhq002",
+    "rhq003"
+  ],
+  "repository": "tkem/cachetools",
+  "schema": "real-history-six-process-v1",
+  "scope": "six independent OS source processes on one host; fixed function-level projection of six published cachetools commits; 64 disjoint corpus queries plus four deterministic change-targeted queries; not a user query log or multi-host WAN test",
+  "selected_commits": 6,
+  "source_replay": {
+    "event_rows": 6,
+    "events": 6,
+    "overlay": 1770,
+    "prefix": 209,
+    "snapshot": 6
+  },
+  "targeted_queries": 4,
+  "wall_seconds": 6.171803184999931
+}

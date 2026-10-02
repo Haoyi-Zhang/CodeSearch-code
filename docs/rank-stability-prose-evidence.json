@@ -1,0 +1,12 @@
+{
+  "scope": "initial-to-target top-k ID set overlap, not score correlation or semantic relevance",
+  "source": "results/observations.csv",
+  "filter": {
+    "primary": "True",
+    "policy": "certified"
+  },
+  "n": 1008,
+  "mean": 0.8517857142857143,
+  "minimum": 0.4,
+  "maximum": 1.0
+}

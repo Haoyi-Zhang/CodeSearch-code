@@ -1,0 +1,2 @@
+Command: python continuation_campaign.py --case log-gap --seed 3 --active 4 --capacity 5
+{"active_per_tick": 4, "capacity": 5, "case": "log-gap", "mean_bytes": {"continuation": 351.2936507936508, "cut-cache": 2147.376984126984, "mirror": 691.4920634920635, "overlay": 2147.376984126984, "unsafe-stale": 0.0}, "peak_rss_kib": 138284, "peak_state_bytes": {"continuation": 57548, "cut-cache": 18237, "mirror": 1735030}, "queries": 252, "seed": 3, "wall_seconds": 3.5821834199999785}

@@ -1,0 +1,56 @@
+Command: python -m unittest discover -s tests -v
+test_event_epoch_and_rollback_are_rejected (test_checker_transactions.TransactionTests.test_event_epoch_and_rollback_are_rejected) ... ok
+test_failed_advance_then_valid_retry (test_checker_transactions.TransactionTests.test_failed_advance_then_valid_retry) ... ok
+test_failed_batch_then_valid_retry (test_checker_transactions.TransactionTests.test_failed_batch_then_valid_retry) ... ok
+test_failed_repair_then_valid_retry (test_checker_transactions.TransactionTests.test_failed_repair_then_valid_retry) ... ok
+test_partial_compaction_is_not_committed (test_checker_transactions.TransactionTests.test_partial_compaction_is_not_committed) ... ok
+test_rebound_plan_and_k_are_rejected_without_mutation (test_checker_transactions.TransactionTests.test_rebound_plan_and_k_are_rejected_without_mutation) ... ok
+test_tail_identity_is_conservative_not_necessary (test_checker_transactions.TransactionTests.test_tail_identity_is_conservative_not_necessary) ... ok
+test_continuation_checker_has_no_producer_imports (test_protocol.ContinuationPureTests.test_continuation_checker_has_no_producer_imports) ... ok
+test_equal_rank_tail_is_a_blocker (test_protocol.ContinuationPureTests.test_equal_rank_tail_is_a_blocker) ... ok
+test_feed_compaction_preserves_future_coverage (test_protocol.ContinuationPureTests.test_feed_compaction_preserves_future_coverage) ... ok
+test_k_plus_dirty_repair_bound (test_protocol.ContinuationPureTests.test_k_plus_dirty_repair_bound) ... ok
+test_noop_suffix_preserves_token_and_generation (test_protocol.ContinuationPureTests.test_noop_suffix_preserves_token_and_generation) ... ok
+test_suffix_rollback_is_rejected (test_protocol.ContinuationPureTests.test_suffix_rollback_is_rejected) ... ok
+test_buffer_tail_survives_top_deletion (test_protocol.ContinuationTokenTests.test_buffer_tail_survives_top_deletion) ... ok
+test_event_snapshot_and_forged_result_rejected (test_protocol.ContinuationTokenTests.test_event_snapshot_and_forged_result_rejected) ... ok
+test_co_resident_row_count_bound (test_protocol.CorpusStatisticsBoundaryTests.test_co_resident_row_count_bound) ... ok
+test_unchanged_document_rank_flip_and_false_old_boundary (test_protocol.CorpusStatisticsBoundaryTests.test_unchanged_document_rank_flip_and_false_old_boundary) ... ok
+test_checker_does_not_authenticate_issuer (test_protocol.QueryTests.test_checker_does_not_authenticate_issuer) ... ok
+test_conservative_boundary_not_necessity (test_protocol.QueryTests.test_conservative_boundary_not_necessity) ... ok
+test_cross_replica_receipt_composition (test_protocol.QueryTests.test_cross_replica_receipt_composition) ... ok
+test_cross_request_rejected (test_protocol.QueryTests.test_cross_request_rejected) ... ok
+test_exact_certificate (test_protocol.QueryTests.test_exact_certificate) ... ok
+test_foreign_epoch_rejected (test_protocol.QueryTests.test_foreign_epoch_rejected) ... ok
+test_forged_row_rejected (test_protocol.QueryTests.test_forged_row_rejected) ... ok
+test_forged_status_rejected (test_protocol.QueryTests.test_forged_status_rejected) ... ok
+test_lost_reply_retry_is_idempotent (test_protocol.QueryTests.test_lost_reply_retry_is_idempotent) ... ok
+test_partition_sound_partial (test_protocol.QueryTests.test_partition_sound_partial) ... ok
+test_strong_baseline_and_unsafe_control (test_protocol.QueryTests.test_strong_baseline_and_unsafe_control) ... ok
+test_wire_request_is_immutable_snapshot (test_protocol.QueryTests.test_wire_request_is_immutable_snapshot) ... ok
+test_admission_bounds (test_protocol.StateTests.test_admission_bounds) ... ok
+test_atomic_rewrite_and_delete (test_protocol.StateTests.test_atomic_rewrite_and_delete) ... ok
+test_checkpoint_opens_window (test_protocol.StateTests.test_checkpoint_opens_window) ... ok
+test_compaction_restart_no_resurrection (test_protocol.StateTests.test_compaction_restart_no_resurrection) ... ok
+test_epoch_install (test_protocol.StateTests.test_epoch_install) ... ok
+test_gap_and_duplicate (test_protocol.StateTests.test_gap_and_duplicate) ... ok
+test_gap_free_receipt_required (test_protocol.StateTests.test_gap_free_receipt_required) ... ok
+test_local_score_and_alternate (test_protocol.StateTests.test_local_score_and_alternate) ... ok
+test_oracle_missing_history_rejected (test_protocol.StateTests.test_oracle_missing_history_rejected) ... ok
+test_postings_after_updates (test_protocol.StateTests.test_postings_after_updates) ... ok
+test_base_and_commit_inventory (test_real_history.RealHistoryTest.test_base_and_commit_inventory) ... ok
+test_function_change_projection (test_real_history.RealHistoryTest.test_function_change_projection) ... ok
+test_oracle_changes_are_discriminating_and_bounded (test_real_history.RealHistoryTest.test_oracle_changes_are_discriminating_and_bounded) ... ok
+test_query_strata_and_targeted_plans (test_real_history.RealHistoryTest.test_query_strata_and_targeted_plans) ... ok
+test_bib_parser_reads_all_records_and_required_fields (test_release_validation.ReleaseValidationTest.test_bib_parser_reads_all_records_and_required_fields) ... ok
+test_claim_evidence_paths_exist (test_release_validation.ReleaseValidationTest.test_claim_evidence_paths_exist) ... ok
+test_frozen_results_and_negative_controls (test_release_validation.ReleaseValidationTest.test_frozen_results_and_negative_controls) ... ok
+test_history_base_and_commit_projection_metadata (test_release_validation.ReleaseValidationTest.test_history_base_and_commit_projection_metadata) ... ok
+test_normalize_title_ignores_latex_punctuation (test_release_validation.ReleaseValidationTest.test_normalize_title_ignores_latex_punctuation) ... ok
+test_parser_rejects_duplicate_bib_key (test_release_validation.ReleaseValidationTest.test_parser_rejects_duplicate_bib_key) ... ok
+test_reference_ledgers_close_without_paper (test_release_validation.ReleaseValidationTest.test_reference_ledgers_close_without_paper) ... ok
+
+----------------------------------------------------------------------
+Ran 50 tests in 1.773s
+
+OK
