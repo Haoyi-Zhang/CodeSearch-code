@@ -23,7 +23,7 @@ All six commits in the base-to-head interval whose published patch changes or ad
 
 The campaign runs all 64 query seeds already excluded from the indexed corpus plus four deterministic plans derived from rare stable labels in the changed functions. The four targeted plans ensure the oracle changes on ten query/commit observations; they are selected by a frozen rule, not by measured communication. There is no human or production query log.
 
-Each of three logical shards has two source replicas, each in a distinct spawned child process and loopback listener. After the third commit, one process is terminated rather than logically disabled. A fresh process with a different PID starts from the frozen base and replays the admitted events. Final snapshots from all six processes are compared with an independently reconstructed map. A separate both-owner outage probe must return partial and refuse overlay completeness, then recover to an exact complete answer after healing.
+Each of three logical shards has two source replicas, each in a distinct spawned child process and loopback listener. Before delivery of the third projected commit, one process is terminated rather than logically disabled. A fresh process with a different PID starts from the frozen base and replays the admitted events. Final snapshots from all six processes are compared with an independently reconstructed map. A separate both-owner outage probe must return partial and refuse overlay completeness, then recover to an exact complete answer after healing.
 
 ## Reproduction and non-claims
 

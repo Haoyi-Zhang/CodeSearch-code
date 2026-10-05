@@ -67,7 +67,7 @@ Let `d` be the number of distinct identifiers written in the complete suffix aft
 
 **Theorem 2 (k+d sufficiency).** Under the frozen body-local score and complete suffix, a prefix of length `k+d` plus the suffix removes that shard as a blocker whenever its target state contains enough candidates relevant to the global threshold; otherwise exhaustion is explicit.
 
-The implementation fails closed when `k+d` exceeds `MAX_PREFIX=64`; it does not truncate the claimed sufficient length. A reserve can be requested for future reuse, but the primary campaign uses capacity `k=5` and repairs only an actual blocker.
+The sufficient-length helper rejects a bound above MAX_PREFIX=64. The coordinator then attempts a 64-row prefix marked guaranteed=False; only successful no-blocker certification, not the k+d guarantee, permits a complete result. A reserve can be requested for future reuse. The primary campaign starts with capacity `k=5`, repairs only a current blocker, and retains each successful repair's requested capacity.
 
 ## 8. Stateful checker and event-feed boundary
 
