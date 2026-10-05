@@ -51,7 +51,7 @@ At target vector `T`, merge the candidate buffers of all covered shards and take
 
 **Theorem 1 (no blocker implies exact top-k).** If all shards are covered and there is no blocker, `R` is exactly the top-k at `T`.
 
-Every row in `R` is sound by Lemma 1. Any target-live positive row omitted from the union belongs to some shard and has key at least that shard’s tail by Lemma 2. With `k` returned rows and the kth key strictly better than every nonempty tail, no omitted row can enter the result. When fewer than `k` rows exist, exactness requires every tail to be exhausted. Deterministic identifier tie-breaking makes the strict comparison sufficient at equal scores.
+Every row in `R` is sound by Lemma 1. Any target-live positive row omitted from the union belongs to some shard and has key at least that shard’s tail by Lemma 2. With `k` returned rows and the kth key strictly better than every nonempty tail, no omitted row can enter the result. With fewer than `k` known rows, this no-blocker rule certifies exactness when every tail is exhausted. Deterministic identifier tie-breaking makes the strict comparison sufficient at equal scores.
 
 If a shard is missing, rows from covered shards remain sound but completeness is not asserted. If a tail blocks, the returned rows may already equal the oracle; the conservative online test does not establish that equality. The status therefore distinguishes `partial`, `rank-underdetermined`, and `complete`.
 
