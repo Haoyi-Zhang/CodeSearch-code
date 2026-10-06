@@ -19,8 +19,10 @@ import sys
 import time
 
 ROOT = Path(__file__).resolve().parent
+from continuation_limits import BATCH_SECONDS
+
 MAX_WORKERS = 2
-BATCH_DEADLINE_SECONDS = 135
+BATCH_DEADLINE_SECONDS = BATCH_SECONDS
 TRACE_DEADLINE_SECONDS = 60
 CHILD_ADDRESS_SPACE_BYTES = 3 * 1024**3
 PRIMARY_CASES = (

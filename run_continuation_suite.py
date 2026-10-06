@@ -14,6 +14,7 @@ import resource
 import subprocess
 import sys
 import time
+from continuation_limits import SUITE_SECONDS
 
 ROOT=Path(__file__).resolve().parent
 CASES=('fresh','index-lag','log-gap','partition','crash','rebalance','hot-shard','compaction','rank-churn')
@@ -80,14 +81,14 @@ def main() -> None:
     records=[];error=None
     try:
         for index,parts in enumerate(commands,1):
-            remaining=170-(time.monotonic()-start)
-            if remaining<=0: raise TimeoutError('overall 170-second continuation-suite deadline')
+            remaining=SUITE_SECONDS-(time.monotonic()-start)
+            if remaining<=0: raise TimeoutError(f'overall {SUITE_SECONDS}-second continuation-suite deadline')
             wall=time.monotonic();before=resource.getrusage(resource.RUSAGE_CHILDREN)
             log=logs/f'command-{index:02d}.txt'
             with log.open('w',encoding='utf-8') as output:
                 output.write('Command: python '+' '.join(parts)+'\n');output.flush()
                 process=subprocess.run([sys.executable,*parts],cwd=ROOT,stdout=output,stderr=subprocess.STDOUT,
-                    timeout=min(remaining,165),check=False,preexec_fn=limits,
+                    timeout=remaining,check=False,preexec_fn=limits,
                     env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1','PYTHONHASHSEED':'0'})
             after=resource.getrusage(resource.RUSAGE_CHILDREN)
             record={'command':['python',*parts],'exit_code':process.returncode,
@@ -112,7 +113,7 @@ def main() -> None:
                 'maximum_child_rss_kib':after.ru_maxrss,
                 'driver_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
                 'bounds':{'workers':MAX_TRACE_WORKERS,'stage_workers':1,'maximum_trace_workers':MAX_TRACE_WORKERS,
-                          'child_address_space_bytes':3*1024**3,'overall_deadline_seconds':170},
+                          'child_address_space_bytes':3*1024**3,'overall_deadline_seconds':SUITE_SECONDS},
                 'scope':('unit tests, finite token cases, 18 primary traces, eight development traces, '
                          'and independent source/checker replay; test, finite, batch, and analysis stages '
                          'are sequential, while the batch uses at most two independent trace workers')}

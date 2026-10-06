@@ -263,7 +263,7 @@ def build_real_history(root: Path, fixture: dict | None = None) -> dict:
         "base_query_count": len(fixture["queries"]),
         "targeted_queries": targeted,
         "git_history": {
-            "input": str(HISTORY_INPUT),
+            "input": HISTORY_INPUT.as_posix(),
             "repository": specification["repository"],
             "base": specification["base"],
             "observed_head": specification["observed_head"],

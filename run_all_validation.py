@@ -6,6 +6,7 @@ is intentionally separate so the artifact also works without a paper directory.
 """
 from __future__ import annotations
 import json,os,subprocess,sys,time
+from continuation_limits import SUITE_SECONDS
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 ENV={**os.environ,'PYTHONDONTWRITEBYTECODE':'1','PYTHONHASHSEED':'0'}
@@ -19,7 +20,7 @@ def main():
         then=time.monotonic();log=ROOT/'results'/('aggregate-'+label+'.log')
         try:
             result=subprocess.run([sys.executable,script],cwd=ROOT,env=ENV,text=True,
-                   stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=240)
+                   stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=max(240,SUITE_SECONDS+30))
             log.write_text(result.stdout.replace(str(ROOT),'$ARTIFACT'),encoding='utf-8')
             records.append({'stage':label,'command':['python',script],'exit_code':result.returncode,
                'wall_seconds':time.monotonic()-then,'log':str(log.relative_to(ROOT))})

@@ -40,7 +40,7 @@ def build(root: Path) -> dict:
                         counter[qual] += 1
                         start = min([node.lineno] + [x.lineno for x in node.decorator_list])
                         code = ''.join(lines[start-1:node.end_lineno])
-                        ident = f'{repo.name}/{path.relative_to(repo)}:{qual}:{counter[qual]}'
+                        ident = f'{repo.name}/{path.relative_to(repo).as_posix()}:{qual}:{counter[qual]}'
                         if len(code.encode()) > 20000:
                             excluded.append({'id':ident,'reason':'fragment-byte-bound'})
                         else:
@@ -52,7 +52,7 @@ def build(root: Path) -> dict:
                                 if len(terms) >= 2:
                                     body = 'b' + str(len(payloads)).zfill(5)
                                     payloads[body] = {'source':code, 'features':list(terms),
-                                        'origin':str(path.relative_to(root)), 'lines':[start,node.end_lineno]}
+                                        'origin':path.relative_to(root).as_posix(), 'lines':[start,node.end_lineno]}
                                     items.append((ident,body))
                                 else:
                                     excluded.append({'id':ident,'reason':'fewer-than-two-labels'})

@@ -24,6 +24,7 @@ class RealHistoryTest(unittest.TestCase):
             hashlib.sha256(source).hexdigest(), history["base"]["file_sha256"]
         )
         self.assertTrue((ROOT / HISTORY_INPUT).is_file())
+        self.assertEqual("inputs/git-history/cachetools-function-history.json", history["input"])
         self.assertEqual(6, len(history["stages"]))
         self.assertEqual([0, 6, 0], [len(items) for items in self.fixture["history"]])
         self.assertEqual(
@@ -59,6 +60,19 @@ class RealHistoryTest(unittest.TestCase):
             for _, body in event["changes"]:
                 self.assertIn(body, self.fixture["payloads"])
                 self.assertGreaterEqual(len(self.fixture["payloads"][body]["features"]), 2)
+
+    def test_replacements_use_the_retained_identifier_namespace(self) -> None:
+        # Three existing functions are replaced; only __delitem is newly added.
+        # Host path separators must not turn a replacement into an insertion.
+        base_ids = set().union(*(set(state) for state in self.fixture["initial"]))
+        changed_ids = {ident for event in self.fixture["history"][1]
+                       for ident, _ in event["changes"]}
+        self.assertEqual(3, len(changed_ids & base_ids))
+        self.assertEqual(
+            {"cachetools/cachetools/__init__.py:TLRUCache.__delitem:1"},
+            changed_ids - base_ids,
+        )
+        self.assertTrue(all('\\' not in ident for ident in base_ids))
 
     def test_query_strata_and_targeted_plans(self) -> None:
         self.assertEqual(64, self.fixture["base_query_count"])

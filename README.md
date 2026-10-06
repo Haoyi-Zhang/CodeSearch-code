@@ -14,6 +14,16 @@ python run_all_validation.py
 
 The driver runs three complete bounded suites and then validates the evidence. It does not silently skip missing scripts. Detailed logs and actual timings are in `results/`; a failure returns a nonzero exit code. Individual entrypoints are `run_continuation_suite.py`, `run_real_history_suite.py`, and `run_suite.py`. `refresh_resource_ledger.py` synchronizes the resource notes after a run. `validate_release.py` checks the existing evidence without rerunning it. The paper directory is optional for scientific execution; `--paper-dir ../paper --project-root ..` adds manuscript checks after the paper is built.
 
+The standalone repository's `.github/workflows/scientific-checks.yml` runs this complete offline driver on pushes to `main` and manual dispatch. The job has a 30-minute limit and a 1,500-second campaign timeout, installs no scientific dependencies, and retains raw output and failures. It regenerates a disposable copy while preserving the checkout and a separate copy of the retained input results. Artifact collection runs even when the campaign fails; a workflow definition alone is not evidence of successful execution.
+
+The continuation deadlines are 300 seconds for the batch and 420 seconds for
+the suite, both for ordinary commands and the hosted workflow. They may be
+increased with `P016_BATCH_SECONDS` and `P016_SUITE_SECONDS`, up to 600 seconds;
+the suite allowance must exceed the batch allowance. Workloads, semantic
+comparisons, memory limits, and the two-worker bound are unchanged. The retained
+run used these allowances and does not establish completion within the historical
+135-second batch and 170-second suite limits.
+
 ## Evidence and analysis units
 
 There are 18 primary case/seed traces and eight development traces, with real batch logs and the independent replay stage. Each primary policy has 4,536 calls. The public-history projection has 408 calls per policy and six independent source processes on one host. The cold-query suite preserves the unfavorable prefix-repair comparison. Unit and regression tests cover query/plan/k/epoch binding and failure-atomic state transitions; finite enumerations cover 220,997 explicitly bounded cases.

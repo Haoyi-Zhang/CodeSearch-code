@@ -1,0 +1,67 @@
+name: Bounded scientific checks
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scientific-checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONUTF8: '1'
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONHASHSEED: '0'
+      # Keep every case and both workers; hosted runners receive a separately
+      # recorded wall allowance, not a relaxed semantic comparison.
+      P016_BATCH_SECONDS: '300'
+      P016_SUITE_SECONDS: '420'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Preserve input results and run the complete offline campaign
+        shell: python
+        run: |
+          import json, os, pathlib, shutil, subprocess, sys, time
+          source = pathlib.Path(os.environ['GITHUB_WORKSPACE'])
+          # This workflow belongs to the standalone artifact repository.
+          if not (source / 'run_all_validation.py').is_file():
+              raise SystemExit('Expected the standalone P016 artifact at repository root')
+          packet = pathlib.Path(os.environ['RUNNER_TEMP']) / 'p016-scientific'
+          packet.mkdir()
+          # Original checkout and retained evidence are never regenerated in place.
+          shutil.copytree(source / 'results', packet / 'retained-results')
+          work = packet / 'work'
+          shutil.copytree(source, work, ignore=shutil.ignore_patterns('.git', '__pycache__', '*.pyc'))
+          start = time.monotonic()
+          command = [sys.executable, '-B', '-u', 'run_all_validation.py']
+          outcome = {'command': command, 'timeout_seconds': 1500, 'exit_code': None}
+          try:
+              with (packet / 'raw-output.log').open('w', encoding='utf-8') as stream:
+                  result = subprocess.run(command, cwd=work, stdout=stream,
+                                          stderr=subprocess.STDOUT, timeout=1500)
+              outcome['exit_code'] = result.returncode
+          except subprocess.TimeoutExpired as exc:
+              outcome['error'] = str(exc)
+              outcome['exit_code'] = 124
+          finally:
+              outcome['wall_seconds'] = time.monotonic() - start
+              (packet / 'workflow-outcome.json').write_text(json.dumps(outcome, indent=2) + '\n')
+          raise SystemExit(outcome['exit_code'])
+      - name: Retain raw outputs, failures, and the original evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: p016-scientific-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/p016-scientific
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
