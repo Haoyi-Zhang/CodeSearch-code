@@ -127,7 +127,7 @@ class Replica:
             length = req['length']
             if not 0 <= length <= MAX_PREFIX:
                 return {'error': 'prefix-bound'}
-            rows = self.search.rows(plan)
+            rows = self.search.rows(plan, limit=length + 1 if isinstance(length, int) else None)
             return {'kind':'prefix', 'shard':self.shard, 'epoch':self.epoch,
                     'plan':plan, 'at':self.index_at, 'rows':rows[:length],
                     'boundary':list(key(rows[length])) if len(rows)>length else None}
@@ -148,7 +148,8 @@ class Replica:
                 for ident, body in self.journal[n]['changes']:
                     final[ident] = body
             live = {i:b for i,b in final.items() if b is not None}
-            candidates = self.search.rows(plan, set(final))[:k]
+            candidates = self.search.rows(plan, set(final),
+                                          limit=int(k) if isinstance(k, int) else None)[:k]
             candidates += ranked(live, self.payloads, plan)[:k]
             return {'kind': 'overlay', 'shard': self.shard, 'epoch': self.epoch,
                     'at': target, 'plan': plan, 'rows': sorted(candidates, key=key)[:k]}

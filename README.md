@@ -26,9 +26,21 @@ run used these allowances and does not establish completion within the historica
 
 ## Evidence and analysis units
 
+For a portable, computation-only ranking regression, run
+`python -B -m unittest discover -s tests -p test_bounded_selection.py -v`.
+It compares bounded selection with an independent literal scan, checks prefix
+boundaries and exact overlay after repeated writes, and validates in-memory
+continuation receipts with the independent checkers. It opens no sockets and
+runs no campaign. The complete suite's existing unit discovery includes these
+tests. Prefix selection keeps length + 1 rows internally; overlay selects the
+top-k unchanged rows using the same score/ID order. Posting enumeration and the
+full-result default remain unchanged. No runtime gain has been measured for
+this selection path; retained campaign timings and test counts are not a fresh
+execution of it.
+
 There are 18 primary case/seed traces and eight development traces, with real batch logs and the independent replay stage. Each primary policy has 4,536 calls. The public-history projection has 408 calls per policy and six independent source processes on one host. The cold-query suite preserves the unfavorable prefix-repair comparison. Unit and regression tests cover query/plan/k/epoch binding and failure-atomic state transitions; finite enumerations cover 220,997 explicitly bounded cases.
 
-These assets are new executions of the repaired bounded implementation. They are not claimed to be restored original files. The three canonical run JSON files and their named logs are the resource sources. Source--coordinator bytes include setup, reconfiguration, update feed and repair; client response delivery and transport framing are excluded. Continuation and mirror consume the same update feed. Their finite-horizon total difference is not evidence of lower steady-state update traffic.
+The retained campaign assets record executions of the bounded implementation, not the additional selection regression above. They are not claimed to be restored original files. The three canonical run JSON files and their named logs are the resource sources. Source--coordinator bytes include setup, reconfiguration, update feed and repair; client response delivery and transport framing are excluded. Continuation and mirror consume the same update feed. Their finite-horizon total difference is not evidence of lower steady-state update traffic.
 
 Independent analysis reconstructs source history before checking responses; it does not import the coordinator or service implementations. The paper generator uses 18 complete case/seed pairs for descriptive uncertainty. Queries inside a shared trace are not treated as independent observations.
 

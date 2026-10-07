@@ -1,6 +1,7 @@
 """Frozen syntactic retrieval model and certificate construction (standard library)."""
 from __future__ import annotations
 import ast
+from heapq import nsmallest
 import textwrap
 from typing import Any
 
@@ -132,7 +133,11 @@ class PostingIndex:
         for ident, body in event['changes']:
             self.put(ident, body)
 
-    def rows(self, plan: list[list[str]], exclude: set[str] | None = None) -> list[dict]:
+    def rows(self, plan: list[list[str]], exclude: set[str] | None = None,
+             *, limit: int | None = None) -> list[dict]:
+        """Keep full enumeration; optionally select an exact ordered prefix."""
+        if limit is not None and (type(limit) is not int or limit < 0):
+            raise ValueError('row limit must be a nonnegative integer')
         excluded = exclude or set()
         maximum: dict[str, int] = {}
         for alternate in plan:
@@ -143,4 +148,7 @@ class PostingIndex:
                         counts[ident] = counts.get(ident, 0) + 1
             for ident, count in counts.items():
                 maximum[ident] = max(maximum.get(ident, 0), count)
-        return sorted(({'id':i, 'body':self.state[i], 'score':v} for i,v in maximum.items()), key=key)
+        # Construct every positive row even for limit zero: bounded selection
+        # does not skip posting enumeration or state lookup validation.
+        rows = [{'id':i, 'body':self.state[i], 'score':v} for i,v in maximum.items()]
+        return sorted(rows, key=key) if limit is None else nsmallest(limit, rows, key=key)
