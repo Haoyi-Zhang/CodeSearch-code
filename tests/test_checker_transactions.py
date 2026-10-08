@@ -54,6 +54,24 @@ class TransactionTests(unittest.TestCase):
             else: state[ident]=body
         self.assertEqual(list(state),['b'])
 
+    def test_deleted_omitted_row_can_leave_a_conservative_tail(self):
+        feed = self.event_entry([['b', None]])
+        self.cc.accept_events(feed, self.owners, 0)
+        self.tokens[0] = advance_token(self.tokens[0], feed['reply'], self.payloads)
+        self.assertEqual(self.tokens[0]['rows'], [{'id': 'a', 'body': 'b1', 'score': 1}])
+        self.assertEqual(self.tokens[0]['tail'], [-1, 'b'])
+        result = merge_tokens(self.query, [1, 0, 0], 0, self.tokens)
+        self.assertTrue(self.cc.check_result(result, self.query, [1, 0, 0], 0,
+                                             self.owners, self.entries, {}))
+
+    def test_empty_tail_stays_empty_without_a_dropped_candidate(self):
+        token = deepcopy(self.tokens[0])
+        token['tail'] = None
+        feed = self.event_entry([['b', None]])
+        advanced = advance_token(token, feed['reply'], self.payloads)
+        self.assertIsNone(advanced['tail'])
+        self.assertEqual(advanced['rows'], token['rows'])
+
     def test_rebound_plan_and_k_are_rejected_without_mutation(self):
         for field,value in [('plan',[['name:y']]),('k',2),('choice',1)]:
             q=deepcopy(self.query);q[field]=value

@@ -4,7 +4,13 @@ This standalone artifact accompanies **Continuation Certificates for Federated C
 
 ## Reproduction
 
-Requirements: Python 3.10 or later on a POSIX system, ordinary local TCP loopback access and sufficient memory for the bounded harness. No third-party Python package, network download, GPU or model service is needed. Retained third-party programs are parsed as source text, not imported or executed.
+Requirements for the complete reproduction driver: Linux, Python 3.10 or later,
+util-linux `prlimit` at `/usr/bin/prlimit`, GNU `time` at `/usr/bin/time`, ordinary
+local TCP loopback access and sufficient memory for the bounded harness.
+The computation-only regressions below are portable and do not require those
+Linux utilities. No third-party Python package, network download, GPU or model
+service is needed. Retained third-party programs are parsed as source text,
+not imported or executed.
 
 Run from this directory:
 
