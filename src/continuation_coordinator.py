@@ -100,11 +100,12 @@ async def fetch_events(network, feed: FeedStore, shard: int, hi: int,
 
 
 async def fetch_prefix(network, query: dict, shard: int, epoch: int,
-                       owners: list[list[int]], length: int):
+                       owners: list[list[int]], length: int, *, eligible):
+    """Select the first responding owner whose prefix can be composed."""
     for node in owners[shard]:
         ident, reply = await network.rpc(node, {'op':'prefix','shard':shard,'epoch':epoch,
                                                 'query':query,'length':length})
-        if reply and reply.get('kind') == 'prefix':
+        if reply and reply.get('kind') == 'prefix' and eligible(reply):
             return ident, reply
     return None, None
 
@@ -137,8 +138,9 @@ class ContinuationSession:
         current = self.tokens.setdefault(query['id'], {})
         for shard in range(3):
             ident, reply = await fetch_prefix(network, query, shard, epoch, owners,
-                                              max(query['k'], self.base_capacity))
-            if reply is None or reply['at'] != cut[shard]:
+                                              max(query['k'], self.base_capacity),
+                                              eligible=lambda prefix: prefix['at'] == cut[shard])
+            if reply is None:
                 continue
             token = token_from_prefix(query, reply, max(query['k'], self.base_capacity))
             current[shard] = token
@@ -190,9 +192,11 @@ class ContinuationSession:
                 required = MAX_PREFIX
                 guaranteed = False
             length = max(self.base_capacity, required)
-            ident, prefix = await fetch_prefix(network, query, blocker, epoch, owners, length)
-            if prefix is None or prefix['at'] > cut[blocker] or \
-                    not self.feed.covers(blocker, prefix['at'], cut[blocker]):
+            ident, prefix = await fetch_prefix(
+                network, query, blocker, epoch, owners, length,
+                eligible=lambda candidate: candidate['at'] <= cut[blocker] and
+                    self.feed.covers(blocker, candidate['at'], cut[blocker]))
+            if prefix is None:
                 continue
             refreshed = token_from_prefix(query, prefix, length)
             if refreshed['at'] < cut[blocker]:
