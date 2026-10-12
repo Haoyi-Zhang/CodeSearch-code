@@ -7,7 +7,7 @@
     },
     "external_resources": {
       "reference_urls_closed": true,
-      "resources": 79,
+      "resources": 80,
       "source_urls_closed": true,
       "type_counts": {
         "formatting asset": 1,
@@ -15,10 +15,10 @@
         "official venue rule": 1,
         "public Git commit metadata and patches": 1,
         "public licensed source text": 8,
-        "scholarly paper": 67
+        "scholarly paper": 68
       },
-      "unique_names": 79,
-      "unique_urls": 79
+      "unique_names": 80,
+      "unique_urls": 80
     },
     "hygiene": {
       "forbidden_files": 0,
@@ -46,28 +46,30 @@
       "selected_commits": 6
     },
     "references": {
-      "bibtex_records": 67,
+      "bibtex_records": 68,
       "category_counts": {
         "authenticated and verifiable queries": 7,
         "federated retrieval and code search": 12,
         "incremental maintenance and caching": 14,
         "replication, consistency, and logs": 24,
-        "top-k and continuous queries": 10
+        "top-k and continuous queries": 11
       },
-      "citation_key_occurrences": 72,
+      "citation_key_occurrences": 73,
       "complete_main_text_records": 21,
       "minimum_required": 60,
-      "record_or_selected_passage_checks": 46,
-      "references": 67,
-      "rendered_bibitems": 67,
-      "unique_cited_keys": 67,
+      "record_or_selected_passage_checks": 47,
+      "references": 68,
+      "rendered_bibitems": 68,
+      "unique_cited_keys": 68,
       "verification_basis_counts": {
+        "author university publication record": 1,
         "official CIDR proceedings PDF": 1,
         "official NetDB event program": 1,
         "official OpenReview conference record": 1,
         "official USENIX proceedings record": 24,
         "official arXiv preprint record": 1,
-        "publisher DOI record": 35,
+        "official venue paper PDF": 1,
+        "publisher DOI record": 34,
         "scholarly archive or proceedings record": 4
       }
     },

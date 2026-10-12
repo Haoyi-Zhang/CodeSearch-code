@@ -19,6 +19,12 @@ variant: the bounded buffer, tail and global stopping contract are effectively
 the continuation method. The shared interface and checker do not establish
 independent authorship or a separate algorithmic novelty.
 
+Extra-candidate reserves and refill maintenance are established by Yi et al.,
+*Efficient Maintenance of Materialized Top-k Views* (ICDE 2003, pp. 189--200).
+The comparator here matches the distributed evidence interfaces and fixed
+capacity grid. It does not implement that paper's adaptive reserve procedure
+or reproduce its probabilistic cost analysis.
+
 Both refill variants use the same k + distinct-dirty-ID upper bound from the
 retained feed floor and the same 64-row cap. Successful refills retain that
 capacity. No source keeps registered-query state. No policy sees the oracle

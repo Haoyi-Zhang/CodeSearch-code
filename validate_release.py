@@ -21,7 +21,7 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent
 MIN_REFERENCES = 60
-EXPECTED_REFERENCES = 67
+EXPECTED_REFERENCES = 68
 EXPECTED_PROJECT_ENTRIES = {"paper", "artifact", "README.md"}
 SAFE_CONTINUATION_POLICIES = ("continuation", "overlay", "cut-cache", "mirror")
 SAFE_REAL_HISTORY_POLICIES = ("continuation", "overlay", "cut-cache")
@@ -33,6 +33,7 @@ ALLOWED_REFERENCE_DOMAINS = {
     "www.microsoft.com",
     "arxiv.org",
     "openreview.net",
+    "cse.hkust.edu.hk",
 }
 FORBIDDEN_NAMES = {
     ".git", ".hg", ".svn", "__pycache__", ".pytest_cache", ".mypy_cache",
@@ -127,7 +128,7 @@ def validate_references(paper_dir: Path | None) -> dict[str, object]:
 
     category_counts = Counter(row["category"] for row in audit_rows)
     expected_categories = {
-        "top-k and continuous queries": 10,
+        "top-k and continuous queries": 11,
         "incremental maintenance and caching": 14,
         "replication, consistency, and logs": 24,
         "federated retrieval and code search": 12,
@@ -137,8 +138,8 @@ def validate_references(paper_dir: Path | None) -> dict[str, object]:
     depth_counts = Counter(row["verification_depth"] for row in audit_rows)
     require(sum("complete-main-text" in key for key in depth_counts for _ in range(depth_counts[key])) == 21,
             f"expected 21 complete-main-text calibration records: {dict(depth_counts)}")
-    require(sum("no complete-paper claim" in key for key in depth_counts for _ in range(depth_counts[key])) == 46,
-            f"expected 46 record/selected-passage checks: {dict(depth_counts)}")
+    require(sum("no complete-paper claim" in key for key in depth_counts for _ in range(depth_counts[key])) == 47,
+            f"expected 47 record/selected-passage checks: {dict(depth_counts)}")
 
     titles: dict[str, str] = {}
     identifiers: dict[str, str] = {}
@@ -150,7 +151,8 @@ def validate_references(paper_dir: Path | None) -> dict[str, object]:
                 f"reference not verified: {key}")
         require(verified["metadata_match"] == "title; year; venue; author list",
                 f"incomplete metadata match declaration: {key}")
-        require(verified["checked_on"] == "2026-09-18", f"inherited reference ledger date changed: {key}")
+        expected_date = "2026-10-13" if key == "yi2003topk" else "2026-09-18"
+        require(verified["checked_on"] == expected_date, f"reference ledger date changed: {key}")
         require(row["title"] == verified["title"], f"title differs across ledgers: {key}")
         require(row["year"] == verified["year"], f"year differs across ledgers: {key}")
         require(row["venue"] == verified["venue"], f"venue differs across ledgers: {key}")
@@ -180,7 +182,7 @@ def validate_references(paper_dir: Path | None) -> dict[str, object]:
         "category_counts": dict(sorted(category_counts.items())),
         "verification_basis_counts": dict(sorted(basis_counts.items())),
         "complete_main_text_records": 21,
-        "record_or_selected_passage_checks": 46,
+        "record_or_selected_passage_checks": 47,
     }
 
     if paper_dir is not None:
@@ -620,7 +622,7 @@ def validate_inputs() -> dict[str, object]:
 
 def validate_external_resources() -> dict[str, object]:
     rows = read_csv(ROOT / "external_resources.csv")
-    require(len(rows) == 79, f"expected 79 external resource rows, found {len(rows)}")
+    require(len(rows) == 80, f"expected 80 external resource rows, found {len(rows)}")
     names = [row["name"].strip() for row in rows]
     urls = [row["url"].strip() for row in rows]
     require(len(names) == len(set(name.lower() for name in names)),
@@ -634,14 +636,17 @@ def validate_external_resources() -> dict[str, object]:
         )), f"incomplete external resource row: {row.get('name', '<unknown>')}")
         require(urlparse(row["url"]).scheme == "https",
                 f"non-HTTPS external resource: {row['name']}")
-        require(re.fullmatch(r"2026-09-(10|11|12|13|16|18)", row["access_date"]) is not None,
+        current_nearest = row["url"] == "https://cse.hkust.edu.hk/~yike/topk/icde03.pdf"
+        valid_date = (row["access_date"] == "2026-10-13" if current_nearest else
+                      re.fullmatch(r"2026-09-(10|11|12|13|16|18)", row["access_date"]) is not None)
+        require(valid_date,
                 f"unexpected external-resource access date: {row['name']}")
         require(row["internals_modified"].lower().startswith("no"),
                 f"external resource was internally modified: {row['name']}")
 
     types = Counter(row["resource_type"] for row in rows)
     expected_types = {
-        "scholarly paper": 67,
+        "scholarly paper": 68,
         "public licensed source text": 8,
         "official venue rule": 1,
         "formatting asset": 1,
@@ -657,7 +662,7 @@ def validate_external_resources() -> dict[str, object]:
         row["url"] for row in rows if row["resource_type"] == "scholarly paper"
     }
     require(scholarly_urls == reference_urls,
-            "external-resource scholarly URLs differ from the 67 reference records")
+            "external-resource scholarly URLs differ from the 68 reference records")
 
     source_urls = {row["url"] for row in read_csv(ROOT / "inputs/source_inventory.csv")}
     retained_source_urls = {

@@ -49,7 +49,7 @@ def main():
                      f"{cost['acquisition'].get('bytes', 0):,}",
                      f"{cost['feed'].get('bytes', 0):,}", f"{cost['refill'].get('bytes', 0):,}"])
     table(paper/'generated/incremental_history_table.tex',
-          'Same-information published-history comparison at initial capacity 10 and two-event index lag. Source bytes are equal for continuation and both extra-candidate/refill variants; each stratum runs separately. Changed counts query/commit oracle changes.',
+          'Published-history comparison with capacity 10 and two-event index lag.',
           'tab:incremental-history', ['Query stratum', 'Calls', 'Changed', 'Acquire B', 'Feed B', 'Refill B'], rows)
     rows = []
     for policy, label in [('continuation', 'Continuation'), ('extra-local', 'Local extra/refill'),
@@ -64,7 +64,7 @@ def main():
             raise ValueError('phase sum')
         rows.append([label]+[f'{v:,}' for v in sums]+[f'{total:,}', sum(t['refill_shards'] for t in matched)])
     table(paper/'generated/incremental_refill_table.tex',
-          'Supplied generated rank-churn histories, seeds 2 and 3 combined: 2,016 calls/policy, 16 base-only queries active at every tick, initial capacity 5 and two-event index lag. All answers are exact and complete. Counts include acquisition, common feed and refill.',
+          'Generated rank-churn comparison with capacity 5 and two-event index lag.',
           'tab:incremental-refill', ['Policy', 'Acquire B', 'Feed B', 'Refill B', 'Total B', 'Refills'], rows)
     print(json.dumps({'result': 'PASS', 'tables': 2}))
 
