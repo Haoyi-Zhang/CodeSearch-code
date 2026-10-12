@@ -53,7 +53,23 @@ class Checker:
         return max(len(self.labels[body].intersection(alternate)) for alternate in plan)
 
     def ordered(self, rows: list[dict]) -> list[dict]:
+        self.check_rows(rows)
         return sorted(rows, key=lambda row: (-row['score'], row['id']))
+
+    @staticmethod
+    def check_rows(rows: list[dict]) -> None:
+        """Validate wire types before equality can equate True or 1.0 with 1."""
+        need(type(rows) is list, 'row list')
+        for row in rows:
+            need(type(row) is dict and set(row) == {'id', 'body', 'score'}, 'row schema')
+            need(isinstance(row['id'], str) and isinstance(row['body'], str), 'row identifiers')
+            need(type(row['score']) is int and row['score'] > 0, 'positive integer score')
+
+    @staticmethod
+    def check_tail(tail) -> None:
+        need(tail is None or (type(tail) is list and len(tail) == 2
+             and type(tail[0]) is int and tail[0] < 0
+             and isinstance(tail[1], str)), 'boundary schema')
 
     def check(self, cert: dict, trusted: dict[int, dict], query: dict, cut: list[int],
               epoch: int, owners: list[list[int]]) -> bool:
@@ -118,6 +134,7 @@ class Checker:
                 if len(expected) < query['k'] or (-expected[-1]['score'], expected[-1]['id']) >= tuple(boundary):
                     obstructed.append(shard)
         status = 'partial' if missing else 'rank-underdetermined' if obstructed else 'complete'
+        self.check_rows(cert['rows'])
         need(cert['rows'] == expected, 'candidate merge')
         need(cert['missing_shards'] == missing, 'coverage')
         need(cert['rank_blockers'] == obstructed, 'rank diagnosis')
@@ -150,6 +167,7 @@ class Checker:
                 candidates[row['id']] = row
         expected = self.ordered(list(candidates.values()))[:query['k']]
         covered = sorted(map(int,result['receipts']))
+        self.check_rows(result['rows'])
         need(result['rows'] == expected and result['coverage'] == covered, 'overlay merge')
         need(result['claim_complete'] == (covered == [0,1,2]), 'overlay completeness')
         return True
@@ -193,5 +211,5 @@ class Checker:
                     else:
                         view[ident] = body
             current.update(view)
-        return sum(current.get(r['id']) != r['body'] or self.value(r['body'], query['plan']) != r['score']
+        return sum(type(r['score']) is not int or current.get(r['id']) != r['body'] or self.value(r['body'], query['plan']) != r['score']
                    or r['score'] <= 0 for r in rows)

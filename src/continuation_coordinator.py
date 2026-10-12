@@ -111,12 +111,13 @@ async def fetch_prefix(network, query: dict, shard: int, epoch: int,
 
 
 class ContinuationSession:
-    def __init__(self, payloads: dict, feed: FeedStore, base_capacity: int = 5):
+    def __init__(self, payloads: dict, feed: FeedStore, base_capacity: int = 5, *, work=None):
         if not 1 <= base_capacity <= MAX_PREFIX:
             raise ValueError('base capacity')
         self.payloads = payloads
         self.feed = feed
         self.base_capacity = base_capacity
+        self.work = work
         self.tokens: dict[str, dict[int, dict]] = {}
 
     def reset(self) -> None:
@@ -158,7 +159,8 @@ class ContinuationSession:
                 if not self.feed.covers(shard, token['at'], cut[shard]):
                     missing.add(shard); continue
                 current[shard] = advance_token(
-                    token, self.feed.receipt(shard, token['at'], cut[shard]), self.payloads)
+                    token, self.feed.receipt(shard, token['at'], cut[shard]), self.payloads,
+                    work=self.work)
         return missing
 
     async def query(self, network, query: dict, cut: list[int], epoch: int,
@@ -167,7 +169,7 @@ class ContinuationSession:
         missing = self._advance_current(query, cut, epoch)
         current = self.tokens.setdefault(query['id'], {})
         result = merge_tokens(query, cut, epoch,
-                              {s:t for s,t in current.items() if s not in missing}, missing)
+                              {s:t for s,t in current.items() if s not in missing}, missing, work=self.work)
         repairs: dict[str, dict] = {}
         # A blocker may disappear after another shard raises the global kth key.
         # Repair one most-threatening shard at a time.  A fresh top-(k+d)
@@ -186,7 +188,7 @@ class ContinuationSession:
             suffix = self.feed.receipt(
                 blocker, self.feed.base[blocker], cut[blocker])['events']
             try:
-                required = sufficient_repair_length(query, suffix)
+                required = sufficient_repair_length(query, suffix, work=self.work)
                 guaranteed = True
             except ValueError:
                 required = MAX_PREFIX
@@ -202,14 +204,14 @@ class ContinuationSession:
             if refreshed['at'] < cut[blocker]:
                 refreshed = advance_token(
                     refreshed, self.feed.receipt(blocker, refreshed['at'], cut[blocker]),
-                    self.payloads)
+                    self.payloads, work=self.work)
             current[blocker] = refreshed
             repairs[str(blocker)] = {
                 'receipt': ident, 'capacity': length,
                 'required_by_k_plus_d': required, 'guaranteed': guaranteed,
             }
             result = merge_tokens(query, cut, epoch,
-                                  {s:t for s,t in current.items() if s not in missing}, missing)
+                                  {s:t for s,t in current.items() if s not in missing}, missing, work=self.work)
             if guaranteed and blocker in result['rank_blockers']:
                 raise AssertionError('k+d repair failed to remove blocker')
         result['repairs'] = deepcopy(repairs)

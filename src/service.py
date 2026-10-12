@@ -119,15 +119,15 @@ class Replica:
                     'at': self.index_at, 'state': sorted(self.index.items())}
         if op in {'prefix', 'delta', 'overlay'}:
             q = req['query']; k = q['k']; plan = q['plan']
-            if not 1 <= k <= MAX_K or not 1 <= len(plan) <= 2:
+            if type(k) is not int or not 1 <= k <= MAX_K or not 1 <= len(plan) <= 2:
                 return {'error': 'query-bound'}
             if any(not a or len(a) > 4 or len(a) != len(set(a)) for a in plan):
                 return {'error': 'query-schema'}
         if op == 'prefix':
             length = req['length']
-            if not 0 <= length <= MAX_PREFIX:
+            if type(length) is not int or not 0 <= length <= MAX_PREFIX:
                 return {'error': 'prefix-bound'}
-            rows = self.search.rows(plan, limit=length + 1 if isinstance(length, int) else None)
+            rows = self.search.rows(plan, limit=length + 1)
             return {'kind':'prefix', 'shard':self.shard, 'epoch':self.epoch,
                     'plan':plan, 'at':self.index_at, 'rows':rows[:length],
                     'boundary':list(key(rows[length])) if len(rows)>length else None}
@@ -148,8 +148,7 @@ class Replica:
                 for ident, body in self.journal[n]['changes']:
                     final[ident] = body
             live = {i:b for i,b in final.items() if b is not None}
-            candidates = self.search.rows(plan, set(final),
-                                          limit=int(k) if isinstance(k, int) else None)[:k]
+            candidates = self.search.rows(plan, set(final), limit=k)
             candidates += ranked(live, self.payloads, plan)[:k]
             return {'kind': 'overlay', 'shard': self.shard, 'epoch': self.epoch,
                     'at': target, 'plan': plan, 'rows': sorted(candidates, key=key)[:k]}

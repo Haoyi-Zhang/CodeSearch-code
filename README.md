@@ -50,6 +50,40 @@ The retained campaign assets record executions of the bounded implementation, no
 
 Independent analysis reconstructs source history before checking responses; it does not import the coordinator or service implementations. The paper generator uses 18 complete case/seed pairs for descriptive uncertainty. Queries inside a shared trace are not treated as independent observations.
 
+## Strict score admission and incremental comparison
+
+Scores are positive Python `int` values at source receipts, merged responses,
+serialized token admission and offline replay. JSON `true` and `1.0` are not
+integer scores, even though Python equality equates them with `1`. Rank tails
+likewise require a negative integer component. A rejected stateful response
+does not publish a staged transition. Benign data-only regressions run with:
+
+```sh
+python -B -m unittest discover -s tests -p test_score_admission.py -v
+python -B -m unittest discover -s tests -p test_incremental_comparison.py -v
+```
+
+The additional same-information comparison is portable and opens no sockets:
+
+```sh
+python -B compare_incremental.py
+python -B replay_incremental.py
+python -B compare_generated.py
+python -B replay_incremental.py --generated
+python -B generate_incremental_tables.py
+```
+
+The last command is optional and needs the sibling manuscript; the campaigns
+and replays do not. All outputs stay in `results/`, apart from the two optional
+manuscript tables. These commands are separate from the retained Linux
+resource-contract driver and do not compile the paper. See
+`docs/incremental-comparison.md` for the input, counter and fairness definitions.
+The closest global-threshold extra-candidate/refill variant matches continuation
+on payloads, state and counted work. Published-history traffic is also equal
+for the local variant; only the supplied generated histories with initial
+capacity five show its extra refills. No speed or general incremental-method
+dominance is claimed.
+
 ## Model and limits
 
 The ranker is fixed body-local AST-label overlap with deterministic unique-ID tie breaking. A missing-tail blocker is conservative, not an unconditional necessity theorem. Necessary new evidence is asserted only under the explicitly stated compatible strict-witness premise. Source identities, ordered logs, ownership installation and local-prefix completeness are trusted; Byzantine sources are outside the model. Public history is a function-level projection, and all processes share one host. There is no user study, workload prevalence claim, WAN benchmark, durable multi-host recovery result, or acceptance guarantee.

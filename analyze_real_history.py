@@ -67,6 +67,7 @@ def verify(trace: dict, fixture: dict) -> tuple[Counter, Counter]:
             if query != queries[query["id"]]:
                 raise AssertionError("query fixture mismatch")
             oracle = checker.oracle(fixture["initial"], fixture["history"], cut, query)
+            checker.check_rows(record["oracle"])
             if record["oracle"] != oracle:
                 raise AssertionError("oracle mismatch")
             if record["oracle_changed"] != (oracle != previous[query["id"]]):
@@ -148,6 +149,7 @@ def verify(trace: dict, fixture: dict) -> tuple[Counter, Counter]:
     oracle = checker.oracle(
         fixture["initial"], fixture["history"], probe["cut"], probe["query"]
     )
+    checker.check_rows(probe["exact"])
     if probe["exact"] != oracle or probe["healed"]["rows"] != oracle:
         raise AssertionError("fault-probe oracle")
     if probe["partial"]["status"] != "partial" or 0 not in probe["partial"]["missing_shards"]:

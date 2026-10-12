@@ -37,7 +37,19 @@ def score(terms: tuple[str, ...] | list[str], plan: list[list[str]]) -> int:
 
 
 def key(row: dict[str, Any]) -> tuple[int, str]:
+    if type(row['score']) is not int or row['score'] <= 0:
+        raise ValueError('positive integer score required')
     return (-row['score'], row['id'])
+
+
+def validate_rank_data(rows: list[dict], tail) -> None:
+    if type(rows) is not list:
+        raise ValueError('row list required')
+    for row in rows:
+        key(row)
+    if tail is not None and not (type(tail) is list and len(tail) == 2
+            and type(tail[0]) is int and tail[0] < 0 and isinstance(tail[1], str)):
+        raise ValueError('integer rank boundary required')
 
 
 def ranked(state: dict[str, str], payloads: dict[str, dict], plan: list[list[str]]) -> list[dict]:
@@ -87,6 +99,8 @@ def assemble(query: dict, cut: list[int], epoch: int, pairs: dict[str, list[int]
     lags: dict[str, int] = {}
     for shard, (p_id, d_id) in pairs.items():
         p, d = evidence[p_id]['reply'], evidence[d_id]['reply']
+        validate_rank_data(p['rows'], p['boundary'])
+        validate_rank_data(d['rows'], None)
         changed = set(d['changed'])
         for row in p['rows']:
             if row['id'] not in changed:
@@ -134,7 +148,7 @@ class PostingIndex:
             self.put(ident, body)
 
     def rows(self, plan: list[list[str]], exclude: set[str] | None = None,
-             *, limit: int | None = None) -> list[dict]:
+             *, limit: int | None = None, work: dict | None = None) -> list[dict]:
         """Keep full enumeration; optionally select an exact ordered prefix."""
         if limit is not None and (type(limit) is not int or limit < 0):
             raise ValueError('row limit must be a nonnegative integer')
@@ -144,6 +158,8 @@ class PostingIndex:
             counts: dict[str, int] = {}
             for term in alternate:
                 for ident in self.postings.get(term, ()):
+                    if work is not None:
+                        work['posting_visits'] = work.get('posting_visits', 0) + 1
                     if ident not in excluded:
                         counts[ident] = counts.get(ident, 0) + 1
             for ident, count in counts.items():
@@ -151,4 +167,6 @@ class PostingIndex:
         # Construct every positive row even for limit zero: bounded selection
         # does not skip posting enumeration or state lookup validation.
         rows = [{'id':i, 'body':self.state[i], 'score':v} for i,v in maximum.items()]
+        if work is not None:
+            work['positive_rows_built'] = work.get('positive_rows_built', 0) + len(rows)
         return sorted(rows, key=key) if limit is None else nsmallest(limit, rows, key=key)

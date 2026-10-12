@@ -58,6 +58,8 @@ def receipt_truth(trace: dict, checker: Checker) -> int:
         rep, req = entry['reply'], entry['request']
         kind = rep.get('kind')
         if kind not in {'prefix', 'delta', 'overlay'}: continue
+        checker.check_rows(rep['rows'])
+        if kind == 'prefix': checker.check_tail(rep['boundary'])
         shard, plan = rep['shard'], rep['plan']
         if kind == 'delta':
             assert 0 <= rep['lo'] <= rep['hi'] <= len(trace['history'][shard])
@@ -93,6 +95,7 @@ def inspect(path: Path, fixture: dict, checker: Checker) -> tuple[list[dict],dic
         if not t['alternates']: frozen['plan'] = frozen['plan'][:1]
         assert q == frozen and q['id'] != 'q000'
         exact = checker.oracle(t['initial'], t['history'], r['cut'], q)
+        checker.check_rows(r['oracle'])
         assert r['oracle'] == exact
         bodies = {(x['id'], x['body']) for x in exact}; ids = {x['id'] for x in exact}
         for o in r['observations']:

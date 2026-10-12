@@ -1,0 +1,889 @@
+{
+  "cost_scope": "same acquisition/feed/refill, state and instrumented source/coordinator work definitions as compare_incremental.py",
+  "inputs": [
+    "results\\continuation-traces\\continuation-rank-churn-seed2-capacity5.json.gz",
+    "results\\continuation-traces\\continuation-rank-churn-seed3-capacity5.json.gz"
+  ],
+  "query_rule": "first two of the frozen eight hash-selected base-only queries/project, selected before reading supplied histories; their initial seed IDs excluded",
+  "schema": "same-information-generated-v1",
+  "scope": "supplied generated rank-churn seeds 2/3; fixed base-only independent 16-query subset; every query active at all 63 ticks; matched L=5/10/16, k=5, two-event index lag; offline payload/work comparison, not the original activation schedule or new public history",
+  "trials": [
+    {
+      "calls": 1008,
+      "capacity": 5,
+      "checker_cpu_ns": 125000000,
+      "coordinator_cpu_ns_excluding_source": 187500000,
+      "coordinator_work": {
+        "assignment_visits": 3802,
+        "buffer_rows_visited": 9922,
+        "candidate_sort_rows": 10026,
+        "merge_rows_visited": 9926,
+        "score_evaluations": 2258,
+        "tail_tests": 3027
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 51040,
+      "oracle_changes": 10,
+      "policy": "continuation",
+      "query_group": "base-independent-16",
+      "refill_shards": 1,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 33888,
+          "messages": 96,
+          "returned_rows": 157,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {
+          "bytes": 1202,
+          "messages": 2,
+          "returned_rows": 10,
+          "source_cpu_ns": 0
+        }
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1806,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2065
+      },
+      "total_source_bytes": 78382,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 5,
+      "checker_cpu_ns": 125000000,
+      "coordinator_cpu_ns_excluding_source": 62500000,
+      "coordinator_work": {
+        "assignment_visits": 4173,
+        "buffer_rows_visited": 11755,
+        "candidate_sort_rows": 11850,
+        "merge_rows_visited": 11704,
+        "score_evaluations": 2272,
+        "tail_tests": 6075
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 55221,
+      "oracle_changes": 10,
+      "policy": "extra-local",
+      "query_group": "base-independent-16",
+      "refill_shards": 9,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 33888,
+          "messages": 96,
+          "returned_rows": 157,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {
+          "bytes": 12590,
+          "messages": 18,
+          "returned_rows": 109,
+          "source_cpu_ns": 0
+        }
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 2209,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2509
+      },
+      "total_source_bytes": 89770,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 5,
+      "checker_cpu_ns": 31250000,
+      "coordinator_cpu_ns_excluding_source": 93750000,
+      "coordinator_work": {
+        "assignment_visits": 3802,
+        "buffer_rows_visited": 9922,
+        "candidate_sort_rows": 10026,
+        "merge_rows_visited": 9926,
+        "score_evaluations": 2258,
+        "tail_tests": 3027
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 51040,
+      "oracle_changes": 10,
+      "policy": "extra-global",
+      "query_group": "base-independent-16",
+      "refill_shards": 1,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 33888,
+          "messages": 96,
+          "returned_rows": 157,
+          "source_cpu_ns": 15625000
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {
+          "bytes": 1202,
+          "messages": 2,
+          "returned_rows": 10,
+          "source_cpu_ns": 0
+        }
+      },
+      "source_cpu_ns": 15625000,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1806,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2065
+      },
+      "total_source_bytes": 78382,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 10,
+      "checker_cpu_ns": 93750000,
+      "coordinator_cpu_ns_excluding_source": 203125000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 16795,
+        "candidate_sort_rows": 16893,
+        "merge_rows_visited": 16792,
+        "score_evaluations": 2256,
+        "tail_tests": 3024
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 59520,
+      "oracle_changes": 10,
+      "policy": "continuation",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 43062,
+          "messages": 96,
+          "returned_rows": 267,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 86354,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 10,
+      "checker_cpu_ns": 93750000,
+      "coordinator_cpu_ns_excluding_source": 187500000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 16795,
+        "candidate_sort_rows": 16893,
+        "merge_rows_visited": 16792,
+        "score_evaluations": 2256,
+        "tail_tests": 6048
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 59520,
+      "oracle_changes": 10,
+      "policy": "extra-local",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 43062,
+          "messages": 96,
+          "returned_rows": 267,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 86354,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 10,
+      "checker_cpu_ns": 187500000,
+      "coordinator_cpu_ns_excluding_source": 171875000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 16795,
+        "candidate_sort_rows": 16893,
+        "merge_rows_visited": 16792,
+        "score_evaluations": 2256,
+        "tail_tests": 3024
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 59520,
+      "oracle_changes": 10,
+      "policy": "extra-global",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 43062,
+          "messages": 96,
+          "returned_rows": 267,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 86354,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 16,
+      "checker_cpu_ns": 187500000,
+      "coordinator_cpu_ns_excluding_source": 125000000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 22767,
+        "candidate_sort_rows": 22860,
+        "merge_rows_visited": 22765,
+        "score_evaluations": 2256,
+        "tail_tests": 3024
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 67558,
+      "oracle_changes": 10,
+      "policy": "continuation",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 51001,
+          "messages": 96,
+          "returned_rows": 361,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 94293,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 16,
+      "checker_cpu_ns": 187500000,
+      "coordinator_cpu_ns_excluding_source": 203125000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 22767,
+        "candidate_sort_rows": 22860,
+        "merge_rows_visited": 22765,
+        "score_evaluations": 2256,
+        "tail_tests": 6048
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 67558,
+      "oracle_changes": 10,
+      "policy": "extra-local",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 51001,
+          "messages": 96,
+          "returned_rows": 361,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 94293,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 16,
+      "checker_cpu_ns": 171875000,
+      "coordinator_cpu_ns_excluding_source": 203125000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 22767,
+        "candidate_sort_rows": 22860,
+        "merge_rows_visited": 22765,
+        "score_evaluations": 2256,
+        "tail_tests": 3024
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 67558,
+      "oracle_changes": 10,
+      "policy": "extra-global",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 2,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 51001,
+          "messages": 96,
+          "returned_rows": 361,
+          "source_cpu_ns": 15625000
+        },
+        "feed": {
+          "bytes": 43292,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 15625000,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32786,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 94293,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 5,
+      "checker_cpu_ns": 125000000,
+      "coordinator_cpu_ns_excluding_source": 78125000,
+      "coordinator_work": {
+        "assignment_visits": 3861,
+        "buffer_rows_visited": 11408,
+        "candidate_sort_rows": 11520,
+        "merge_rows_visited": 11430,
+        "score_evaluations": 2259,
+        "tail_tests": 3030
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 56627,
+      "oracle_changes": 14,
+      "policy": "continuation",
+      "query_group": "base-independent-16",
+      "refill_shards": 2,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 33888,
+          "messages": 96,
+          "returned_rows": 157,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {
+          "bytes": 6685,
+          "messages": 4,
+          "returned_rows": 67,
+          "source_cpu_ns": 0
+        }
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 2066,
+        "posting_membership_updates": 32898,
+        "posting_visits": 2387
+      },
+      "total_source_bytes": 84013,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 5,
+      "checker_cpu_ns": 140625000,
+      "coordinator_cpu_ns_excluding_source": 203125000,
+      "coordinator_work": {
+        "assignment_visits": 4157,
+        "buffer_rows_visited": 15030,
+        "candidate_sort_rows": 15132,
+        "merge_rows_visited": 14981,
+        "score_evaluations": 2273,
+        "tail_tests": 6081
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 65604,
+      "oracle_changes": 14,
+      "policy": "extra-local",
+      "query_group": "base-independent-16",
+      "refill_shards": 11,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 33888,
+          "messages": 96,
+          "returned_rows": 157,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {
+          "bytes": 23485,
+          "messages": 22,
+          "returned_rows": 218,
+          "source_cpu_ns": 0
+        }
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 2917,
+        "posting_membership_updates": 32898,
+        "posting_visits": 3320
+      },
+      "total_source_bytes": 100813,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 5,
+      "checker_cpu_ns": 140625000,
+      "coordinator_cpu_ns_excluding_source": 109375000,
+      "coordinator_work": {
+        "assignment_visits": 3861,
+        "buffer_rows_visited": 11408,
+        "candidate_sort_rows": 11520,
+        "merge_rows_visited": 11430,
+        "score_evaluations": 2259,
+        "tail_tests": 3030
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 56627,
+      "oracle_changes": 14,
+      "policy": "extra-global",
+      "query_group": "base-independent-16",
+      "refill_shards": 2,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 33888,
+          "messages": 96,
+          "returned_rows": 157,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {
+          "bytes": 6685,
+          "messages": 4,
+          "returned_rows": 67,
+          "source_cpu_ns": 0
+        }
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 2066,
+        "posting_membership_updates": 32898,
+        "posting_visits": 2387
+      },
+      "total_source_bytes": 84013,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 10,
+      "checker_cpu_ns": 93750000,
+      "coordinator_cpu_ns_excluding_source": 125000000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 17042,
+        "candidate_sort_rows": 17151,
+        "merge_rows_visited": 17049,
+        "score_evaluations": 2256,
+        "tail_tests": 3024
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 60893,
+      "oracle_changes": 14,
+      "policy": "continuation",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 43062,
+          "messages": 96,
+          "returned_rows": 267,
+          "source_cpu_ns": 15625000
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 15625000,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32898,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 86502,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 10,
+      "checker_cpu_ns": 171875000,
+      "coordinator_cpu_ns_excluding_source": 140625000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 17042,
+        "candidate_sort_rows": 17151,
+        "merge_rows_visited": 17049,
+        "score_evaluations": 2256,
+        "tail_tests": 6048
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 60893,
+      "oracle_changes": 14,
+      "policy": "extra-local",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 43062,
+          "messages": 96,
+          "returned_rows": 267,
+          "source_cpu_ns": 15625000
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 15625000,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32898,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 86502,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 10,
+      "checker_cpu_ns": 187500000,
+      "coordinator_cpu_ns_excluding_source": 187500000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 17042,
+        "candidate_sort_rows": 17151,
+        "merge_rows_visited": 17049,
+        "score_evaluations": 2256,
+        "tail_tests": 3024
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 60893,
+      "oracle_changes": 14,
+      "policy": "extra-global",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 43062,
+          "messages": 96,
+          "returned_rows": 267,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32898,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 86502,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 16,
+      "checker_cpu_ns": 140625000,
+      "coordinator_cpu_ns_excluding_source": 109375000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 22972,
+        "candidate_sort_rows": 23075,
+        "merge_rows_visited": 22980,
+        "score_evaluations": 2256,
+        "tail_tests": 3024
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 68753,
+      "oracle_changes": 14,
+      "policy": "continuation",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 51001,
+          "messages": 96,
+          "returned_rows": 361,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32898,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 94441,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 16,
+      "checker_cpu_ns": 171875000,
+      "coordinator_cpu_ns_excluding_source": 203125000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 22972,
+        "candidate_sort_rows": 23075,
+        "merge_rows_visited": 22980,
+        "score_evaluations": 2256,
+        "tail_tests": 6048
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 68753,
+      "oracle_changes": 14,
+      "policy": "extra-local",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 51001,
+          "messages": 96,
+          "returned_rows": 361,
+          "source_cpu_ns": 15625000
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 15625000,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32898,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 94441,
+      "unsound_rows": 0
+    },
+    {
+      "calls": 1008,
+      "capacity": 16,
+      "checker_cpu_ns": 250000000,
+      "coordinator_cpu_ns_excluding_source": 140625000,
+      "coordinator_work": {
+        "assignment_visits": 3744,
+        "buffer_rows_visited": 22972,
+        "candidate_sort_rows": 23075,
+        "merge_rows_visited": 22980,
+        "score_evaluations": 2256,
+        "tail_tests": 3024
+      },
+      "exact_complete": 1008,
+      "false_complete": 0,
+      "index_lag": 2,
+      "max_logical_state_bytes": 68753,
+      "oracle_changes": 14,
+      "policy": "extra-global",
+      "query_group": "base-independent-16",
+      "refill_shards": 0,
+      "seed": 3,
+      "source_costs": {
+        "acquisition": {
+          "bytes": 51001,
+          "messages": 96,
+          "returned_rows": 361,
+          "source_cpu_ns": 0
+        },
+        "feed": {
+          "bytes": 43440,
+          "messages": 378,
+          "returned_rows": 0,
+          "source_cpu_ns": 0
+        },
+        "refill": {}
+      },
+      "source_cpu_ns": 0,
+      "source_work": {
+        "identifier_assignments": 2283,
+        "positive_rows_built": 1796,
+        "posting_membership_updates": 32898,
+        "posting_visits": 2055
+      },
+      "total_source_bytes": 94441,
+      "unsound_rows": 0
+    }
+  ],
+  "wall_seconds": 38.875
+}

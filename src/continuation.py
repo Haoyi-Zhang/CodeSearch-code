@@ -9,11 +9,16 @@ enter the global top-k need an index-prefix repair.
 from __future__ import annotations
 from copy import deepcopy
 from typing import Any, Iterable
-from .model import MAX_PREFIX, key, score
+from .model import MAX_PREFIX, key, score, validate_rank_data
+
+
+def count_work(work, name, amount=1):
+    if work is not None:
+        work[name] = work.get(name, 0) + amount
 
 
 def _rank_key(row: dict[str, Any]) -> tuple[int, str]:
-    return (-row['score'], row['id'])
+    return key(row)
 
 
 def _minimum_bound(*values: list | tuple | None) -> list | None:
@@ -30,10 +35,11 @@ def validate_contiguous(events: list[dict], shard: int, lo: int, hi: int) -> Non
         raise ValueError('noncontiguous event suffix')
 
 
-def final_assignments(events: Iterable[dict]) -> dict[str, str | None]:
+def final_assignments(events: Iterable[dict], work=None) -> dict[str, str | None]:
     final: dict[str, str | None] = {}
     for event in events:
         for ident, body in event['changes']:
+            count_work(work, 'assignment_visits')
             final[ident] = body
     return final
 
@@ -51,6 +57,7 @@ def token_from_prefix(query: dict, prefix: dict, capacity: int, *, generation: i
         raise ValueError('token capacity')
     if len(prefix['rows']) > capacity:
         raise ValueError('prefix exceeds capacity')
+    validate_rank_data(prefix['rows'], prefix['boundary'])
     return {
         'kind': 'continuation-token',
         'query': deepcopy(query),
@@ -64,7 +71,7 @@ def token_from_prefix(query: dict, prefix: dict, capacity: int, *, generation: i
     }
 
 
-def advance_token(token: dict, event_receipt: dict, payloads: dict[str, dict]) -> dict:
+def advance_token(token: dict, event_receipt: dict, payloads: dict[str, dict], *, work=None) -> dict:
     """Advance a valid token over one complete suffix.
 
     Invariant: every target-live positive row omitted from ``rows`` has a rank
@@ -72,6 +79,7 @@ def advance_token(token: dict, event_receipt: dict, payloads: dict[str, dict]) -
     """
     if event_receipt.get('kind') != 'events':
         raise ValueError('events receipt required')
+    validate_rank_data(token['rows'], token['tail'])
     if (event_receipt['shard'] != token['shard'] or
             event_receipt['epoch'] != token['epoch'] or
             event_receipt['lo'] != token['at']):
@@ -80,16 +88,19 @@ def advance_token(token: dict, event_receipt: dict, payloads: dict[str, dict]) -
     validate_contiguous(events, token['shard'], event_receipt['lo'], event_receipt['hi'])
     if event_receipt['hi'] == token['at']:
         return deepcopy(token)
-    final = final_assignments(events)
+    final = final_assignments(events, work)
+    count_work(work, 'buffer_rows_visited', len(token['rows']))
     pool = {row['id']: deepcopy(row) for row in token['rows'] if row['id'] not in final}
     plan = token['query']['plan']
     for ident, body in final.items():
         if body is None:
             continue
         value = score(payloads[body]['features'], plan)
+        count_work(work, 'score_evaluations')
         if value:
             pool[ident] = {'id': ident, 'body': body, 'score': value}
     ordered = sorted(pool.values(), key=_rank_key)
+    count_work(work, 'candidate_sort_rows', len(ordered))
     capacity = token['capacity']
     rows = ordered[:capacity]
     dropped = _rank_key(ordered[capacity]) if len(ordered) > capacity else None
@@ -106,6 +117,7 @@ def rebind_token(token: dict, new_epoch: int) -> dict:
     """Rebind a logical-shard token after a trusted exact ownership barrier."""
     if type(new_epoch) is not int or new_epoch <= token['epoch']:
         raise ValueError('new epoch required')
+    validate_rank_data(token['rows'], token['tail'])
     rebound = deepcopy(token)
     rebound['epoch'] = new_epoch
     rebound['generation'] += 1
@@ -113,7 +125,7 @@ def rebind_token(token: dict, new_epoch: int) -> dict:
 
 
 def merge_tokens(query: dict, cut: list[int], epoch: int,
-                 tokens: dict[int, dict], missing: Iterable[int] = ()) -> dict:
+                 tokens: dict[int, dict], missing: Iterable[int] = (), *, work=None) -> dict:
     """Merge current tokens and expose every shard whose tail can enter top-k."""
     missing_set = set(missing)
     pool: dict[str, dict] = {}
@@ -124,7 +136,9 @@ def merge_tokens(query: dict, cut: list[int], epoch: int,
             raise ValueError('token request binding')
         if token['at'] != cut[shard]:
             raise ValueError('token is not at requested cut')
+        validate_rank_data(token['rows'], token['tail'])
         for row in token['rows']:
+            count_work(work, 'merge_rows_visited')
             if row['id'] in pool:
                 raise ValueError('cross-shard duplicate identifier')
             pool[row['id']] = row
@@ -134,6 +148,7 @@ def merge_tokens(query: dict, cut: list[int], epoch: int,
         if shard in missing_set:
             continue
         tail = token['tail']
+        count_work(work, 'tail_tests')
         if tail is not None and (len(rows) < query['k'] or key(rows[-1]) >= tuple(tail)):
             blockers.append(shard)
     missing_list = sorted(missing_set | (set(range(3)) - set(tokens)))
@@ -159,15 +174,15 @@ def merge_tokens(query: dict, cut: list[int], epoch: int,
     }
 
 
-def distinct_changes(events: Iterable[dict]) -> int:
-    return len(final_assignments(events))
+def distinct_changes(events: Iterable[dict], work=None) -> int:
+    return len(final_assignments(events, work))
 
 
-def sufficient_repair_length(query: dict, events: Iterable[dict], reserve: int = 0) -> int:
+def sufficient_repair_length(query: dict, events: Iterable[dict], reserve: int = 0, *, work=None) -> int:
     """Top-(k+d) survives at most d dirty IDs; optional reserve aids reuse."""
     if reserve < 0:
         raise ValueError('negative reserve')
-    required = query['k'] + distinct_changes(events) + reserve
+    required = query['k'] + distinct_changes(events, work) + reserve
     if required > MAX_PREFIX:
         raise ValueError('repair length exceeds supported prefix')
     return required

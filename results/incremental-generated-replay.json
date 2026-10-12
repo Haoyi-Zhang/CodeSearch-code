@@ -1,0 +1,12 @@
+{
+  "counts": {
+    "event_rows": 3402,
+    "events": 3402,
+    "prefix": 890,
+    "results": 18144,
+    "trials": 18
+  },
+  "result": "PASS",
+  "scope": "source truth, strict score types, checker transitions, exact answers, oracle change markers, phase bytes/messages/rows and refill counts; CPU and operation counters not independently recounted",
+  "wall_seconds": 36.20299999997951
+}

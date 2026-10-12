@@ -72,6 +72,7 @@ def verify_source_receipts(trace,payloads):
         req=entry['request']; rep=entry['reply']; op=req.get('op')
         if not isinstance(rep,dict): continue
         if rep.get('kind')=='prefix':
+            checker.check_rows(rep['rows']); checker.check_tail(rep['boundary'])
             shard=rep['shard']; at=rep['at']; rows=expected_rows(cache,score_cache,states,checker,shard,at,req['query']['plan'])
             length=req['length']
             assert rep['rows']==rows[:length]
@@ -79,6 +80,7 @@ def verify_source_receipts(trace,payloads):
             assert rep['plan']==req['query']['plan'] and rep['epoch']==req['epoch']
             checked['prefix']+=1
         elif rep.get('kind')=='overlay':
+            checker.check_rows(rep['rows'])
             shard=rep['shard']; at=rep['at']; rows=expected_rows(cache,score_cache,states,checker,shard,at,req['query']['plan'])
             assert rep['rows']==rows[:req['query']['k']]
             assert rep['at']==req['to'] and rep['epoch']==req['epoch']
@@ -133,6 +135,7 @@ def verify_trace(trace,fixture):
             for shard in range(3):
                 all_rows.extend(expected_rows(rank_cache,score_cache,states,checker,shard,cut[shard],query['plan'])[:query['k']])
             oracle=sorted(all_rows,key=key)[:query['k']]
+            checker.check_rows(record['oracle'])
             assert record['oracle']==oracle
             cont=record['observations']['continuation']['response']
             cc.check_result(cont,query,cut,epoch,owners,evidence,cont.get('repairs',{}))

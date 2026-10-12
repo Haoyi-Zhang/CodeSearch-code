@@ -218,6 +218,12 @@ class ContinuationChecker:
                          'tail': deepcopy(token['tail']), 'generation': token['generation']}
             for shard, token in sorted(current.items()) if shard not in missing
         }
+        self.rows.check_rows(result.get('rows'))
+        summary = result.get('token_summary')
+        need(type(summary) is dict, 'continuation summary schema')
+        for item in summary.values():
+            need(type(item) is dict, 'continuation summary entry')
+            self.rows.check_tail(item.get('tail'))
         need(result.get('rows') == rows, 'continuation merge')
         need(result.get('missing_shards') == missing_list, 'continuation missing')
         need(result.get('rank_blockers') == blockers, 'continuation blockers')
