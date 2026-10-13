@@ -111,6 +111,23 @@ class ScoreAdmissionTests(unittest.TestCase):
             with self.assertRaises(InvalidCertificate):
                 self.cc.check_result(result, self.q, self.cut, 0, self.owners, self.evidence, {})
 
+    def test_summary_integer_metadata_rejects_equal_json_values(self):
+        valid = merge_tokens(self.q, self.cut, 0, self.tokens)
+        for field, replacements in (('at', (False, 0.0)),
+                                    ('capacity', (True, 1.0)),
+                                    ('generation', (False, 0.0))):
+            for value in replacements:
+                with self.subTest(field=field, value=value):
+                    bad = decoded(valid)
+                    bad['token_summary']['0'][field] = value
+                    before = deepcopy(self.cc.tokens)
+                    with self.assertRaises(InvalidCertificate):
+                        self.cc.check_result(bad, self.q, self.cut, 0,
+                                             self.owners, self.evidence, {})
+                    self.assertEqual(before, self.cc.tokens)
+        self.assertTrue(self.cc.check_result(valid, self.q, self.cut, 0,
+                                             self.owners, self.evidence, {}))
+
     def test_soundness_metric_counts_noninteger_scores(self):
         row = {'id': 'a', 'body': 'body', 'score': 1}
         for value in (True, False, 1.0, '1', None):

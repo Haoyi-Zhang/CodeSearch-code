@@ -222,8 +222,17 @@ class ContinuationChecker:
         summary = result.get('token_summary')
         need(type(summary) is dict, 'continuation summary schema')
         for item in summary.values():
-            need(type(item) is dict, 'continuation summary entry')
-            self.rows.check_tail(item.get('tail'))
+            need(type(item) is dict
+                 and set(item) == {'at', 'capacity', 'tail', 'generation'},
+                 'continuation summary entry')
+            need(type(item['at']) is int and item['at'] >= 0,
+                 'continuation summary cut')
+            need(type(item['capacity']) is int
+                 and query['k'] <= item['capacity'] <= 64,
+                 'continuation summary capacity')
+            need(type(item['generation']) is int and item['generation'] >= 0,
+                 'continuation summary generation')
+            self.rows.check_tail(item['tail'])
         need(result.get('rows') == rows, 'continuation merge')
         need(result.get('missing_shards') == missing_list, 'continuation missing')
         need(result.get('rank_blockers') == blockers, 'continuation blockers')
