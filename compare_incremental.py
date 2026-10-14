@@ -53,38 +53,52 @@ def independent_queries(base):
 
 
 class CountedIndex(PostingIndex):
-    def __init__(self, state, payloads, counts):
+    def __init__(self, state, payloads, counts, phase_counts):
         self.counts = counts
+        self.phase_counts = phase_counts
         super().__init__(state, payloads)
+
+    def add_work(self, name, value):
+        self.counts[name] += value
+        self.phase_counts()[name] += value
 
     def put(self, ident, body):
         old = self.state.get(ident)
         # One membership operation for each loop iteration in PostingIndex.put.
-        self.counts['posting_membership_updates'] += (
+        self.add_work('posting_membership_updates', (
             len(self.payloads[old]['features']) if old is not None else 0)
-        self.counts['posting_membership_updates'] += (
-            len(self.payloads[body]['features']) if body is not None else 0)
-        self.counts['identifier_assignments'] += 1
+            + (len(self.payloads[body]['features']) if body is not None else 0))
+        self.add_work('identifier_assignments', 1)
         super().put(ident, body)
 
     def rows(self, plan, exclude=None, *, limit=None):
-        return super().rows(plan, exclude, limit=limit, work=self.counts)
+        measured = Counter()
+        rows = super().rows(plan, exclude, limit=limit, work=measured)
+        for name, value in measured.items():
+            self.add_work(name, value)
+        return rows
 
 
 class OfflineWire:
     def __init__(self, fixture):
         self.counts = Counter()
+        self.source_phase = 'initialization'
+        self.work_by_phase = {phase: Counter() for phase in
+                              ('initialization', 'maintenance', 'acquisition', 'refill')}
         self.replicas = []
         for shard in range(3):
-            replica = Replica(shard*2, shard, fixture['initial'][shard], fixture['payloads'])
-            replica.search = CountedIndex(fixture['initial'][shard], fixture['payloads'], self.counts)
-            replica.index = replica.search.state
+            # Construct the real counted index once, not an uncounted index
+            # followed by a counted replacement of the same corpus.
+            replica = Replica(shard*2, shard, fixture['initial'][shard], fixture['payloads'],
+                index_factory=lambda state, payloads: CountedIndex(state, payloads,
+                    self.counts, lambda: self.work_by_phase[self.source_phase]))
             self.replicas.append(replica)
         self.evidence = {}
         self.phase = 'acquisition'
         self.costs = {phase: Counter() for phase in ('acquisition', 'feed', 'refill')}
 
     async def rpc(self, node, request):
+        self.source_phase = self.phase
         raw = wire(request)
         frozen = json.loads(raw)
         started = time.process_time_ns()
@@ -99,6 +113,7 @@ class OfflineWire:
         return ident, result
 
     def deliver(self, event, lag):
+        self.source_phase = 'maintenance'
         replica = self.replicas[event['shard']]
         reply = replica.handle(json.loads(wire({'op': 'receive', 'event': event})))
         if not reply.get('ok'):
@@ -258,14 +273,16 @@ async def trial(fixture, queries, policy, capacity, lag):
         'refill_shards': sum(len(r['result']['repairs']) for r in records),
         'source_costs': {phase: dict(cost) for phase, cost in network.costs.items()},
         'total_source_bytes': sum(cost['bytes'] for cost in network.costs.values()),
-        'source_work': dict(network.counts), 'coordinator_work': {k: work[k] for k in WORK_KEYS},
+        'source_work': dict(network.counts),
+        'source_work_by_phase': {p: dict(c) for p, c in network.work_by_phase.items()},
+        'coordinator_work': {k: work[k] for k in WORK_KEYS},
         'max_logical_state_bytes': peak_state, 'source_cpu_ns': source_cpu,
         'coordinator_cpu_ns_excluding_source': policy_ns-source_cpu, 'checker_cpu_ns': check_ns}
     return {'summary': summary, 'queries': queries, 'records': records,
             'transcript': network.evidence, 'initial': fixture['initial'], 'history': fixture['history']}
 
 
-async def campaign():
+async def campaign(output_dir=None):
     started = time.monotonic()
     base = build(ROOT)
     # Freeze queries before even building the projected history.
@@ -304,9 +321,11 @@ async def campaign():
         'cost_scope': 'acquisition/feed/refill wire payloads; source initial posting construction and applied update membership operations counted; writer dissemination, body transport, oracle, client delivery excluded',
         'work_scope': 'posting visits and positive rows built; posting membership operations; assignment, buffer, score, sort-input, merge and tail-test counts, not every instruction or sort comparison',
         'history': fixture['git_history']}
-    out = ROOT/'results/incremental-comparison.json'
+    output_dir = Path(output_dir) if output_dir is not None else ROOT/'results'
+    output_dir.mkdir(parents=True, exist_ok=True)
+    out = output_dir/'incremental-comparison.json'
     out.write_text(json.dumps(report, indent=2, sort_keys=True)+'\n', encoding='utf-8')
-    with gzip.open(ROOT/'results/incremental-comparison-trace.json.gz', 'wt', encoding='utf-8') as stream:
+    with gzip.open(output_dir/'incremental-comparison-trace.json.gz', 'wt', encoding='utf-8') as stream:
         json.dump({'report': report, 'trials': trials}, stream, sort_keys=True, separators=(',', ':'))
     print(json.dumps({'result': 'PASS', 'trials': len(trials),
                       'calls': sum(t['summary']['calls'] for t in trials),
@@ -314,4 +333,7 @@ async def campaign():
 
 
 if __name__ == '__main__':
-    asyncio.run(campaign())
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output-dir', type=Path)
+    asyncio.run(campaign(parser.parse_args().output_dir))

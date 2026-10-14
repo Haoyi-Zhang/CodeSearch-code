@@ -12,7 +12,7 @@ from src.corpus import build
 ROOT = Path(__file__).resolve().parent
 
 
-async def main():
+async def main(output_dir=None):
     started = time.monotonic()
     base = build(ROOT)
     # Two of the already fixed hash-selected seeds per project, before trace read.
@@ -50,13 +50,18 @@ async def main():
         'scope': 'supplied generated rank-churn seeds 2/3; fixed base-only independent 16-query subset; every query active at all 63 ticks; matched L=5/10/16, k=5, two-event index lag; offline payload/work comparison, not the original activation schedule or new public history',
         'query_rule': 'first two of the frozen eight hash-selected base-only queries/project, selected before reading supplied histories; their initial seed IDs excluded',
         'cost_scope': 'same acquisition/feed/refill, state and instrumented source/coordinator work definitions as compare_incremental.py'}
-    (ROOT/'results/incremental-generated.json').write_text(
+    output_dir = Path(output_dir) if output_dir is not None else ROOT/'results'
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir/'incremental-generated.json').write_text(
         json.dumps(report, indent=2, sort_keys=True)+'\n', encoding='utf-8')
-    with gzip.open(ROOT/'results/incremental-generated-trace.json.gz', 'wt', encoding='utf-8') as stream:
+    with gzip.open(output_dir/'incremental-generated-trace.json.gz', 'wt', encoding='utf-8') as stream:
         json.dump({'report': report, 'trials': trials}, stream, sort_keys=True, separators=(',', ':'))
     print(json.dumps({'result': 'PASS', 'trials': len(trials),
         'calls': sum(t['summary']['calls'] for t in trials), 'wall_seconds': report['wall_seconds']}, sort_keys=True))
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output-dir', type=Path)
+    asyncio.run(main(parser.parse_args().output_dir))

@@ -6,9 +6,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 
 
-def read(stem):
-    report = json.loads((ROOT/f'results/{stem}.json').read_text(encoding='utf-8'))
-    replay = json.loads((ROOT/f'results/{stem}-replay.json').read_text(encoding='utf-8'))
+def read(stem, directory=None):
+    directory = Path(directory) if directory is not None else ROOT/'results'
+    report = json.loads((directory/f'{stem}.json').read_text(encoding='utf-8'))
+    replay = json.loads((directory/f'{stem}-replay.json').read_text(encoding='utf-8'))
     if replay['result'] != 'PASS' or replay['counts']['trials'] != len(report['trials']):
         raise ValueError('comparison needs matching successful replay')
     if replay['counts']['results'] != sum(t['calls'] for t in report['trials']):
@@ -26,14 +27,41 @@ def table(path, caption, label, headings, rows):
     path.write_text('\n'.join(lines)+'\n', encoding='utf-8')
 
 
-def main():
+def census_table(directory):
+    public = read('incremental-comparison', directory/'public')
+    generated = read('incremental-generated', directory/'generated')
+    for folder, stem, trials in [('public', 'incremental-comparison', public),
+                                  ('generated', 'incremental-generated', generated)]:
+        replay = json.loads((directory/folder/f'{stem}-replay.json').read_text(encoding='utf-8'))
+        if replay['counts'].get('source_work_censuses') != len(trials):
+            raise ValueError('table requires independent source-work census')
+    rows = []
+    for policy, label in [('continuation', 'Continuation'), ('extra-local', 'Local extra/refill'),
+                          ('extra-global', 'Global extra/refill')]:
+        matched = [t for t in generated if t['policy'] == policy and t['capacity'] == 5]
+        if len(matched) != 2 or {t['seed'] for t in matched} != {2, 3}:
+            raise ValueError('census matched histories')
+        cells = [sum(t['source_work_by_phase'][p].get(k, 0) for t in matched)
+                 for p, k in [('initialization', 'posting_membership_updates'),
+                              ('maintenance', 'posting_membership_updates'),
+                              ('acquisition', 'posting_visits'), ('refill', 'posting_visits')]]
+        rows.append([label]+[f'{v:,}' for v in cells])
+    table(ROOT.parent/'paper/generated/incremental_census_table.tex',
+          'Source-work census for the two generated histories at capacity 5 and lag 2. Initialization and update columns count posting membership operations; acquisition and refill columns count posting entries visited.',
+          'tab:incremental-census', ['Policy', 'Initialization', 'Updates', 'Acquisition', 'Refill'], rows)
+    print(json.dumps({'result': 'PASS', 'tables': 1, 'independent_source_censuses': len(public)+len(generated)}))
+
+
+def main(census_root=None):
     paper = ROOT.parent/'paper'
     if not paper.is_dir():
         raise ValueError('optional sibling manuscript is absent; summaries remain usable')
+    if census_root is not None:
+        return census_table(census_root)
     public = read('incremental-comparison')
     generated = read('incremental-generated')
     labels = {'ordinary': 'Original ordinary', 'directed': 'Original directed',
-              'base-independent': 'Base-only independent'}
+              'base-independent': 'Base-only selected'}
     rows = []
     for group, label in labels.items():
         matched = [t for t in public if t['query_group'] == group and t['capacity'] == 10
@@ -70,4 +98,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--census-root', type=Path)
+    main(parser.parse_args().census_root)

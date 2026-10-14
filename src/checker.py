@@ -18,6 +18,17 @@ def need(condition: bool, reason: str) -> None:
         raise InvalidCertificate(reason)
 
 
+def same_json(left, right) -> bool:
+    """JSON binding equality must not identify booleans/reals with integers."""
+    if type(left) is not type(right):
+        return False
+    if type(left) is dict:
+        return left.keys() == right.keys() and all(same_json(left[k], right[k]) for k in left)
+    if type(left) is list:
+        return len(left) == len(right) and all(same_json(a, b) for a, b in zip(left, right))
+    return left == right
+
+
 def syntax_labels(source: str) -> set[str]:
     # Independently recursive traversal, rather than producer ast.walk.
     answer: set[str] = set()
@@ -71,9 +82,24 @@ class Checker:
              and type(tail[0]) is int and tail[0] < 0
              and isinstance(tail[1], str)), 'boundary schema')
 
+    @staticmethod
+    def check_request(query, cut, epoch) -> None:
+        need(type(epoch) is int and epoch >= 0, 'epoch')
+        need(type(cut) is list and len(cut) == 3
+             and all(type(x) is int and x >= 0 for x in cut), 'cut')
+        need(type(query) is dict and type(query.get('k')) is int
+             and 1 <= query['k'] <= 20, 'k')
+        plan = query.get('plan')
+        need(type(plan) is list and 1 <= len(plan) <= 2, 'plan')
+        need(all(type(a) is list and 1 <= len(a) <= 4
+                 and all(type(t) is str for t in a) and len(a) == len(set(a))
+                 for a in plan), 'plan alternate')
+
     def check(self, cert: dict, trusted: dict[int, dict], query: dict, cut: list[int],
               epoch: int, owners: list[list[int]]) -> bool:
-        need(cert['query'] == query and cert['cut'] == cut and cert['epoch'] == epoch,
+        self.check_request(query, cut, epoch)
+        need(same_json(cert['query'], query) and same_json(cert['cut'], cut)
+             and same_json(cert['epoch'], epoch),
              'request binding')
         need(len(cut) == 3 and all(type(x) is int and x >= 0 for x in cut), 'cut')
         need(type(query['k']) is int and 1 <= query['k'] <= 20, 'k')
@@ -88,20 +114,23 @@ class Checker:
             need(len(ids) == 2 and ids[0] != ids[1], 'receipt pair')
             need(all(type(i) is int and i in trusted for i in ids), 'receipt identity')
             pe, de = (trusted[i] for i in ids)
-            need(pe['node'] in owners[shard] and de['node'] in owners[shard], 'owner')
+            need(type(pe['node']) is int and type(de['node']) is int
+                 and pe['node'] in owners[shard] and de['node'] in owners[shard], 'owner')
             p, d = pe['reply'], de['reply']
             need(p.get('kind') == 'prefix' and d.get('kind') == 'delta', 'receipt kind')
             for e in (pe, de):
                 r, req = e['reply'], e['request']
-                need(r['shard'] == shard and r['epoch'] == epoch and r['plan'] == plan,
+                need(same_json(r['shard'], shard) and same_json(r['epoch'], epoch) and r['plan'] == plan,
                      'reply binding')
-                need(req['shard'] == shard and req['epoch'] == epoch and req['query'] == query,
+                need(same_json(req['shard'], shard) and same_json(req['epoch'], epoch)
+                     and same_json(req['query'], query),
                      'RPC binding')
             need(pe['request']['op'] == 'prefix' and de['request']['op'] == 'delta', 'operation')
             need(type(p['at']) is int and 0 <= p['at'] <= cut[shard], 'base cut')
-            need(d['lo'] == p['at'] and d['hi'] == cut[shard], 'interval')
-            need(de['request']['lo'] == d['lo'] and de['request']['hi'] == d['hi'], 'range binding')
-            need(len(p['rows']) <= pe['request']['length'] and len(d['rows']) <= query['k'], 'length')
+            need(same_json(d['lo'], p['at']) and same_json(d['hi'], cut[shard]), 'interval')
+            need(same_json(de['request']['lo'], d['lo']) and same_json(de['request']['hi'], d['hi']), 'range binding')
+            need(type(pe['request']['length']) is int and 0 <= pe['request']['length'] <= 64
+                 and len(p['rows']) <= pe['request']['length'] and len(d['rows']) <= query['k'], 'length')
             changed = set(d['changed'])
             need(len(changed) == len(d['changed']) and d['changed'] == sorted(changed), 'dirty set')
             for rlist in (p['rows'], d['rows']):
@@ -136,27 +165,28 @@ class Checker:
         status = 'partial' if missing else 'rank-underdetermined' if obstructed else 'complete'
         self.check_rows(cert['rows'])
         need(cert['rows'] == expected, 'candidate merge')
-        need(cert['missing_shards'] == missing, 'coverage')
-        need(cert['rank_blockers'] == obstructed, 'rank diagnosis')
-        need(cert['index_lag_events'] == lags, 'freshness vector')
+        need(same_json(cert['missing_shards'], missing), 'coverage')
+        need(same_json(cert['rank_blockers'], obstructed), 'rank diagnosis')
+        need(same_json(cert['index_lag_events'], lags), 'freshness vector')
         need(cert['status'] == status, 'completeness status')
         return True
 
     def check_overlay(self, result: dict, trusted: dict[int, dict], query: dict,
                       cut: list[int], epoch: int, owners: list[list[int]]) -> bool:
         """The strong baseline receives the same independent merge-checking aid."""
+        self.check_request(query, cut, epoch)
         need(set(result['receipts']).issubset({'0','1','2'}), 'overlay shards')
         candidates = {}
         for label, ident in result['receipts'].items():
             shard = int(label)
-            need(ident in trusted, 'overlay receipt')
+            need(type(ident) is int and ident in trusted, 'overlay receipt')
             entry = trusted[ident]; req, reply = entry['request'], entry['reply']
-            need(entry['node'] in owners[shard], 'overlay owner')
-            need(req['op'] == 'overlay' and req['to'] == cut[shard]
-                 and req['query'] == query and req['epoch'] == epoch
-                 and req['shard'] == shard, 'overlay request')
-            need(reply['kind'] == 'overlay' and reply['shard'] == shard
-                 and reply['at'] == cut[shard] and reply['epoch'] == epoch
+            need(type(entry['node']) is int and entry['node'] in owners[shard], 'overlay owner')
+            need(req['op'] == 'overlay' and same_json(req['to'], cut[shard])
+                 and same_json(req['query'], query) and same_json(req['epoch'], epoch)
+                 and same_json(req['shard'], shard), 'overlay request')
+            need(reply['kind'] == 'overlay' and same_json(reply['shard'], shard)
+                 and same_json(reply['at'], cut[shard]) and same_json(reply['epoch'], epoch)
                  and reply['plan'] == query['plan'], 'overlay reply')
             rows = reply['rows']
             need(len(rows) <= query['k'] and self.ordered(rows) == rows, 'overlay order')
@@ -168,8 +198,9 @@ class Checker:
         expected = self.ordered(list(candidates.values()))[:query['k']]
         covered = sorted(map(int,result['receipts']))
         self.check_rows(result['rows'])
-        need(result['rows'] == expected and result['coverage'] == covered, 'overlay merge')
-        need(result['claim_complete'] == (covered == [0,1,2]), 'overlay completeness')
+        need(result['rows'] == expected and same_json(result['coverage'], covered), 'overlay merge')
+        need(type(result['claim_complete']) is bool
+             and result['claim_complete'] == (covered == [0,1,2]), 'overlay completeness')
         return True
 
     def oracle(self, initial: list[dict], events: list[list[dict]], cut: list[int], query: dict) -> list[dict]:

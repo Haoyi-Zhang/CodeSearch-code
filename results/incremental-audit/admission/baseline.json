@@ -1,0 +1,81 @@
+{
+  "scope": "owned in-memory probes, not production observations",
+  "source_construction": {
+    "actual_put_calls": [
+      [
+        "a",
+        "body"
+      ],
+      [
+        "b",
+        "body"
+      ],
+      [
+        "a",
+        "body"
+      ],
+      [
+        "b",
+        "body"
+      ]
+    ],
+    "counted_work": {
+      "posting_membership_updates": 2,
+      "identifier_assignments": 2
+    }
+  },
+  "metadata": [
+    {
+      "case": "result-cut",
+      "value": false,
+      "outcome": "accepted",
+      "state_unchanged": true
+    },
+    {
+      "case": "result-cut",
+      "value": 0.0,
+      "outcome": "accepted",
+      "state_unchanged": true
+    },
+    {
+      "case": "result-epoch",
+      "value": false,
+      "outcome": "accepted",
+      "state_unchanged": true
+    },
+    {
+      "case": "result-epoch",
+      "value": 0.0,
+      "outcome": "accepted",
+      "state_unchanged": true
+    },
+    {
+      "case": "result-k",
+      "value": true,
+      "outcome": "accepted",
+      "state_unchanged": true
+    },
+    {
+      "case": "result-k",
+      "value": 1.0,
+      "outcome": "accepted",
+      "state_unchanged": true
+    },
+    {
+      "case": "result-blocker",
+      "value": [
+        false
+      ],
+      "outcome": "InvalidCertificate",
+      "state_unchanged": true
+    },
+    {
+      "case": "result-blocker",
+      "value": [
+        0.0
+      ],
+      "outcome": "InvalidCertificate",
+      "state_unchanged": true
+    }
+  ]
+}

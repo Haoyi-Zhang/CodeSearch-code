@@ -1,0 +1,13 @@
+{
+  "counts": {
+    "event_rows": 324,
+    "events": 324,
+    "prefix": 7128,
+    "results": 14256,
+    "source_work_censuses": 54,
+    "trials": 54
+  },
+  "result": "PASS",
+  "scope": "source truth, typed checker transitions, exact answers, oracle change markers, phase bytes/messages/rows, refill counts, and independent source posting initialization/maintenance/query census; CPU and coordinator operation counters not independently recounted",
+  "wall_seconds": 68.42199999999139
+}

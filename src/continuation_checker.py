@@ -7,7 +7,7 @@ A separate retained-history replay checks whether trusted sources told the truth
 """
 from __future__ import annotations
 from copy import deepcopy
-from .checker import Checker, InvalidCertificate, need
+from .checker import Checker, InvalidCertificate, need, same_json
 
 
 def _key(row: dict) -> tuple[int, str]:
@@ -51,23 +51,24 @@ class ContinuationChecker:
         self.events = staged
 
     def accept_events(self, entry: dict, owners: list[list[int]], expected_epoch: int) -> int:
-        need(expected_epoch == self.epoch, 'event current epoch')
+        need(same_json(expected_epoch, self.epoch), 'event current epoch')
         req, rep = entry['request'], entry['reply']
         need(req.get('op') == 'events' and rep.get('kind') == 'events', 'event receipt kind')
         shard = rep['shard']
-        need(shard in range(3) and entry['node'] in owners[shard], 'event owner')
-        need(req.get('shard') == shard and req.get('epoch') == expected_epoch, 'event request binding')
-        need(rep['epoch'] == expected_epoch and rep['lo'] == req.get('lo')
-             and rep['hi'] == req.get('hi'), 'event reply binding')
+        need(type(shard) is int and shard in range(3)
+             and type(entry['node']) is int and entry['node'] in owners[shard], 'event owner')
+        need(same_json(req.get('shard'), shard) and same_json(req.get('epoch'), expected_epoch), 'event request binding')
+        need(same_json(rep['epoch'], expected_epoch) and same_json(rep['lo'], req.get('lo'))
+             and same_json(rep['hi'], req.get('hi')), 'event reply binding')
         need(type(rep['lo']) is int and type(rep['hi']) is int
              and 0 <= rep['lo'] <= rep['hi'], 'event progress')
         need(rep['lo'] == self.frontiers[shard], 'event feed gap')
         events = rep['events']
-        need([e.get('seq') for e in events] == list(range(rep['lo'] + 1, rep['hi'] + 1)),
+        need(same_json([e.get('seq') for e in events], list(range(rep['lo'] + 1, rep['hi'] + 1))),
              'event sequence')
         staged = dict(self.events[shard])
         for event in events:
-            need(event.get('shard') == shard, 'event shard')
+            need(same_json(event.get('shard'), shard), 'event shard')
             changes = event.get('changes')
             need(isinstance(changes, list) and len(changes) <= 16, 'event batch')
             need(all(isinstance(pair, list) and len(pair) == 2 and isinstance(pair[0], str)
@@ -83,15 +84,16 @@ class ContinuationChecker:
 
     def _check_prefix(self, entry: dict, query: dict, owners: list[list[int]],
                       epoch: int, capacity: int) -> dict:
-        need(epoch == self.epoch, 'prefix current epoch')
+        need(same_json(epoch, self.epoch), 'prefix current epoch')
         need(type(capacity) is int and query['k'] <= capacity <= 64, 'prefix capacity')
         req, rep = entry['request'], entry['reply']
         shard = rep.get('shard')
         need(req.get('op') == 'prefix' and rep.get('kind') == 'prefix', 'prefix receipt kind')
-        need(shard in range(3) and entry['node'] in owners[shard], 'prefix owner')
-        need(req.get('shard') == shard and req.get('epoch') == epoch
-             and req.get('query') == query and req.get('length') == capacity, 'prefix request binding')
-        need(rep.get('epoch') == epoch and rep.get('plan') == query['plan'], 'prefix reply binding')
+        need(type(shard) is int and shard in range(3)
+             and type(entry['node']) is int and entry['node'] in owners[shard], 'prefix owner')
+        need(same_json(req.get('shard'), shard) and same_json(req.get('epoch'), epoch)
+             and same_json(req.get('query'), query) and same_json(req.get('length'), capacity), 'prefix request binding')
+        need(same_json(rep.get('epoch'), epoch) and rep.get('plan') == query['plan'], 'prefix reply binding')
         need(type(rep.get('at')) is int and 0 <= rep['at'] <= self.frontiers[shard], 'prefix cut')
         rows = rep.get('rows')
         need(isinstance(rows, list) and len(rows) <= capacity and rows == self.rows.ordered(rows),
@@ -117,7 +119,7 @@ class ContinuationChecker:
                        epoch: int, capacity: int) -> None:
         self._check_query(query)
         for old in self.tokens.get(query['id'], {}).values():
-            need(old['query'] == query and old['epoch'] == epoch, 'token query/plan/k/epoch binding')
+            need(same_json(old['query'], query) and same_json(old['epoch'], epoch), 'token query/plan/k/epoch binding')
         token = self._check_prefix(entry, query, owners, epoch, capacity)
         self.tokens.setdefault(query['id'], {})[token['shard']] = token
 
@@ -167,15 +169,15 @@ class ContinuationChecker:
     def check_result(self, result: dict, query: dict, cut: list[int], epoch: int,
                      owners: list[list[int]], trusted: dict[int, dict],
                      repairs: dict[str, dict]) -> bool:
-        need(epoch == self.epoch and result.get('kind') == 'continuation-result', 'result epoch/kind')
-        need(result.get('query') == query and result.get('cut') == cut
-             and result.get('epoch') == epoch, 'result binding')
+        need(same_json(epoch, self.epoch) and result.get('kind') == 'continuation-result', 'result epoch/kind')
+        need(same_json(result.get('query'), query) and same_json(result.get('cut'), cut)
+             and same_json(result.get('epoch'), epoch), 'result binding')
         self._check_query(query)
         need(len(cut) == 3 and all(type(x) is int and x >= 0 for x in cut), 'result cut')
         need(set(repairs).issubset({'0','1','2'}), 'repair labels')
         existing = self.tokens.get(query['id'], {})
         for token in existing.values():
-            need(token['query'] == query and token['epoch'] == epoch, 'token query/plan/k/epoch binding')
+            need(same_json(token['query'], query) and same_json(token['epoch'], epoch), 'token query/plan/k/epoch binding')
         current = deepcopy(existing)
         missing = set()
         for shard in range(3):
@@ -234,8 +236,8 @@ class ContinuationChecker:
                  'continuation summary generation')
             self.rows.check_tail(item['tail'])
         need(result.get('rows') == rows, 'continuation merge')
-        need(result.get('missing_shards') == missing_list, 'continuation missing')
-        need(result.get('rank_blockers') == blockers, 'continuation blockers')
+        need(same_json(result.get('missing_shards'), missing_list), 'continuation missing')
+        need(same_json(result.get('rank_blockers'), blockers), 'continuation blockers')
         need(result.get('status') == status, 'continuation status')
         need(result.get('token_summary') == expected_summary, 'continuation token summary')
         # Publish the whole query transition only after the response is verified.

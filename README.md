@@ -84,6 +84,32 @@ for the local variant; only the supplied generated histories with initial
 capacity five show its extra refills. No speed or general incremental-method
 dominance is claimed.
 
+The current source-work census separates initialization, applied index
+maintenance, acquisition and refill. Each source index is built once; the
+independent census reconstructs identifier assignments, posting membership
+updates, posting visits and positive rows from maps/history/prefix cuts without
+importing source or index code. Metadata bindings preserve JSON scalar types,
+including request/result cuts, epochs, query parameters and event sequences.
+Scores/tails already had strict admission; these checks also cover equal-valued
+Boolean/real aliases elsewhere in the verifier. CPU fields are not a full
+initialization-and-maintenance CPU budget.
+
+Fresh outputs, with original campaigns preserved, are under
+`results/incremental-audit/`. Reproduce them in a separate empty directory:
+
+```sh
+python -B compare_incremental.py --output-dir OUT/public
+python -B replay_incremental.py --trace OUT/public/incremental-comparison-trace.json.gz --output OUT/public/incremental-comparison-replay.json
+python -B compare_generated.py --output-dir OUT/generated
+python -B replay_incremental.py --generated --trace OUT/generated/incremental-generated-trace.json.gz --output OUT/generated/incremental-generated-replay.json
+```
+
+Set `PYTHONDONTWRITEBYTECODE=1`. `OUT` denotes the chosen fresh directory.
+`test_metadata_binding.py` tests failure-atomic rejection and valid retry;
+`test_incremental_census.py` observes actual index construction, checks lagged
+and repeated writes and rejects phase-counter tampering. The three-policy
+information-equivalent outcome remains equality for the global comparator.
+
 ## Model and limits
 
 The ranker is fixed body-local AST-label overlap with deterministic unique-ID tie breaking. A missing-tail blocker is conservative, not an unconditional necessity theorem. Necessary new evidence is asserted only under the explicitly stated compatible strict-witness premise. Source identities, ordered logs, ownership installation and local-prefix completeness are trusted; Byzantine sources are outside the model. Public history is a function-level projection, and all processes share one host. There is no user study, workload prevalence claim, WAN benchmark, durable multi-host recovery result, or acceptance guarantee.

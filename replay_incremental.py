@@ -10,6 +10,7 @@ from src.checker import Checker
 from src.continuation_checker import ContinuationChecker
 from src.corpus import build
 from src.real_history import build_real_history
+from recount_incremental import check_source_work
 
 ROOT = Path(__file__).resolve().parent
 
@@ -17,6 +18,8 @@ ROOT = Path(__file__).resolve().parent
 def verify(packet, payloads):
     checked = Counter()
     for trial in packet['trials']:
+        check_source_work(trial, payloads)
+        checked['source_work_censuses'] += 1
         source, evidence, _, _ = verify_source_receipts(trial, payloads)
         checked.update(source)
         oracle = Checker(payloads)
@@ -91,16 +94,21 @@ def main():
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--generated', action='store_true')
+    parser.add_argument('--trace', type=Path)
+    parser.add_argument('--output', type=Path)
     args = parser.parse_args()
     started = time.monotonic()
     stem = 'incremental-generated' if args.generated else 'incremental-comparison'
-    with gzip.open(ROOT/f'results/{stem}-trace.json.gz', 'rt', encoding='utf-8') as stream:
+    trace = args.trace or ROOT/f'results/{stem}-trace.json.gz'
+    with gzip.open(trace, 'rt', encoding='utf-8') as stream:
         packet = json.load(stream)
     fixture = build_real_history(ROOT, build(ROOT))
     result = {'result': 'PASS', 'counts': dict(verify(packet, fixture['payloads'])),
               'wall_seconds': time.monotonic()-started,
-              'scope': 'source truth, strict score types, checker transitions, exact answers, oracle change markers, phase bytes/messages/rows and refill counts; CPU and operation counters not independently recounted'}
-    (ROOT/f'results/{stem}-replay.json').write_text(
+              'scope': 'source truth, typed checker transitions, exact answers, oracle change markers, phase bytes/messages/rows, refill counts, and independent source posting initialization/maintenance/query census; CPU and coordinator operation counters not independently recounted'}
+    output = args.output or ROOT/f'results/{stem}-replay.json'
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
         json.dumps(result, indent=2, sort_keys=True)+'\n', encoding='utf-8')
     print(json.dumps(result, sort_keys=True))
 

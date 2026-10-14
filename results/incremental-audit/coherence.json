@@ -1,0 +1,49 @@
+{
+  "scope": "offline same-information comparison, independent source-work census and owned metadata regressions",
+  "comparisons": [
+    {
+      "input": "public/incremental-comparison-trace.json.gz",
+      "trials": 54,
+      "replay": {
+        "event_rows": 324,
+        "events": 324,
+        "prefix": 7128,
+        "results": 14256,
+        "source_work_censuses": 54,
+        "trials": 54
+      },
+      "legacy_semantic_summaries_equal": true,
+      "queries_histories_receipts_and_all_rows_equal": true
+    },
+    {
+      "input": "generated/incremental-generated-trace.json.gz",
+      "trials": 18,
+      "replay": {
+        "event_rows": 3402,
+        "events": 3402,
+        "prefix": 890,
+        "results": 18144,
+        "source_work_censuses": 18,
+        "trials": 18
+      },
+      "legacy_semantic_summaries_equal": true,
+      "queries_histories_receipts_and_all_rows_equal": true
+    }
+  ],
+  "bindings": {
+    "sources": "inputs/sources (retained source text; not executed)",
+    "public_history": "inputs/git-history/cachetools-function-history.json",
+    "generated_histories": [
+      "results/continuation-traces/continuation-rank-churn-seed2-capacity5.json.gz",
+      "results/continuation-traces/continuation-rank-churn-seed3-capacity5.json.gz"
+    ],
+    "query_rule": "compare_incremental.independent_queries; fixed base-only selection; not blinded population data"
+  },
+  "negative_results": {
+    "ordinary_changes_per_public_trial": 0,
+    "directed_changes_per_public_trial": 10,
+    "closest_global_comparator": "identical payloads, state and named work counts",
+    "new_independent_repository_history": false
+  },
+  "measurement_limits": "CPU and coordinator operation counts are not independently recounted; no full initialization/update CPU budget or native multi-host deployment test"
+}

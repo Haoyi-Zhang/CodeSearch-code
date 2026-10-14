@@ -17,10 +17,11 @@ def wire(value: Any) -> bytes:
 
 
 class Replica:
-    def __init__(self, node: int, shard: int, initial: dict[str, str], payloads: dict):
+    def __init__(self, node: int, shard: int, initial: dict[str, str], payloads: dict,
+                 *, index_factory=PostingIndex):
         self.node, self.shard, self.epoch = node, shard, 0
         self.payloads = payloads
-        self.search = PostingIndex(initial, payloads)
+        self.search = index_factory(initial, payloads)
         self.index = self.search.state
         self.checkpoint = dict(initial)
         self.floor = self.frontier = self.index_at = 0

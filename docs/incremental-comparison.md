@@ -113,9 +113,16 @@ It uses the extractor for the body catalog and the independent checker for
 body scores, then rebuilds
 source snapshots, validates strict row/tail types, installs acquisition receipts,
 checks every transition/result, recomputes oracle changes and recomputes phase
-bytes/messages/returned rows and refill counts. CPU and work counters are not
-independently recounted by that replay; small owned fixtures test their counting
-semantics and exercise both a local-only refill and a lagging prefix refill.
+bytes/messages/returned rows and refill counts. The replay also invokes
+`recount_incremental.py`, which derives source posting work from independent
+syntax labels, initial maps, actual assignments and prefix cuts, with no
+source/index/producer import. It checks total and per-phase initialization,
+maintenance, acquisition and refill counts. Each index is built once; the
+offline harness no longer builds an uncounted ordinary index before constructing
+its counted index. CPU and coordinator work counters are not independently
+recounted; small owned fixtures test their counting semantics and exercise both
+a local-only refill and a lagging prefix refill. RPC CPU is not a complete
+initialization-and-maintenance CPU budget.
 
 The saved summaries and compressed traces retain query plans, per-call results,
 oracles, source requests/replies, costs and counters. The generated manuscript
