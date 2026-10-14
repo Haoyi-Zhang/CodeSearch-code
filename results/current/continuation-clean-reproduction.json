@@ -1,0 +1,65 @@
+{
+  "bounds": {
+    "child_address_space_bytes": 3221225472,
+    "maximum_trace_workers": 2,
+    "overall_deadline_seconds": 420,
+    "stage_workers": 1,
+    "workers": 2
+  },
+  "child_cpu_seconds": 305.703803,
+  "commands": [
+    {
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "cpu_seconds": 3.627001,
+      "exit_code": 0,
+      "log": "results/continuation-reproduction-logs/command-01.txt",
+      "wall_seconds": 3.7262757180000037
+    },
+    {
+      "command": [
+        "python",
+        "finite_continuation.py"
+      ],
+      "cpu_seconds": 8.089796,
+      "exit_code": 0,
+      "log": "results/continuation-reproduction-logs/command-02.txt",
+      "wall_seconds": 8.132300225999998
+    },
+    {
+      "command": [
+        "python",
+        "continuation_batch.py"
+      ],
+      "cpu_seconds": 264.704438,
+      "exit_code": 0,
+      "log": "results/continuation-reproduction-logs/command-03.txt",
+      "wall_seconds": 134.467262064
+    },
+    {
+      "command": [
+        "python",
+        "analyze_continuation.py"
+      ],
+      "cpu_seconds": 29.282568000000026,
+      "exit_code": 0,
+      "log": "results/continuation-reproduction-logs/command-04.txt",
+      "wall_seconds": 29.379476797999985
+    }
+  ],
+  "driver_rss_kib": 13492,
+  "error": null,
+  "maximum_child_rss_kib": 425224,
+  "meaning": "command success plus frozen finite/semantic/wire outcomes; not production or novelty validation",
+  "parent_cpu_seconds": 0.163797707,
+  "scope": "unit tests, finite token cases, 18 primary traces, eight development traces, and independent source/checker replay; test, finite, batch, and analysis stages are sequential, while the batch uses at most two independent trace workers",
+  "status": "PASS",
+  "wall_seconds": 175.707379322
+}

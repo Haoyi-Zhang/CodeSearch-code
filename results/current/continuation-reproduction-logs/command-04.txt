@@ -1,0 +1,2 @@
+Command: python analyze_continuation.py
+{"false_complete": {"continuation": 0, "cut-cache": 0, "mirror": 0, "overlay": 0, "unsafe-stale": 1910}, "finite": {"failures": 0, "global_blocked_cases": 8484, "global_complete_cases": 15905, "global_merge_cases": 24389, "k_plus_d_repair_cases": 65536, "local_transition_cases": 131072, "variants_per_shard": [29, 29, 29]}, "queries": 4536, "source_receipts": {"event_rows": 3172, "events": 3100, "overlay": 26144, "prefix": 1008, "snapshot": 60}, "summary": "results/continuation-summary.json", "traces": 18}

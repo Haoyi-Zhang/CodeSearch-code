@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "commands": [
+    {
+      "stage": "continuation",
+      "command": [
+        "python",
+        "run_continuation_suite.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 175.76403622200002,
+      "log": "results/aggregate-continuation.log"
+    },
+    {
+      "stage": "published-history",
+      "command": [
+        "python",
+        "run_real_history_suite.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 14.57189094200001,
+      "log": "results/aggregate-published-history.log"
+    },
+    {
+      "stage": "cold-query",
+      "command": [
+        "python",
+        "run_suite.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 116.10052610299999,
+      "log": "results/aggregate-cold-query.log"
+    },
+    {
+      "stage": "resource-ledger",
+      "command": [
+        "python",
+        "refresh_resource_ledger.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.03314610699999321,
+      "log": "results/aggregate-resource-ledger.log"
+    },
+    {
+      "stage": "release",
+      "command": [
+        "python",
+        "validate_release.py"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 0.08320269099999678,
+      "log": "results/aggregate-release.log"
+    }
+  ],
+  "wall_seconds": 306.55335754299995,
+  "error": null,
+  "scope": "bounded offline experiment and evidence validation; no paper build or acceptance claim"
+}

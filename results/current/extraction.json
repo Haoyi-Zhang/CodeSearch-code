@@ -1,0 +1,280 @@
+{
+  "alternate_queries": 4,
+  "excluded": [
+    {
+      "id": "attrs/attr/_config.py:get_run_validators:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "attrs/attr/_make.py:_Nothing.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "attrs/attr/_make.py:_Nothing.__bool__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "attrs/attr/_make.py:Attribute.__setattr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "attrs/attr/setters.py:frozen:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "attrs/attr/validators.py:_IsCallableValidator.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/__init__.py:_DefaultSize.__getitem__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/__init__.py:_DefaultSize.__setitem__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/__init__.py:_DefaultSize.pop:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/__init__.py:_DefaultSize.clear:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/__init__.py:Cache.getsizeof:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/__init__.py:_TimedCache.expire:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/_cached.py:_uncached_info.cache_clear:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/_cachedmethod.py:_none:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/func.py:_UnboundTTLCache.maxsize:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "cachetools/cachetools/keys.py:_HashedTuple.__getstate__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/_compat.py:_AtomicFile.__enter__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/_winconsole.py:_WindowsConsoleReader.readable:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/_winconsole.py:_WindowsConsoleWriter.writable:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/types.py:UnprocessedParamType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/types.py:StringParamType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/types.py:DateTime.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/types.py:IntParamType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/types.py:FloatParamType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/types.py:BoolParamType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/types.py:UUIDParameterType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/utils.py:LazyFile.__enter__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "click/click/utils.py:KeepOpenFile.__enter__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "itsdangerous/itsdangerous/signer.py:NoneAlgorithm.get_signature:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/async_utils.py:_IteratorToAsyncIterator.__aiter__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/bccache.py:BytecodeCache.clear:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/environment.py:Environment.compile_templates.log_function:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/environment.py:TemplateStream.__iter__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/ext.py:_TranslationsBasic.gettext:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/ext.py:_TranslationsContext.pgettext:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/filters.py:HasHTML.__html__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/lexer.py:TokenStreamIterator.__iter__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/meta.py:TrackingCodeGenerator.write:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/nodes.py:Expr.can_assign:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/nodes.py:NSRef.can_assign:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/runtime.py:LoopContext.__iter__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/runtime.py:AsyncLoopContext.__aiter__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/runtime.py:Undefined.__str__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/runtime.py:Undefined.__len__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/runtime.py:Undefined.__bool__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/runtime.py:Undefined.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/utils.py:_MissingType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "jinja2/jinja2/utils.py:_MissingType.__reduce__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "markupsafe/markupsafe/__init__.py:_HasHTML.__html__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "packaging/packaging/_structures.py:InfinityType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "packaging/packaging/_structures.py:NegativeInfinityType.__repr__:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "toolz/toolz/functoolz.py:identity:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "toolz/toolz/functoolz.py:memoize.key:1",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "toolz/toolz/functoolz.py:memoize.key:3",
+      "reason": "fewer-than-two-labels"
+    },
+    {
+      "id": "toolz/toolz/functoolz.py:return_none:1",
+      "reason": "fewer-than-two-labels"
+    }
+  ],
+  "indexed_fragments": 2071,
+  "payload_count": 2135,
+  "queries": 64,
+  "repositories": {
+    "attrs": {
+      "functions": 202,
+      "indexed": 194,
+      "query_seeds": 8,
+      "shard": 0
+    },
+    "cachetools": {
+      "functions": 183,
+      "indexed": 175,
+      "query_seeds": 8,
+      "shard": 1
+    },
+    "click": {
+      "functions": 500,
+      "indexed": 492,
+      "query_seeds": 8,
+      "shard": 2
+    },
+    "itsdangerous": {
+      "functions": 61,
+      "indexed": 53,
+      "query_seeds": 8,
+      "shard": 0
+    },
+    "jinja2": {
+      "functions": 756,
+      "indexed": 748,
+      "query_seeds": 8,
+      "shard": 1
+    },
+    "markupsafe": {
+      "functions": 53,
+      "indexed": 45,
+      "query_seeds": 8,
+      "shard": 2
+    },
+    "packaging": {
+      "functions": 222,
+      "indexed": 214,
+      "query_seeds": 8,
+      "shard": 0
+    },
+    "toolz": {
+      "functions": 158,
+      "indexed": 150,
+      "query_seeds": 8,
+      "shard": 1
+    }
+  },
+  "selection": "all parsable functions <=20000 bytes with >=2 labels; eight disjoint query seeds per project",
+  "source_files": 107
+}
