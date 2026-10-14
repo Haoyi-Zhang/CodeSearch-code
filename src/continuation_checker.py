@@ -75,7 +75,8 @@ class ContinuationChecker:
                      for pair in changes), 'event change schema')
             ids = [pair[0] for pair in changes]
             need(len(ids) == len(set(ids)), 'duplicate changed identifier')
-            need(all(body is None or body in self.known_bodies for _, body in changes), 'event body')
+            need(all(body is None or (type(body) is str and body in self.known_bodies)
+                     for _, body in changes), 'event body')
             staged[event['seq']] = deepcopy(event)
         # Commit only after all events in the receipt have passed validation.
         self.events[shard] = staged

@@ -88,6 +88,26 @@ class MetadataBindingTests(unittest.TestCase):
             self.assertEqual(before, (f.cc.events, f.cc.frontiers))
         self.assertEqual(1, f.cc.accept_events(good, f.owners, 0))
 
+    def test_malformed_event_body_is_typed_and_retry_is_atomic(self):
+        f = self.f
+        good = {'node': 0, 'request': {'op': 'events', 'shard': 0, 'epoch': 0, 'lo': 0, 'hi': 1},
+                'reply': {'kind': 'events', 'shard': 0, 'epoch': 0, 'lo': 0, 'hi': 1,
+                          'events': [{'seq': 1, 'shard': 0,
+                                      'changes': [['a', next(iter(f.payloads))]]}]}}
+        for malformed in ([], {}, 0, False, 0.0):
+            with self.subTest(malformed=malformed):
+                bad = deepcopy(good)
+                bad['reply']['events'][0]['changes'][0][1] = malformed
+                original = deepcopy(bad)
+                before = deepcopy((f.cc.events, f.cc.frontiers, f.cc.tokens))
+                with self.assertRaisesRegex(InvalidCertificate, 'event body'):
+                    f.cc.accept_events(bad, f.owners, 0)
+                self.assertEqual(original, bad)
+                self.assertEqual(before, (f.cc.events, f.cc.frontiers, f.cc.tokens))
+        self.assertEqual(1, f.cc.accept_events(good, f.owners, 0))
+        self.assertEqual(1, f.cc.frontiers[0])
+        self.assertEqual(good['reply']['events'][0], f.cc.events[0][1])
+
     def test_overlay_flag_receipt_coverage_and_binding_are_typed(self):
         f = self.f
         good = {'rows': f.tokens[0]['rows'], 'receipts': f.overlay_ids,
