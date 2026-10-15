@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parent
 MIN_REFERENCES = 60
 EXPECTED_REFERENCES = 68
 EXPECTED_PROJECT_ENTRIES = {"paper", "artifact", "README.md"}
+REQUIRED_PROJECT_ENTRIES = {"paper", "artifact"}
 SAFE_CONTINUATION_POLICIES = ("continuation", "overlay", "cut-cache", "mirror")
 SAFE_REAL_HISTORY_POLICIES = ("continuation", "overlay", "cut-cache")
 ALLOWED_REFERENCE_DOMAINS = {
@@ -701,8 +702,12 @@ def validate_hygiene(project_root: Path | None) -> dict[str, object]:
     if project_root is not None:
         require(project_root.is_dir(), f"project root not found: {project_root}")
         entries = {path.name for path in project_root.iterdir()}
-        require(entries == EXPECTED_PROJECT_ENTRIES,
+        require(REQUIRED_PROJECT_ENTRIES <= entries <= EXPECTED_PROJECT_ENTRIES,
                 f"project root entries differ: {sorted(entries)}")
+        require((project_root / "paper").is_dir() and (project_root / "artifact").is_dir(),
+                "project root must contain paper and artifact directories")
+        if "README.md" in entries:
+            require((project_root / "README.md").is_file(), "project README.md must be a file")
         require((project_root / "artifact").resolve() == ROOT.resolve(),
                 "validator is not running from the supplied project artifact")
         result["project_root_entries"] = sorted(entries)

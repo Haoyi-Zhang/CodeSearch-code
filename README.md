@@ -15,10 +15,15 @@ not imported or executed.
 Run from this directory:
 
 ```sh
-python run_all_validation.py
+python -B run_all_validation.py
 ```
 
 The driver runs three complete bounded suites and then validates the evidence. It does not silently skip missing scripts. Detailed logs and actual timings are in `results/`; a failure returns a nonzero exit code. Individual entrypoints are `run_continuation_suite.py`, `run_real_history_suite.py`, and `run_suite.py`. `refresh_resource_ledger.py` synchronizes the resource notes after a run. `validate_release.py` checks the existing evidence without rerunning it. The paper directory is optional for scientific execution; `--paper-dir ../paper --project-root ..` adds manuscript checks after the paper is built.
+
+For a read-only check of retained evidence, use
+`python -B validate_release.py --no-write`. A complete project root contains
+`paper/` and `artifact/`, with an optional root `README.md`; the standalone
+artifact does not require those sibling project entries.
 
 The standalone repository's `.github/workflows/scientific-checks.yml` runs this complete offline driver on pushes to `main` and manual dispatch. The job has a 30-minute limit and a 1,500-second campaign timeout, installs no scientific dependencies, and retains raw output and failures. It regenerates a disposable copy while preserving the checkout and a separate copy of the retained input results. Artifact collection runs even when the campaign fails; a workflow definition alone is not evidence of successful execution.
 
